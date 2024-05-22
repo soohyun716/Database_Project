@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Database_Project.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +38,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Administrator.executor": "Run",
     "Application.StartPage.executor": "Run",
     "Application.Student_ProfessorInfo.executor": "Run",
     "Application.Student_RoomSearch.executor": "Run",
@@ -68,7 +68,14 @@
       <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Student_RoomSearch">
+  <component name="RunManager" selected="Application.Administrator">
+    <configuration name="Administrator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Administrator" />
+      <module name="Database_Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StartPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="StartPage" />
       <module name="Database_Project" />
@@ -92,6 +99,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Administrator" />
         <item itemvalue="Application.Student_RoomSearch" />
         <item itemvalue="Application.Student_ProfessorInfo" />
         <item itemvalue="Application.StartPage" />
@@ -113,7 +121,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1716349619506</updated>
-      <workItem from="1716349620633" duration="3545000" />
+      <workItem from="1716349620633" duration="4065000" />
     </task>
     <servers />
   </component>
