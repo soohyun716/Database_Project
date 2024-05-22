@@ -1,5 +1,9 @@
 # Database_Project
 
+
+## 작업 전에 꼭 pull 받기
+
+
 ## 커밋 메세지 규칙
 
 | 이름 | 설명 |
