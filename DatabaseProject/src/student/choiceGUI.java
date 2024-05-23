@@ -90,15 +90,25 @@ public class choiceGUI extends JFrame {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                button1GUI button1Frame = new button1GUI();
+                student_button1 button1Frame = new student_button1();
                 button1Frame.setVisible(true); // Open the button1GUI frame
             }
         });
 
-        JButton button2 = new JButton("³ªÀÇ °­ÀÇ½Ç Ã£±â");
+        JButton button2 = new JButton("\uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30");
         button2.setBackground(new Color(255, 255, 255));
         button2.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 22));
         panel.add(button2);
+        
+        // Add ActionListener to button2
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                student_button2 button1Frame = new student_button2();
+                button1Frame.setVisible(true); // Open the button1GUI frame
+            }
+        });
+
 
         JButton button3 = new JButton("±³¼ö´Ô Ã£±â");
         button3.setBackground(new Color(255, 255, 255));
@@ -110,6 +120,7 @@ public class choiceGUI extends JFrame {
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
+        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
