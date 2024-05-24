@@ -38,7 +38,6 @@ public class student_button1 extends JFrame{
 	
 	private JPanel contentPane;
 	
-	
 	String usage;
     String seats;
     boolean content;
@@ -193,7 +192,7 @@ public class student_button1 extends JFrame{
         JPanel resultPanel = new JPanel(new FlowLayout());
         resultPanel.setBackground(new Color(255, 255, 255));
         ButtonPanel.add(resultPanel, BorderLayout.CENTER);
-        JButton resultButton = new JButton("\uACB0\uACFC");
+        JButton resultButton = new JButton("\uAC80\uC0C9");
         resultButton.setFont(new Font("나눔고딕", Font.BOLD, 16));
         resultButton.setBackground(new Color(255, 255, 255));
         resultPanel.add(resultButton);
@@ -213,21 +212,49 @@ public class student_button1 extends JFrame{
                 project= beamProjectCheckBox.isSelected();
                 eat= eatCheckBox.isSelected();
                 computer= computerCheckBox.isSelected();
-                infoArea=new JTextArea(80,40);
+                infoArea=new JTextArea(1100,600);
                 if(usage.equals("교실")) searchClassroomInfo(seats, content, project, eat, computer);
 
+           
                 //else searchClassroomExternalInfo(content, project, eat, computer);
                 // 새 창을 여는 로직
                 JFrame newFrame = new JFrame("검색된 정보");
                 newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                newFrame.getContentPane().setLayout(new FlowLayout());
                 newFrame.setBackground(new Color(255, 255, 255));
                 newFrame.setBounds(100, 100, 1100, 600);
                 newFrame.setLocation(50, 50);
-
+           
+                newFrame.getContentPane().setForeground(new Color(255, 255, 255));
+                newFrame.getContentPane().setLayout(new BorderLayout(10,10));
+                
+                
                 infoArea.setEditable(false);
-                newFrame.getContentPane().add(infoArea);
+                newFrame.getContentPane().add(infoArea, BorderLayout.CENTER);
                 newFrame.setVisible(true);
+                
+                
+                //newFrame.add(contentPane);
+                
+                
+                // 로고 붙이는 Panel
+                JPanel logoPanel = new JPanel();
+                logoPanel.setBackground(new Color(255, 255, 255));
+                logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
+                newFrame.getContentPane().add(logoPanel, BorderLayout.NORTH);
+                logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
+                newFrame.getContentPane().setBackground(new Color(255,255,255));
+                
+                // GONG-GANG 로고 label 생성
+                JLabel logo = new JLabel("Gong-Gang");
+                logo.setBackground(new Color(255, 255, 255));
+                logo.setHorizontalAlignment(SwingConstants.CENTER);
+                logo.setFont(new Font("Arial Black", Font.BOLD, 40));
+                logoPanel.add(logo);
+                
+                JLabel userLabel = new JLabel("- 결과 -");
+                userLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
+                logoPanel.add(userLabel);
 
             }
 
@@ -243,6 +270,7 @@ public class student_button1 extends JFrame{
         homeButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
         homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 12));
         homePanel.add(homeButton, BorderLayout.SOUTH);
+       
         
         
         // Add ActionListener to homeButton

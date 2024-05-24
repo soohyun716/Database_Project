@@ -86,10 +86,11 @@ public class student_button2 extends JFrame{
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         mainPanel.add(inputLabel);
         
-        lectureNumberField = new JTextField(10);
+        lectureNumberField = new JTextField(17);
         mainPanel.add(lectureNumberField);
         
         searchButton = new JButton("Search");
+        searchButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         mainPanel.add(searchButton);
         
@@ -167,8 +168,8 @@ public class student_button2 extends JFrame{
 	        }
 	        resultFrame = new JFrame("Classroom Information");
 	        resultFrame.setSize(300, 100);
-	        resultFrame.setLayout(new FlowLayout());
-	        resultFrame.add(new JLabel("강의실 번호: " + roomNumber));
+	        resultFrame.getContentPane().setLayout(new FlowLayout());
+	        resultFrame.getContentPane().add(new JLabel("강의실 번호: " + roomNumber));
 	        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        resultFrame.setVisible(true);
 	    }

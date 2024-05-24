@@ -104,8 +104,8 @@ public class choiceGUI extends JFrame {
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                student_button2 button1Frame = new student_button2();
-                button1Frame.setVisible(true); // Open the button1GUI frame
+                student_button2 button2Frame = new student_button2();
+                button2Frame.setVisible(true); // Open the button1GUI frame
             }
         });
 
@@ -114,6 +114,17 @@ public class choiceGUI extends JFrame {
         button3.setBackground(new Color(255, 255, 255));
         button3.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 22));
         panel.add(button3);
+        
+        
+        // Add ActionListener to button3
+        button3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                student_button3 button3Frame = new student_button3();
+                button3Frame.setVisible(true); // Open the button1GUI frame
+            }
+        });
+        
 
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
