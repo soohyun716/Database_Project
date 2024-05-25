@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseProject/src/mainFrame/mainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseProject/src/student/choiceGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/choiceGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseProject/src/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseProject/src/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseProject/src/student/student_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +41,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Administrator.executor": "Run",
+    "Application.GUI.administrator.Administrator.executor": "Run",
     "Application.StartPage.executor": "Run",
     "Application.Student_ProfessorInfo.executor": "Run",
     "Application.Student_RoomSearch.executor": "Run",
@@ -77,8 +73,8 @@
       <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\GUI\administrator" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src" />
       <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\images" />
+      <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src" />
     </key>
   </component>
   <component name="RunManager" selected="Application.mainGUI">
@@ -89,15 +85,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StartPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="StartPage" />
+    <configuration name="GUI.administrator.Administrator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.administrator.Administrator" />
       <module name="Database_Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.administrator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Student_ProfessorInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Student_ProfessorInfo" />
+    <configuration name="StartPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="StartPage" />
       <module name="Database_Project" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -126,10 +128,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.mainGUI" />
+        <item itemvalue="Application.GUI.administrator.Administrator" />
         <item itemvalue="Application.StartPage" />
         <item itemvalue="Application.Administrator" />
         <item itemvalue="Application.Student_RoomSearch" />
-        <item itemvalue="Application.Student_ProfessorInfo" />
       </list>
     </recent_temporary>
   </component>
@@ -154,7 +156,7 @@
       <workItem from="1716445971460" duration="707000" />
       <workItem from="1716548908596" duration="1196000" />
       <workItem from="1716640728398" duration="131000" />
-      <workItem from="1716640885563" duration="783000" />
+      <workItem from="1716640885563" duration="26274000" />
     </task>
     <servers />
   </component>

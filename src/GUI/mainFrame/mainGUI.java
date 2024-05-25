@@ -17,7 +17,9 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import GUI.administrator.Administrator;
 import GUI.student.choiceGUI;
+import GUI.administrator.Admin_password;
 
 public class mainGUI extends JFrame {
 
@@ -128,6 +130,13 @@ public class mainGUI extends JFrame {
         adminButton.setBackground(new Color(255, 255, 255));
         adminButton.setPreferredSize(new Dimension(115, 26));
         administratorPanel.add(adminButton);
+
+        adminButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                Administrator adminFrame = new Administrator(); // Assuming choiceGUI is another frame class
+            }
+        });
     }
 }
 
