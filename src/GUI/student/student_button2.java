@@ -1,13 +1,11 @@
-package student;
+package GUI.student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,8 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import mainFrame.mainGUI;
-import javax.swing.JTextArea;
+import GUI.mainFrame.mainGUI;
 
 public class student_button2 extends JFrame{
 	
@@ -51,14 +47,14 @@ public class student_button2 extends JFrame{
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
         
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ï¿½Î°ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
        
-        // GONG-GANG ·Î°í label »ý¼º
+        // GONG-GANG ï¿½Î°ï¿½ label ï¿½ï¿½ï¿½ï¿½
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,12 +63,12 @@ public class student_button2 extends JFrame{
         
         JLabel userLabel = new JLabel("- \uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+        userLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 22));
         logoPanel.add(userLabel);
         
         
         
-        //ÀÔ·Â ¹Þ´Â mainPanel
+        //ï¿½Ô·ï¿½ ï¿½Þ´ï¿½ mainPanel
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
@@ -82,7 +78,7 @@ public class student_button2 extends JFrame{
         inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         inputLabel.setPreferredSize(new Dimension(1050,100));
         inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 21));
+        inputLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 21));
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         mainPanel.add(inputLabel);
         
@@ -90,7 +86,7 @@ public class student_button2 extends JFrame{
         mainPanel.add(lectureNumberField);
         
         searchButton = new JButton("Search");
-        searchButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        searchButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         mainPanel.add(searchButton);
         
@@ -101,7 +97,7 @@ public class student_button2 extends JFrame{
                 if (!lectureNumber.isEmpty()) {
                     showRoomNumber(lectureNumber);
                 } else {
-                    JOptionPane.showMessageDialog(null, "¿Ã¹Ù¸¥ ÇÐ¼ö ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                    JOptionPane.showMessageDialog(null, "ï¿½Ã¹Ù¸ï¿½ ï¿½Ð¼ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
                 }
             }
         });
@@ -113,7 +109,7 @@ public class student_button2 extends JFrame{
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -136,7 +132,7 @@ public class student_button2 extends JFrame{
 	        // Assuming lectureNumber is entered as '14349-1'
 	        String[] parts = lectureNumber.split("-");
 	        if (parts.length != 2) {
-	            JOptionPane.showMessageDialog(this, "ÀÔ·Â°ªÀ» È®ÀÎÇÏ¼¼¿ä");
+	            JOptionPane.showMessageDialog(this, "ï¿½Ô·Â°ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
 	            return;
 	        }
 
@@ -152,7 +148,7 @@ public class student_button2 extends JFrame{
 	                    String roomNumber = rs.getString("Room_Number");
 	                    displayResult(roomNumber);
 	                } else {
-	                    JOptionPane.showMessageDialog(this, "ÇÐ¼ö¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
+	                    JOptionPane.showMessageDialog(this, "ï¿½Ð¼ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
 	                }
 	            }
 	        } catch (SQLException ex) {
@@ -162,14 +158,14 @@ public class student_button2 extends JFrame{
 	    }
 
 	    private void displayResult(String roomNumber) {
-	        // °á°ú¸¦ »õ Ã¢¿¡ Ç¥½Ã
+	        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ Ç¥ï¿½ï¿½
 	        if (resultFrame != null) {
 	            resultFrame.dispose();
 	        }
 	        resultFrame = new JFrame("Classroom Information");
 	        resultFrame.setSize(300, 100);
 	        resultFrame.getContentPane().setLayout(new FlowLayout());
-	        resultFrame.getContentPane().add(new JLabel("°­ÀÇ½Ç ¹øÈ£: " + roomNumber));
+	        resultFrame.getContentPane().add(new JLabel("ï¿½ï¿½ï¿½Ç½ï¿½ ï¿½ï¿½È£: " + roomNumber));
 	        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        resultFrame.setVisible(true);
 	    }

@@ -1,4 +1,4 @@
-package student;
+package GUI.student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import mainFrame.mainGUI;
+import GUI.mainFrame.mainGUI;
 
 public class choiceGUI extends JFrame {
 
@@ -36,39 +36,39 @@ public class choiceGUI extends JFrame {
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
 
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ï¿½Î°ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
 
-        // °ø°£ÀÌ ÇÊ¿äÇÏ´Ù¸é? ·Î°í label »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½? ï¿½Î°ï¿½ label ï¿½ï¿½ï¿½ï¿½
         JLabel logo1 = new JLabel("\uACF5\uAC04\uC774 \uD544\uC694\uD558\uB2E4\uBA74?");
-        logo1.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 20));
+        logo1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
         
-        // GONG-GANG ·Î°í label »ý¼º
+        // GONG-GANG ï¿½Î°ï¿½ label ï¿½ï¿½ï¿½ï¿½
         JLabel logo2 = new JLabel("Gong-Gang");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo2);
 
-        // ±³¼ö, ÇÐ»ý ¹öÆ° ºÙÀÌ´Â panel
+        // ï¿½ï¿½ï¿½ï¿½, ï¿½Ð»ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½Ì´ï¿½ panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 60));
         buttonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
-        // ÇÐ»ý ¹öÆ° ÀÌ¹ÌÁö
+        // ï¿½Ð»ï¿½ ï¿½ï¿½Æ° ï¿½Ì¹ï¿½ï¿½ï¿½
         ImageIcon studentImage_temp = new ImageIcon(choiceGUI.class.getResource("/images/studentImage.png"));
         Image stud_img = studentImage_temp.getImage();
         Image stud_Changing = stud_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon studentImage = new ImageIcon(stud_Changing);
         
-        // ÇÐ»ý ¹öÆ° »ý¼º
+        // ï¿½Ð»ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         JButton studentButton = new JButton("Student", studentImage);
         studentButton.setBackground(new Color(255, 255, 255));
         studentButton.setFont(new Font("Arial Black", Font.PLAIN, 20));
@@ -81,9 +81,9 @@ public class choiceGUI extends JFrame {
         buttonPanel.add(panel);
         panel.setLayout(new GridLayout(3, 0, 20, 20));
 
-        JButton button1 = new JButton("¿øÇÏ´Â °ø°£ Ã£±â");
+        JButton button1 = new JButton("ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½");
         button1.setBackground(new Color(255, 255, 255));
-        button1.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 22));
+        button1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 22));
         panel.add(button1);
 
         // Add ActionListener to button1
@@ -97,7 +97,7 @@ public class choiceGUI extends JFrame {
 
         JButton button2 = new JButton("\uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30");
         button2.setBackground(new Color(255, 255, 255));
-        button2.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 22));
+        button2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 22));
         panel.add(button2);
         
         // Add ActionListener to button2
@@ -110,9 +110,9 @@ public class choiceGUI extends JFrame {
         });
 
 
-        JButton button3 = new JButton("±³¼ö´Ô Ã£±â");
+        JButton button3 = new JButton("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½");
         button3.setBackground(new Color(255, 255, 255));
-        button3.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 22));
+        button3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 22));
         panel.add(button3);
         
         
@@ -131,7 +131,7 @@ public class choiceGUI extends JFrame {
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));

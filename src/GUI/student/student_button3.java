@@ -1,13 +1,11 @@
-package student;
+package GUI.student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,18 +14,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import mainFrame.mainGUI;
+import GUI.mainFrame.mainGUI;
 import javax.swing.JTextArea;
 
 public class student_button3 extends JFrame{
@@ -49,14 +44,14 @@ public class student_button3 extends JFrame{
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
         
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ï¿½Î°ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
        
-        // GONG-GANG ·Î°í label »ý¼º
+        // GONG-GANG ï¿½Î°ï¿½ label ï¿½ï¿½ï¿½ï¿½
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,7 +60,7 @@ public class student_button3 extends JFrame{
         
         JLabel userLabel = new JLabel("- \uAD50\uC218\uB2D8 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+        userLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 22));
         logoPanel.add(userLabel);
         
         
@@ -75,14 +70,14 @@ public class student_button3 extends JFrame{
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         
         contentPane.add(inputPanel, BorderLayout.CENTER);
-        JLabel nameLabel = new JLabel("±³¼ö´Ô ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+        JLabel nameLabel = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
         nameLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setPreferredSize(new Dimension(1050,100));
-        nameLabel.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 20));
+        nameLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 20));
         nameField = new JTextField(10);
         JButton searchButton = new JButton("Search");
-        searchButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        searchButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -101,7 +96,7 @@ public class student_button3 extends JFrame{
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -126,7 +121,7 @@ public class student_button3 extends JFrame{
         final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         //Database credentials
-// MySQL °èÁ¤°ú ¾ÏÈ£ ÀÔ·Â
+// MySQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ô·ï¿½
         final String user = "root";
         final String password = "4542";
 
