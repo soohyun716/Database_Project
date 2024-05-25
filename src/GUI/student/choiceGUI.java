@@ -69,12 +69,12 @@ public class choiceGUI extends JFrame {
         ImageIcon studentImage = new ImageIcon(stud_Changing);
         
         // �л� ��ư ����
-        JButton studentButton = new JButton("Student", studentImage);
-        studentButton.setBackground(new Color(255, 255, 255));
-        studentButton.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        studentButton.setVerticalAlignment(SwingConstants.CENTER);
-        studentButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        buttonPanel.add(studentButton);
+        JLabel studentLabel = new JLabel("Student", studentImage, SwingConstants.CENTER);
+        studentLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+        studentLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+        studentLabel.setFont(new Font("Arial Black", Font.PLAIN, 20));
+        studentLabel.setBackground(new Color(255, 255, 255));
+        buttonPanel.add(studentLabel);
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));

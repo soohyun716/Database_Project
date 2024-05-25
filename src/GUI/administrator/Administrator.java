@@ -184,9 +184,9 @@ class 관리자 extends JFrame implements ActionListener {
 
         //관리자 이미지 가져오기
         ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
-        Image stud_img = adminImage_temp.getImage();
-        Image stud_Changing = stud_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        ImageIcon studentImage = new ImageIcon(stud_Changing);
+        Image admin_img = adminImage_temp.getImage();
+        Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon adminImage = new ImageIcon(admin_Changing);
 
 
         //관리자 임을 나타내는 이미지와 글
@@ -195,7 +195,7 @@ class 관리자 extends JFrame implements ActionListener {
         adminPanel.setBackground(new Color(255, 255, 255));
         ct.add(adminPanel, BorderLayout.CENTER);
 
-        JLabel adminLabel = new JLabel("Administrator", studentImage, SwingConstants.CENTER);
+        JLabel adminLabel = new JLabel("Administrator", adminImage, SwingConstants.CENTER);
         adminLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         adminLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
         adminLabel.setFont(new Font("Arial Black", Font.PLAIN, 20));
