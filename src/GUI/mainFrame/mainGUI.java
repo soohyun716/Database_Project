@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import GUI.administrator.Administrator;
+import GUI.professor.professor_choiceGUI;
 import GUI.student.choiceGUI;
 
 public class mainGUI extends JFrame {
@@ -94,6 +95,14 @@ public class mainGUI extends JFrame {
         professorButton.setVerticalAlignment(SwingConstants.CENTER);
         professorButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         buttonPanel.add(professorButton);
+
+        professorButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                professor_choiceGUI choiceFrame = new professor_choiceGUI(); // Assuming choiceGUI is another frame class
+                choiceFrame.setVisible(true); // Open the choiceGUI frame
+            }
+        });
 
         // �л� ��ư �̹���
         ImageIcon studentImage_temp = new ImageIcon(mainGUI.class.getResource("/images/studentImage.png"));

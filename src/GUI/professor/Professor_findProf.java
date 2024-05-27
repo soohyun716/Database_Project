@@ -1,7 +1,12 @@
-import java.awt.*;
-import java.awt.event.*;
+package GUI.professor;
+
+import GUI.mainFrame.mainGUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,7 @@ public class Professor_findProf extends JFrame {
 
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        setBounds(100, 100, 1100, 600);
         setLocation(50, 50);
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
@@ -113,6 +118,25 @@ public class Professor_findProf extends JFrame {
         JScrollPane infoScrollPane = new JScrollPane(professorInfoArea);
         infoScrollPane.setPreferredSize(new Dimension(800, 200));
         contentPane.add(infoScrollPane, BorderLayout.SOUTH);
+
+        JPanel homeButtonPanel = new JPanel();
+        homeButtonPanel.setBackground(new Color(255, 255, 255));
+        contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
+
+        JButton homeButton = new JButton("HOME");
+        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setBackground(new Color(255, 255, 255));
+        homeButtonPanel.add(homeButton);
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        // Add ActionListener to homeButton
+        homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                mainGUI mainFrame = new mainGUI();
+                mainFrame.setVisible(true); // Open the mainGUI frame
+            }
+        });
     }
 
     private void connectToDatabase() {

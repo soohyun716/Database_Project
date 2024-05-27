@@ -1,3 +1,5 @@
+package GUI.professor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,8 @@ public class Professor_findClassroom {
         // Create frame
         JFrame frame = new JFrame("Classroom Search");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 700);
+        frame.setSize(1100, 600);
+        frame.setLocation(50,50);
         frame.setLayout(new BorderLayout());
 
         // Title
@@ -106,6 +109,15 @@ public class Professor_findClassroom {
         buttonPanel.setLayout(new FlowLayout());
 
         JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                professor_choiceGUI choiceFrame = new professor_choiceGUI(); // Assuming choiceGUI is another frame class
+                choiceFrame.setVisible(true); // Open the choiceGUI frame
+
+            }
+        });
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
             @Override

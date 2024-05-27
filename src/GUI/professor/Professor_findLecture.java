@@ -1,12 +1,15 @@
-import java.awt.*;
-import java.awt.event.*;
+package GUI.professor;
+
+import GUI.mainFrame.mainGUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Professor_findLecture extends JFrame {
 
@@ -41,7 +44,7 @@ public class Professor_findLecture extends JFrame {
 
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1100, 800);
+        setBounds(100, 100, 1100, 600);
         setLocation(50, 50);
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
@@ -112,12 +115,32 @@ public class Professor_findLecture extends JFrame {
         lectureTable.setRowHeight(50); // 행 높이 설정
         JScrollPane scrollPane = new JScrollPane(lectureTable); // 스크롤 패널 생성
         contentPane.add(scrollPane, BorderLayout.CENTER); // 메인 패널에 추가
+
+        //홈 버튼 생성
+        JPanel homeButtonPanel = new JPanel();
+        homeButtonPanel.setBackground(new Color(255, 255, 255));
+        contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
+
+        JButton homeButton = new JButton("HOME");
+        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setBackground(new Color(255, 255, 255));
+        homeButtonPanel.add(homeButton);
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        // Add ActionListener to homeButton
+        homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current frame
+                mainGUI mainFrame = new mainGUI();
+                mainFrame.setVisible(true); // Open the mainGUI frame
+            }
+        });
     }
 
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "kms1"); // 데이터베이스
                                                                                                                   // 연결
             System.out.println("Database connected successfully."); // 연결 성공 메시지 출력
         } catch (Exception e) {
