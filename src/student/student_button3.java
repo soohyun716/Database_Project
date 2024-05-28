@@ -2,10 +2,12 @@ package student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,21 +25,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
 
 import mainFrame.mainGUI;
 import javax.swing.JTextArea;
 
-public class student_button2 extends JFrame{
+public class student_button3 extends JFrame{
 
-    private JPanel contentPane;
-    private JTextField lectureNumberField;
-    private JButton searchButton;
+	private JPanel contentPane;
+	private JTextField nameField;
     private JTextArea infoArea;
 
-    public student_button2() {
-        setTitle("GONG-GANG");
+	public student_button3() {
+		setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -62,62 +64,50 @@ public class student_button2 extends JFrame{
         logo.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo);
 
-        JLabel userLabel = new JLabel("- \uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
+        JLabel userLabel = new JLabel("- \uAD50\uC218\uB2D8 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
+        userLabel.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
-
-
-        //입력 받는 mainPanel
+        //inputPanel & Info display area 붙이는 mainPanel
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(new Color(255, 255, 255));
+        mainPanel.setBackground(new Color(255,255,255));
         mainPanel.setPreferredSize(new Dimension(700,400));
         contentPane.add(mainPanel, BorderLayout.CENTER);
         mainPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JPanel inputPanel=new JPanel();
-
+        // Input Panel
+        JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(255, 255, 255));
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+
         mainPanel.add(inputPanel);
-
-        JLabel inputLabel = new JLabel("\uD559\uC218\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694 (ex 14349-1)");
-        inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        inputLabel.setPreferredSize(new Dimension(1050,100));
-        inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 21));
-        inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
-        lectureNumberField = new JTextField(17);
-
-        searchButton = new JButton("Search");
+        JLabel nameLabel = new JLabel("교수님 이름을 입력하세요");
+        nameLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nameLabel.setPreferredSize(new Dimension(1000,80));
+        nameLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
+        nameField = new JTextField(10);
+        JButton searchButton = new JButton("Search");
         searchButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String lectureNumber = lectureNumberField.getText();
-                if (!lectureNumber.isEmpty()) {
-                    showRoomNumber(lectureNumber);
-                } else {
-                    JOptionPane.showMessageDialog(null, "올바른 학수 번호를 입력하세요.");
-                }
+                searchProfessorInfo(nameField.getText().trim());
             }
         });
-
-        inputPanel.add(inputLabel);
-        inputPanel.add(lectureNumberField);
+        inputPanel.add(nameLabel);
+        inputPanel.add(nameField);
         inputPanel.add(searchButton);
 
 
-
-        // JTextArea로 결과 표시
-        infoArea = new JTextArea(5, 20);
+        // Info display area
+        infoArea = new JTextArea(10, 40);
         infoArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(infoArea);
+
         mainPanel.add(scrollPane);
-
-
 
         //home button
         JPanel homeButtonPanel = new JPanel();
@@ -130,6 +120,7 @@ public class student_button2 extends JFrame{
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+        //mainPanel 위치 조정하기 위해 넣은 panel 2개
         JPanel westPanel = new JPanel();
         westPanel.setPreferredSize(new Dimension(50,100));
         westPanel.setBackground(new Color(255, 255, 255));
@@ -149,38 +140,42 @@ public class student_button2 extends JFrame{
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
-    }
 
 
-    private void showRoomNumber(String lectureNumber) {
-        String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
-        String dbUser = "root";
-        String dbPass = "4542";
 
-        String[] parts = lectureNumber.split("-");
-        if (parts.length != 2) {
-            JOptionPane.showMessageDialog(this, "입력값을 확인하세요");
-            return;
-        }
 
-        String query = "SELECT Room_Number FROM DB2024_Lecture WHERE Lecture_Num = ? AND Class_Num = ?";
-        try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+	}
+
+	private void searchProfessorInfo(String name) {
+
+        //JDBC driver name and database URL
+        final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        final String url = "jdbc:mysql://localhost/DB2024Team05";
+        //Database credentials
+        // MySQL 계정과 암호 입력
+        final String user = "root";
+        final String password = "4542";
+
+        String query = "SELECT Email, Lab_Location, Phone FROM DB2024_Professor WHERE Name = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, parts[0]); // Lecture_Num
-            stmt.setString(2, parts[1]); // Class_Num
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    String roomNumber = rs.getString("Room_Number");
-                    infoArea.setText("강의실 번호: " + roomNumber);  // 결과를 JTextArea에 표시
-                } else {
-                    JOptionPane.showMessageDialog(this, "학수번호를 다시 확인하세요");
-                }
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String email = rs.getString("Email");
+                String Lab_Location = rs.getString("Lab_Location");
+                String Phone = rs.getString("Phone");
+                infoArea.setText("Email: " + email + "\nLab_Location: " + Lab_Location + "\nPhone Number: " + Phone);
+            } else {
+                infoArea.setText("No information found.");
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            infoArea.setText("Error retrieving data.");
         }
     }
+
 
 }

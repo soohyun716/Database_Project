@@ -122,12 +122,12 @@ public class student_button3 extends JFrame{
 
         //mainPanel 위치 조정하기 위해 넣은 panel 2개
         JPanel westPanel = new JPanel();
-        westPanel.setPreferredSize(new Dimension(50,100));
+        westPanel.setPreferredSize(new Dimension(60,100));
         westPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(westPanel, BorderLayout.WEST);
 
         JPanel eastPanel = new JPanel();
-        eastPanel.setPreferredSize(new Dimension(50,100));
+        eastPanel.setPreferredSize(new Dimension(60,100));
         eastPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(eastPanel, BorderLayout.EAST);
 

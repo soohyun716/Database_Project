@@ -5,10 +5,6 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import administrator.administrator;
-import professor.professor_choiceGUI;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,10 +18,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import student.student_choiceGUI;
-import administrator.administrator;
-import student.student_choiceGUI;
-import administrator.admin_password;
+import student.choiceGUI;
 
 public class mainGUI extends JFrame {
 
@@ -101,15 +94,6 @@ public class mainGUI extends JFrame {
         professorButton.setVerticalAlignment(SwingConstants.CENTER);
         professorButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         buttonPanel.add(professorButton);
-        
-        // Add ActionListener to studentButton
-        professorButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close current frame
-                professor_choiceGUI choiceFrame = new professor_choiceGUI(); // Assuming choiceGUI is another frame class
-                choiceFrame.setVisible(true); // Open the choiceGUI frame
-            }
-        });
 
         // 학생 버튼 이미지
         ImageIcon studentImage_temp = new ImageIcon(mainGUI.class.getResource("/images/studentImage.png"));
@@ -128,7 +112,7 @@ public class mainGUI extends JFrame {
         studentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                student_choiceGUI choiceFrame = new student_choiceGUI(); // Assuming choiceGUI is another frame class
+                choiceGUI choiceFrame = new choiceGUI(); // Assuming choiceGUI is another frame class
                 choiceFrame.setVisible(true); // Open the choiceGUI frame
             }
         });
@@ -145,12 +129,5 @@ public class mainGUI extends JFrame {
         adminButton.setBackground(new Color(255, 255, 255));
         adminButton.setPreferredSize(new Dimension(115, 26));
         administratorPanel.add(adminButton);
-        
-        adminButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close current frame
-                administrator adminFrame = new administrator(); // Assuming choiceGUI is another frame class
-            }
-        });
     }
 }
