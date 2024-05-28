@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import GUI.mainFrame.mainGUI;
 
+
 public class choiceGUI extends JFrame {
 
     private JPanel contentPane;
@@ -36,39 +37,39 @@ public class choiceGUI extends JFrame {
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
 
-        // �ΰ� ���̴� Panel
+        // 로고 붙이는 Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
 
-        // ������ �ʿ��ϴٸ�? �ΰ� label ����
+        // 공간이 필요하다면? 로고 label 생성
         JLabel logo1 = new JLabel("\uACF5\uAC04\uC774 \uD544\uC694\uD558\uB2E4\uBA74?");
-        logo1.setFont(new Font("������� ExtraBold", Font.PLAIN, 20));
+        logo1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
-        
-        // GONG-GANG �ΰ� label ����
+
+        // GONG-GANG 로고 label 생성
         JLabel logo2 = new JLabel("Gong-Gang");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo2);
 
-        // ����, �л� ��ư ���̴� panel
+        // 교수, 학생 버튼 붙이는 panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 60));
         buttonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
-        // �л� ��ư �̹���
+        // 학생 버튼 이미지
         ImageIcon studentImage_temp = new ImageIcon(choiceGUI.class.getResource("/images/studentImage.png"));
         Image stud_img = studentImage_temp.getImage();
         Image stud_Changing = stud_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon studentImage = new ImageIcon(stud_Changing);
-        
-        // �л� ��ư ����
+
+        // 학생임을 나타내는 레이블 생성
         JLabel studentLabel = new JLabel("Student", studentImage, SwingConstants.CENTER);
         studentLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         studentLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -81,9 +82,9 @@ public class choiceGUI extends JFrame {
         buttonPanel.add(panel);
         panel.setLayout(new GridLayout(3, 0, 20, 20));
 
-        JButton button1 = new JButton("���ϴ� ���� ã��");
+        JButton button1 = new JButton("원하는 공간 찾기");
         button1.setBackground(new Color(255, 255, 255));
-        button1.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        button1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(button1);
 
         // Add ActionListener to button1
@@ -97,9 +98,9 @@ public class choiceGUI extends JFrame {
 
         JButton button2 = new JButton("\uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30");
         button2.setBackground(new Color(255, 255, 255));
-        button2.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        button2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(button2);
-        
+
         // Add ActionListener to button2
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -110,12 +111,12 @@ public class choiceGUI extends JFrame {
         });
 
 
-        JButton button3 = new JButton("������ ã��");
+        JButton button3 = new JButton("교수님 찾기");
         button3.setBackground(new Color(255, 255, 255));
-        button3.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        button3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(button3);
-        
-        
+
+
         // Add ActionListener to button3
         button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -124,14 +125,14 @@ public class choiceGUI extends JFrame {
                 button3Frame.setVisible(true); // Open the button1GUI frame
             }
         });
-        
+
 
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
