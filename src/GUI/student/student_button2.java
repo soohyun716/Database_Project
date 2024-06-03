@@ -29,6 +29,12 @@ import javax.swing.border.EmptyBorder;
 import GUI.mainFrame.mainGUI;
 import javax.swing.JTextArea;
 
+/*
+LectureInfo 뷰를 사용
+결과 창에 강의실 번호, 이름, 위치 출력하도록 수정
+*/
+
+
 public class student_button2 extends JFrame{
 
     private JPanel contentPane;
@@ -149,7 +155,7 @@ public class student_button2 extends JFrame{
     private void showRoomNumber(String lectureNumber) {
         String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
         String dbUser = "root";
-        String dbPass = "4542";
+        String dbPass = "kms1";
 
         // Assuming lectureNumber is entered as '14349-1'
         String[] parts = lectureNumber.split("-");
@@ -158,7 +164,7 @@ public class student_button2 extends JFrame{
             return;
         }
 
-        String query = "SELECT Room_Number FROM DB2024_Lecture WHERE Lecture_Num = ? AND Class_Num = ?";
+        String query = "SELECT Room_Number,Room_Name,Location FROM LectureInfo WHERE Lecture_Num = ? AND Class_Num = ?";
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -168,7 +174,9 @@ public class student_button2 extends JFrame{
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String roomNumber = rs.getString("Room_Number");
-                    displayResult(roomNumber);
+                    String Room_name = rs.getString("Room_Name");
+                    String Location = rs.getString("Location");
+                    displayResult(roomNumber,Room_name,Location);
                 } else {
                     JOptionPane.showMessageDialog(this, "학수번호를 다시 확인하세요");
                 }
@@ -180,16 +188,18 @@ public class student_button2 extends JFrame{
     }
 
 
-    private void displayResult(String roomNumber) {
+    private void displayResult(String roomNumber, String Room_name, String Location) {
         //결과를 새 창에 표시
         if (resultFrame != null) {
             resultFrame.dispose();
         }
         resultFrame = new JFrame("Classroom Information");
         resultFrame.setSize(300, 100);
-        resultFrame.getContentPane().setLayout(new FlowLayout());
+        resultFrame.getContentPane().setLayout(new GridLayout(3,0));
         //mainPanel.add(new JLabel("강의실 번호: " + roomNumber));
         resultFrame.getContentPane().add(new JLabel("강의실 번호: " + roomNumber));
+        resultFrame.getContentPane().add(new JLabel("강의실 이름: " + Room_name));
+        resultFrame.getContentPane().add(new JLabel("강의실 위치: " + Location));
         resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         resultFrame.setVisible(true);
     }
