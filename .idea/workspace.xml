@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/student/choiceGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/choiceGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,6 +169,7 @@
       <workItem from="1716640885563" duration="26965000" />
       <workItem from="1716793060385" duration="3341000" />
       <workItem from="1716884863379" duration="670000" />
+      <workItem from="1717434005401" duration="161000" />
     </task>
     <servers />
   </component>

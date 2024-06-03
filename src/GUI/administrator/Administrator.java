@@ -1,16 +1,18 @@
 package GUI.administrator;
 
-//Import required packages
-import GUI.mainFrame.mainGUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+
+//import mainFrame.mainGUI;
+
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Vector;
+import GUI.mainFrame.mainGUI;
 
 
 /*
@@ -25,12 +27,12 @@ import java.util.Vector;
  */
 
 public class Administrator { // 메인 실행 함수
-    public Administrator(){
+    public void Administrator(){
         new 관리자();
     }
 }
 
-class 관리자 extends JFrame implements ActionListener {
+class 관리자 extends JFrame implements ActionListener, MouseListener {
 
     public JLabel result = new JLabel();
     public JTextField inputField = new JTextField(30); // 사용자 입력을 받기 위한 텍스트 필드 추가
@@ -42,6 +44,9 @@ class 관리자 extends JFrame implements ActionListener {
 
     JButton menu1_back = new JButton("뒤로가기");
     JButton input_back = new JButton("뒤로가기");
+
+    boolean AutoCommit_flag = true;
+    JTable table;
 
     final int X = 200;
     final int Y = 50;     // Next = Y * n
@@ -68,6 +73,18 @@ class 관리자 extends JFrame implements ActionListener {
 
     TextField idField, passField;
     Button submitButton;
+
+    public Connection conn;
+    public Statement stmt;
+
+    public void DatabaseManager() {
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public 관리자() {
         password();
@@ -128,6 +145,7 @@ class 관리자 extends JFrame implements ActionListener {
                     System.out.println("Password: " + password);
 
                     if (id.equals(USER) && password.equals(PASS)) {
+                        DatabaseManager();	//한번만 실행한
                         menu1(); // pass
                     }
                 }
@@ -183,7 +201,7 @@ class 관리자 extends JFrame implements ActionListener {
         logoPanel.add(logo2);
 
         //관리자 이미지 가져오기
-        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
+        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("./images/administratorImage.png"));
         Image admin_img = adminImage_temp.getImage();
         Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon adminImage = new ImageIcon(admin_Changing);
@@ -208,6 +226,14 @@ class 관리자 extends JFrame implements ActionListener {
         adminPanel.add(panel);
         panel.setLayout(new GridLayout(3, 0, 20, 20));
 
+
+
+        JCheckBox chkbox = new JCheckBox("AutoCommit");
+        chkbox.addActionListener(this);
+        chkbox.setSelected(AutoCommit_flag);
+
+        panel.add(chkbox);
+
         JButton jb_insert = new JButton("투플추가");
         jb_insert.setBackground(new Color(255, 255, 255));
         jb_insert.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
@@ -226,6 +252,13 @@ class 관리자 extends JFrame implements ActionListener {
         panel.add(jb_delete);
         jb_delete.addActionListener(this);
 
+        JButton jb_commit = new JButton("Commit");
+        jb_commit.addActionListener(this);
+        panel.add(jb_commit);
+
+        JButton jb_rollback = new JButton("Rollback");
+        jb_rollback.addActionListener(this);
+        panel.add(jb_rollback);
 
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
@@ -237,6 +270,16 @@ class 관리자 extends JFrame implements ActionListener {
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         homeButton.addActionListener(this);
+
+
+        chkbox.setBounds(   X + 150, Y * 2, 200, Y_gap);
+
+        jb_insert.setBounds(X + 150, Y * 5, 400, Y_gap);
+        jb_modify.setBounds(X + 150, Y * 6, 400, Y_gap);
+        jb_delete.setBounds(X + 150, Y * 7, 400, Y_gap);
+
+        jb_commit.setBounds(X + 150, Y * 10, 200, Y_gap);
+        jb_rollback.setBounds(X + 150, Y * 11, 200, Y_gap);
 
         setTitle("관리자");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임을 닫을 때 프로그램이 종료
@@ -325,6 +368,32 @@ class 관리자 extends JFrame implements ActionListener {
             case "투플삭제":
                 command1 = command;
                 addCommonComponents();
+                break;
+
+            case "AutoCommit":
+                JCheckBox chkbox = (JCheckBox)e.getSource();
+                try {
+                    AutoCommit_flag = chkbox.isSelected();
+                    conn.setAutoCommit(AutoCommit_flag);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                break;
+
+            case "Commit":
+                try {
+                    conn.commit(); // transaction succeed
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                break;
+
+            case "Rollback":
+                try {
+                    conn.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "뒤로가기":
@@ -422,8 +491,8 @@ class 관리자 extends JFrame implements ActionListener {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                     Statement stmt = conn.createStatement()) {
+                try (
+                        Statement stmt = conn.createStatement()) {
 
                     String tupleInfo = inputField.getText();
                     if( tupleInfo.length() != 0) {
@@ -440,10 +509,19 @@ class 관리자 extends JFrame implements ActionListener {
 
                 } catch (SQLException se) {
                     se.printStackTrace();
+                    if (AutoCommit_flag == false) {// 트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
+                        // rollback here
+                        try {
+                            if (conn != null)
+                                conn.rollback();
+                        } catch (SQLException se2) {
+                            se2.printStackTrace();
+                        }
+                    }
+
                 }
             }
         });
-
         ct.add(confirmButton);
 
         logoPanel.setBounds(0,0,1100,100);
@@ -472,14 +550,14 @@ class 관리자 extends JFrame implements ActionListener {
         ct.add(logoPanel);
 
         JLabel logo1 = new JLabel("Gong-Gang");
-        logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
+        logo1.setFont(new Font("Arial Black", Font.BOLD, 10));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
 
         JLabel logo2 = new JLabel("Update");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
+        logo2.setFont(new Font("Arial Black", Font.BOLD, 20));
         logoPanel.add(logo2);
 
 
@@ -500,8 +578,8 @@ class 관리자 extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                     Statement stmt = conn.createStatement()) {
+                try (
+                        Statement stmt = conn.createStatement()) {
 
                     String	condition_txt = inputWhere.getText();
                     String	tupleInfo = inputField.getText();
@@ -523,14 +601,22 @@ class 관리자 extends JFrame implements ActionListener {
 
                 } catch (SQLException se) {
                     se.printStackTrace();
+                    if(AutoCommit_flag == false) {//트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
+                        // rollback here
+                        try {
+                            if (conn != null) conn.rollback();
+                        } catch (SQLException se2) {
+                            se2.printStackTrace();
+                        }
+                    }
+
                 }
             }
         });
 
-
         ct.add(confirmButton);
 
-        logoPanel.setBounds(0,0,1100,100);
+        logoPanel.setBounds(0,0,1100, 50);
         result.setBounds(      XE, YE*1,  400, YE_gap );
         inputField.setBounds( XE2, YE*1,  500, YE_gap );
 
@@ -547,7 +633,7 @@ class 관리자 extends JFrame implements ActionListener {
 
     private void deleteTuple(String tableName) {
         // 기존 컴포넌트 초기화
-        //   ct.removeAll();
+        // ct.removeAll();
         ct.setLayout(null);
         ct.setBackground(Color.white);
 
@@ -580,11 +666,11 @@ class 관리자 extends JFrame implements ActionListener {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                     Statement stmt = conn.createStatement()) {
+                try (
+                        Statement stmt = conn.createStatement()) {
 
                     String tupleInfo = inputField.getText();
-                    if( tupleInfo.length() != 0) {
+                    if (tupleInfo.length() != 0) {
                         inputField.setText(""); // 입력 필드 초기화
                         String query = "DELETE FROM " + tableName + " WHERE " + tupleInfo;
                         System.out.println(query); // 디버깅을 위해 출력
@@ -598,15 +684,25 @@ class 관리자 extends JFrame implements ActionListener {
 
                 } catch (SQLException se) {
                     se.printStackTrace();
+                    if (AutoCommit_flag == false) { //트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
+                        // rollback here
+                        try {
+                            if (conn != null)
+                                conn.rollback();
+                        } catch (SQLException se2) {
+                            se2.printStackTrace();
+                        }
+                    }
+
                 }
             }
         });
         ct.add(confirmButton);
 
-        logoPanel.setBounds(0,0,1100,100);
-        result.setBounds( XE, YE*2,  400, YE_gap );
-        inputField.setBounds( XE2, YE*2,  500, YE_gap );
-        confirmButton.setBounds( XE2, YE*3,  100, YE_gap );
+        logoPanel.setBounds(0, 0, 1100, 100);
+        result.setBounds(XE, YE * 2, 400, YE_gap);
+        inputField.setBounds(XE2, YE * 2, 500, YE_gap);
+        confirmButton.setBounds(XE2, YE * 3, 100, YE_gap);
 
         setTitle("튜플삭제");
         // 컨테이너 변경사항 적용 및 화면 다시 그리기
@@ -633,14 +729,13 @@ class 관리자 extends JFrame implements ActionListener {
     }
 
 
-    public void 결과보기(String tableName) {
+    public void 결과보기(String tableName){
         String query2 = "SELECT * FROM " + tableName;
         System.out.println(query2); // 디버깅을 위해 출력
 
         DefaultTableModel tableModel = new DefaultTableModel();
 
         try (
-                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 Statement stmt1 = conn.createStatement();
                 ResultSet rs = stmt1.executeQuery(query2)) {
 
@@ -671,6 +766,8 @@ class 관리자 extends JFrame implements ActionListener {
 
         // Create JTable with the table model
         JTable table = new JTable(tableModel);
+        this.table = table;
+
         scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         scrollPane.setAutoscrolls(true);
@@ -701,12 +798,70 @@ class 관리자 extends JFrame implements ActionListener {
             }
 
         });
+        table.addMouseListener(this); /* --> mouseClicked */
 
         ct.add(scrollPane, FlowLayout.CENTER);
 
         scrollPane.setVisible(true);
         ct.revalidate();
         ct.repaint();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int row = table.getSelectedRow();
+        int col = table.getSelectedColumn();
+        String result="";
+        String sel="";
+		 /*
+		 for (int i = 0; i < table.getColumnCount(); i++) {
+			 result += table.getColumnName(i) + "=" + table.getModel().getValueAt(row, i);
+			 if ( i < (table.getColumnCount()-1)) result += ",";
+		 }
+		 */
+        System.out.println(row + "," + col + ":" + result);
+
+
+        // set inputField
+        sel = table.getColumnName(col) + "=" + table.getModel().getValueAt(row, col); //칼럼 이름 = 값을 inputField에 자동 입력 .
+        switch(command1) {
+            case "투플수정":
+                if(inputField.getText().length() == 0  ) {
+                    inputField.setText(sel);
+                }
+                else {
+                    inputWhere.setText(sel);
+                }
+                break;
+            case "투플삭제":
+            case "투플추가":
+                inputField.setText(sel);
+                break;
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+
     }
 
 
