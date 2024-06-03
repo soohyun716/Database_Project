@@ -27,7 +27,7 @@ import GUI.mainFrame.mainGUI;
  */
 
 public class Administrator { // 메인 실행 함수
-    public void Administrator(){
+    public Administrator(){
         new 관리자();
     }
 }
@@ -172,6 +172,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
         ct.add(centerPanel, BorderLayout.CENTER);
 
+
     }
 
     public void menu1() {
@@ -201,7 +202,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         logoPanel.add(logo2);
 
         //관리자 이미지 가져오기
-        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("./images/administratorImage.png"));
+        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
         Image admin_img = adminImage_temp.getImage();
         Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon adminImage = new ImageIcon(admin_Changing);

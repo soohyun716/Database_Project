@@ -143,6 +143,7 @@ public class mainGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
                 Administrator adminFrame = new Administrator(); // Assuming choiceGUI is another frame class
+
             }
         });
     }
