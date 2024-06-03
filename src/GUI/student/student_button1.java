@@ -34,6 +34,11 @@ import javax.swing.JButton;
 import java.awt.Component;
 import javax.swing.UIManager;
 
+/*
+검색 ClassroomView를 통해 하도록 수정
+출력하면에 번호, 이름, 위치, 가능시간 4개가 뜨도록 함.
+*/
+
 public class student_button1 extends JFrame{
 
     private JPanel contentPane;
@@ -298,7 +303,7 @@ public class student_button1 extends JFrame{
 
         // MySQL 계정과 암호 입력
         final String user = "root";
-        final String password = "4542";
+        final String password = "kms1";
         String message = "검색된 교실의 번호: \n";
 
 
@@ -306,7 +311,7 @@ public class student_button1 extends JFrame{
         if (eat) {infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요"); return;};
         if (computer)
             if (project) {
-                query = "SELECT * FROM DB2024_Classroom WHERE Projector='빔 있음' AND Practicable='실습가능'";
+                query = "SELECT * FROM ClassroomView WHERE Projector='빔 있음' AND Practicable='실습가능'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -315,15 +320,15 @@ public class student_button1 extends JFrame{
                     while (rs.next()) {
                         // for boolean empty=rs.getBoolean()
                         String Room_number = rs.getString("Room_number");
-
-
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" 가능\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
                             };
                         }
 
@@ -346,20 +351,22 @@ public class student_button1 extends JFrame{
 
 
             } else {
-                query = "SELECT * FROM DB2024_Classroom WHERE Practicable='실습가능'";
+                query = "SELECT * FROM ClassroomView WHERE Practicable='실습가능'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" 가능\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
                             };
                         }
                     }
@@ -381,20 +388,22 @@ public class student_button1 extends JFrame{
             }
         else {
             if(project){
-                query = "SELECT * FROM DB2024_Classroom WHERE Projector='빔 있음'";
+                query = "SELECT * FROM ClassroomView WHERE Projector='빔 있음'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" 가능\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
                             };
                         }
                     }
@@ -412,20 +421,22 @@ public class student_button1 extends JFrame{
                     infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다. 다시 확인하세요");
                 }return;
             }else {
-                query = "SELECT * FROM DB2024_Classroom";
+                query = "SELECT * FROM ClassroomView";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" 가능\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
                             };
                         }
                     }

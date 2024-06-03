@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/student/student_button3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,38 +41,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Administrator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.GUI.administrator.Administrator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Professor_findClassroom.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Professor_findLecture.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StartPage.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Student_ProfessorInfo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Student_RoomSearch.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mainGUI.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;GUI&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/s25kw/IdeaProjects/Database_Project/src/GUI/administrator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Administrator.executor": "Run",
+    "Application.GUI.administrator.Administrator.executor": "Run",
+    "Application.Professor_findClassroom.executor": "Run",
+    "Application.Professor_findLecture.executor": "Run",
+    "Application.StartPage.executor": "Run",
+    "Application.Student_ProfessorInfo.executor": "Run",
+    "Application.Student_RoomSearch.executor": "Run",
+    "Application.mainGUI.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "GUI",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/s25kw/IdeaProjects/Database_Project/src/GUI/administrator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "database.query.execution",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\GUI\administrator" />
@@ -169,7 +173,7 @@
       <workItem from="1716640885563" duration="26965000" />
       <workItem from="1716793060385" duration="3341000" />
       <workItem from="1716884863379" duration="670000" />
-      <workItem from="1717434005401" duration="161000" />
+      <workItem from="1717434005401" duration="9256000" />
     </task>
     <servers />
   </component>
