@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b224712d-e708-45d1-9070-c8ee8f8615ec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/professor/professor_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_button1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,226 +16,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;2Ju1&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/childstone/Database_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8dcf099c-597b-49f2-970d-9e994bcc8230&quot;
-  }
-}</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
-  <component name="ProjectId" id="2go2TZgAQVNtX5VKiVgbXDg9fAs" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Administrator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.GUI.administrator.Administrator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Professor_findClassroom (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Professor_findClassroom.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Professor_findLecture.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StartPage.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Student_ProfessorInfo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Student_RoomSearch.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mainGUI.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/s25kw/IdeaProjects/Database_Project/src/GUI/administrator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.query.execution&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;애플리케이션.mainGUI.executor&quot;: &quot;Run&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "master",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\GUI\administrator" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src\images" />
-      <recent name="C:\Users\s25kw\IdeaProjects\Database_Project\src" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="GUI.professor" />
-    </key>
-  </component>
-  <component name="RunManager" selected="애플리케이션.mainGUI">
-    <configuration name="Professor_findClassroom (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Professor_findClassroom" />
-      <module name="Database_Project" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Professor_findClassroom" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.professor.Professor_findClassroom" />
-      <module name="Database_Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="professor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Professor_findLecture" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Professor_findLecture" />
-      <module name="Database_Project" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StartPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="StartPage" />
-      <module name="Database_Project" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="mainGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="mainFrame.mainGUI" />
-      <module name="Database_Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="mainFrame.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="애플리케이션.mainGUI" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-11.0.22-corretto-11.0.22-f644763e9732-4a89cc43" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="" />
-      <created>1716349619506</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1716349619506</updated>
-      <workItem from="1716349620633" duration="4987000" />
-      <workItem from="1716370510680" duration="59000" />
-      <workItem from="1716370589537" duration="1089000" />
-      <workItem from="1716445971460" duration="707000" />
-      <workItem from="1716548908596" duration="1196000" />
-      <workItem from="1716640728398" duration="131000" />
-      <workItem from="1716640885563" duration="26965000" />
-      <workItem from="1716793060385" duration="3341000" />
-      <workItem from="1716884863379" duration="670000" />
-      <workItem from="1717434005401" duration="9256000" />
-      <workItem from="1717450775444" duration="2860000" />
-      <workItem from="1717482839734" duration="2209000" />
-      <workItem from="1717486524706" duration="3795000" />
-      <workItem from="1717510149148" duration="282000" />
-      <workItem from="1717510453470" duration="1801000" />
-    </task>
-    <task id="LOCAL-00001" summary="Changes">
-      <option name="closed" value="true" />
-      <created>1717487019313</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1717487019313</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Changes">
-      <option name="closed" value="true" />
-      <created>1717488035965</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1717488035965</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Changes">
-      <option name="closed" value="true" />
-      <created>1717517949216</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1717517949216</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Professor_findClassroom.java</url>
-          <line>225</line>
-          <properties class="Professor_findClassroom" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

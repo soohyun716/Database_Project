@@ -334,7 +334,7 @@ public class student_button1 extends JFrame{
         String query = "SELECT * FROM ";
         //type은 사용자가 찾기를 원하는 것이 교실(0)인지 교실 외(1)인지를 구분
         if(type==0){
-            query+="ClassroomView";
+            query+="DB2024_ClassroomView";
             if (computer || project) {
                 //교실에서 컴퓨터와 빔프로젝트를 원하는 경우에는 조건을 붙여준다.  교실에서는 식사가 불가하고 모든 교실에 콘센트가 있으므로 해당하는 조건은 추가하지 않아도 됨
                 query += " WHERE";
@@ -351,11 +351,11 @@ public class student_button1 extends JFrame{
 
 
         }if (type==1) {
-            query += "ClassroomExternalView";
+            query += "DB2024_ClassroomExternalView";
             //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있음.
             if(content) {
                 query+="WHERE Outlet_Count > 0 ";
-                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM ClassroomExternalView WHERE Eat_Available = 1)";
+                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_ClassroomExternalView WHERE Eat_Available = 1)";
                 query+=";";
             }
             else{

@@ -176,7 +176,7 @@ public class student_button2 extends JFrame{
             return;//두 개로 분리가 안 된경우 처리하는 법
         }
 
-        String query = "SELECT Lecture_Name,Room_Number,Room_Name,Location FROM LectureInfo ";
+        String query = "SELECT Lecture_Name,Room_Number,Room_Name,Location FROM DB2024_LectureView ";
         if(isInteger(parts[0])) query+="WHERE Lecture_Num = ? AND Class_Num = ?";
         else query+="WHERE Lecture_Name=? AND Class_Num = ?";
         //사용자로부터 받아온 강의번호와 학수번호를 통해서 원하는 정보 검색

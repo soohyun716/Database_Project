@@ -300,7 +300,7 @@ public class professor_button1 extends JFrame {
         String message = "검색된 교실의 번호:\n"; // 결과 메시지 초기값 설정
 
         // SQL 쿼리 문자열 생성
-        StringBuilder query = new StringBuilder("SELECT * FROM ClassroomView WHERE 1=1");
+        StringBuilder query = new StringBuilder("SELECT * FROM DB2024_ClassroomView WHERE 1=1");
 
         // 좌석 수 조건 추가
         String[] seatRange = seats.split("-");
