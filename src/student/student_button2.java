@@ -20,6 +20,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -35,11 +37,9 @@ LectureInfo 뷰를 사용
 public class student_button2 extends JFrame{
 
     private JPanel contentPane;
-
     private JTextField lectureNumberField;
     private JButton searchButton;
-    private JFrame resultFrame;
-    private JTextField textField;
+    private JTextArea infoArea;
 
     public student_button2() {
 
@@ -90,12 +90,12 @@ public class student_button2 extends JFrame{
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         mainPanel.add(inputPanel);
 
-        // 학수번호를 입력하세요' Label 생성
-        JLabel inputLabel = new JLabel("\uD559\uC218\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694 (ex 14349-1)");
+        // 학수번호나 강의이름과 분반 번호를 입력하세요' Label 생성
+        JLabel inputLabel = new JLabel("학수번나 강의이름과 분반 번호를 입력하세요 (ex 20471-3, 데이터베이스-3)");
         inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         inputLabel.setPreferredSize(new Dimension(1050, 80));
         inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 21));
+        inputLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         inputPanel.add(inputLabel);
 
@@ -109,12 +109,8 @@ public class student_button2 extends JFrame{
         searchButton.setBackground(new Color(255, 255, 255));
         inputPanel.add(searchButton);
 
-        // 결과 보여주는 Panel 생성
-        JPanel resultPanel = new JPanel();
-        resultPanel.setBackground(new Color(255, 255, 255));
-        mainPanel.add(resultPanel);
 
-        //학수번호를 입력후 값을 search 버튼을 눌렀을 경우
+        //입력후 search 버튼을 눌렀을 경우
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,6 +122,16 @@ public class student_button2 extends JFrame{
                 }
             }
         });
+
+        inputPanel.add(inputLabel);
+        inputPanel.add(lectureNumberField);
+        inputPanel.add(searchButton);
+
+        //JText Area로 결과 표시
+        infoArea = new JTextArea(5,20);
+        infoArea.setEditable(false);
+        JScrollPane ScrollPane = new JScrollPane(infoArea);
+        mainPanel.add(ScrollPane);
 
 
         //home button
@@ -157,7 +163,7 @@ public class student_button2 extends JFrame{
         });
     }
 
-    //강의번호에 해당하는 공간번호를 보여주는 코드
+    //강의번호나 강의이름에 해당하는 공간번호를 보여주는 코드
     private void showRoomNumber(String lectureNumber) {
         String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
         String dbUser = "DB2024Team05";
@@ -170,23 +176,26 @@ public class student_button2 extends JFrame{
             return;//두 개로 분리가 안 된경우 처리하는 법
         }
 
+        String query = "SELECT Lecture_Name,Room_Number,Room_Name,Location FROM LectureInfo ";
+        if(isInteger(parts[0])) query+="WHERE Lecture_Num = ? AND Class_Num = ?";
+        else query+="WHERE Lecture_Name=? AND Class_Num = ?";
         //사용자로부터 받아온 강의번호와 학수번호를 통해서 원하는 정보 검색
-        String query = "SELECT Room_Number,Room_Name,Location FROM LectureInfo WHERE Lecture_Num = ? AND Class_Num = ?";
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             //DBD연결을 맺고 쿼리를 실행
 
-            stmt.setString(1, parts[0]); // Lecture_Num
+            stmt.setString(1, parts[0]); // Lecture_Num or Lecture_Name
             stmt.setString(2, parts[1]); // Class_Num
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    String lecture_name=rs.getString("Lecture_Name");
                     String roomNumber = rs.getString("Room_Number");
                     String Room_name = rs.getString("Room_Name");
                     String Location = rs.getString("Location");
-                    displayResult(roomNumber,Room_name,Location);//결과를 보여주는 함수 호출
+                    infoArea.setText("강의 이름: "+lecture_name+"\n강의실 번호: "+roomNumber+"\n강의실 이름: "+Room_name+"\n강의실 위치: "+Location);
                 } else {
-                    JOptionPane.showMessageDialog(this, "학수번호를 다시 확인하세요");//테이블 결과 검색되지 않는 경우
+                    JOptionPane.showMessageDialog(this, "입력을 다시 확인하세요");//테이블 결과 검색되지 않는 경우
                 }
             }
         } catch (SQLException ex) {
@@ -194,23 +203,19 @@ public class student_button2 extends JFrame{
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
         }
+
+
+
     }
-
-
-    private void displayResult(String roomNumber, String Room_name, String Location) {
-        //결과를 새 창에 표시
-        if (resultFrame != null) {
-            resultFrame.dispose();
+    //학수번호를 입력한 것인지 확인하기 위한 문자열의 숫자 구성 판단 함수
+    public boolean isInteger(String strValue){
+        try {
+            Integer.parseInt(strValue);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
         }
-        resultFrame = new JFrame("Classroom Information");
-        resultFrame.setSize(300, 100);
-        resultFrame.getContentPane().setLayout(new GridLayout(3,0));
-        //mainPanel.add(new JLabel("강의실 번호: " + roomNumber));
-        resultFrame.getContentPane().add(new JLabel("강의실 번호: " + roomNumber));
-        resultFrame.getContentPane().add(new JLabel("강의실 이름: " + Room_name));
-        resultFrame.getContentPane().add(new JLabel("강의실 위치: " + Location));
-        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        resultFrame.setVisible(true);
     }
+
 
 }
