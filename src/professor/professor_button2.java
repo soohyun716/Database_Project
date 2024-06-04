@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableCellRenderer; // 테이블 셀 렌더러 �
 import java.sql.*; // SQL 패키지 가져오기
 import java.util.Calendar; // 캘린더 클래스 가져오기
 
-
 public class professor_button2 extends JFrame {
 
     private JPanel contentPane; // 메인 콘텐츠 패널
@@ -103,27 +102,25 @@ public class professor_button2 extends JFrame {
 
         contentPane.add(headerPanel, BorderLayout.NORTH); // 메인 패널에 헤더 패널 추가
 
-
-        //홈 버튼을 위한 홈 패널 생성
+        // 홈 버튼을 위한 홈 패널 생성
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255)); // 배경 색 설정
-        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); //홈 패널 플로우 레이아웃 설정
-        contentPane.add(homeButtonPanel, BorderLayout.SOUTH); //메인 패널에 홈 패널 추가
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); // 홈 패널 플로우 레이아웃 설정
+        contentPane.add(homeButtonPanel, BorderLayout.SOUTH); // 메인 패널에 홈 패널 추가
 
-        JButton homeButton = new JButton("HOME"); //홈 버튼 생성
+        JButton homeButton = new JButton("HOME"); // 홈 버튼 생성
         homeButton.setFont(new Font("Arial ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255)); // 배경 색 설정
         homeButtonPanel.add(homeButton); // 홈 패널에 홈 버튼 추가
 
-        // Add ActionListener to homeButton
+        // 홈 버튼에 ActionListener 추가
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close current frame
+                dispose(); // 현재 프레임 닫기
                 mainGUI mainFrame = new mainGUI();
-                mainFrame.setVisible(true); // Open the mainGUI frame
+                mainFrame.setVisible(true); // mainGUI 프레임 보이기
             }
         });
-
 
         // 결과 영역 (강의 테이블)
         String[] columnNames = { "", "월", "화", "수", "목", "금" }; // 테이블 컬럼 이름 설정
@@ -142,8 +139,7 @@ public class professor_button2 extends JFrame {
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스
-            // 연결
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스 연결
             System.out.println("Database connected successfully."); // 연결 성공 메시지 출력
         } catch (Exception e) {
             e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
@@ -163,12 +159,7 @@ public class professor_button2 extends JFrame {
             if (professorInfo != null) {
                 updateLectureTable(professorName); // 테이블 업데이트
             } else {
-                JOptionPane.showMessageDialog(this, "해당 교수님의 정보를 찾을 수 없습니다.", "경고", JOptionPane.WARNING_MESSAGE); // 교수
-                // 정보
-                // 없을
-                // 시
-                // 경고
-                // 메시지
+                JOptionPane.showMessageDialog(this, "해당 교수님의 정보를 찾을 수 없습니다.", "경고", JOptionPane.WARNING_MESSAGE); // 교수 정보 없을 시 경고 메시지
             }
         } catch (SQLException e) {
             e.printStackTrace(); // SQL 예외 발생 시 스택 트레이스 출력
@@ -179,8 +170,7 @@ public class professor_button2 extends JFrame {
     private ProfessorInfo getProfessorInfo(String professorName) throws SQLException {
         ProfessorInfo professorInfo = null;
 
-        String professorQuery = "SELECT Name, Lab_Location, Phone, Email FROM DB2024_Professor WHERE Name = ?"; // 교수 정보
-        // 쿼리
+        String professorQuery = "SELECT Name, Lab_Location, Phone, Email FROM DB2024_Professor WHERE Name = ?"; // 교수 정보 쿼리
         PreparedStatement professorStmt = connection.prepareStatement(professorQuery); // 쿼리 준비
         professorStmt.setString(1, professorName); // 검색어 설정
         ResultSet professorRs = professorStmt.executeQuery(); // 쿼리 실행
@@ -203,10 +193,7 @@ public class professor_button2 extends JFrame {
         }
 
         try {
-            String lectureQuery = "SELECT Lecture_Name, Lecture_Time1, Lecture_Time2 FROM DB2024_Lecture WHERE Professor_Name = ?"; // 강의
-            // 정보를
-            // 가져오는
-            // 쿼리
+            String lectureQuery = "SELECT Lecture_Name, Lecture_Time1, Lecture_Time2 FROM DB2024_Lecture WHERE Professor_Name = ?"; // 강의 정보를 가져오는 쿼리
             PreparedStatement lectureStmt = connection.prepareStatement(lectureQuery); // 쿼리 준비
             lectureStmt.setString(1, professorName); // 쿼리에 교수 이름 설정
             ResultSet lectureRs = lectureStmt.executeQuery(); // 쿼리 실행 및 결과 저장
@@ -289,8 +276,7 @@ public class professor_button2 extends JFrame {
         // 새로운 렌더러 적용
         for (int i = 0; i < lectureTable.getRowCount(); i++) {
             for (int j = 0; j < lectureTable.getColumnCount(); j++) {
-                lectureTable.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer()); // 기본 셀 렌더러로
-                // 초기화
+                lectureTable.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer()); // 기본 셀 렌더러로 초기화
             }
         }
 
@@ -330,8 +316,7 @@ public class professor_button2 extends JFrame {
         }
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-                                                       int row, int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if ((highlightedRow == -1 || row == highlightedRow)
                     && (highlightedColumn == -1 || column == highlightedColumn)) {
