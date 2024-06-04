@@ -152,9 +152,22 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
             }
         });
 
+        JButton backButton = new JButton("BACK");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand() == "BACK"){
+                    dispose(); // Close current frame
+                    mainGUI mainFrame = new mainGUI();
+                    mainFrame.setVisible(true); // Open the mainGUI frame
+                }
+            }
+        });
+
         Panel p3 = new Panel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
         p3.add(submitButton);
+        p3.add(backButton);
 
         //Grid Center에 두기 위해 새로은 JPanel 생성
         JPanel centerPanel = new JPanel();
