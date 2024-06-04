@@ -36,23 +36,26 @@ public class student_button1 extends JFrame{
 
     private JPanel contentPane;
 
-    String usage;
-    String seats;
-    boolean content;
-    boolean project;
-    boolean eat;
-    boolean computer;
+    String usage;            // 사용 유형
+    String seats;            // 좌석 수
+    boolean content;         // 콘센트 유무
+    boolean project;         // 빔프로젝트 유무
+    boolean eat;             // 식사 가능 유무
+    boolean computer;        // 컴퓨터 유무
     Map<String, Boolean> timeDictionary=new HashMap<>();
-    private JTextArea infoArea;
+    private JTextArea infoArea; // 결과 가져오는 텍스트
     String message = "검색된 교실의 번호: \n";
 
     public student_button1() {
 
+        // main frame 설정
         setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1100, 600);
+        setBounds(100, 100, 1100, 600); // frame size 1100X600
         setLocation(50, 50);
+
+        // main JPanel 생성
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(255, 255, 255));
@@ -75,12 +78,13 @@ public class student_button1 extends JFrame{
         logo.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo);
 
+        // - 원하는 강의실 찾기 - 로고 label 생성
         JLabel userLabel = new JLabel("- \uC6D0\uD558\uB294 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
         userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
-        //옵션들 붙이는 mainPanel
+        // option & time table 붙이는 mainPanel 생성
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
@@ -99,6 +103,7 @@ public class student_button1 extends JFrame{
         checkBoxPanel.setBackground(new Color(255, 255, 255));
         subMainPanel.add(checkBoxPanel);
 
+        //checkBox 생성
         JCheckBox contentCheckBox = new JCheckBox("콘센트");
         contentCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
         contentCheckBox.setFont(new Font("나눔고딕", Font.BOLD, 13));
@@ -119,7 +124,7 @@ public class student_button1 extends JFrame{
         checkBoxPanel.add(eatCheckBox);
         checkBoxPanel.add(computerCheckBox);
 
-        //dropdown Panel
+        //dropdown Panel 생성
         JPanel dropdownsPanel = new JPanel();
         dropdownsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         dropdownsPanel.setBackground(new Color(255, 255, 255));
@@ -127,7 +132,7 @@ public class student_button1 extends JFrame{
         dropdownsPanel.setSize(new Dimension(800,200));
         dropdownsPanel.setLayout(new GridLayout(2, 2, 100, 10));
 
-
+        // ComboBox1 - 공간유형
         JLabel usageLabel = new JLabel("\uACF5\uAC04 \uC720\uD615 : ");
         usageLabel.setHorizontalAlignment(SwingConstants.LEFT);
         usageLabel.setFont(new Font("나눔고딕", Font.BOLD, 14));
@@ -140,7 +145,7 @@ public class student_button1 extends JFrame{
         dropdownsPanel.add(usageComboBox);
         usageComboBox.setPreferredSize(new Dimension(200, usageComboBox.getPreferredSize().height));
 
-
+        // ComboBox2 - 좌석 수
         JLabel seatsLabel = new JLabel("\uC88C\uC11D \uC218    : ");
         seatsLabel.setHorizontalAlignment(SwingConstants.LEFT);
         seatsLabel.setFont(new Font("나눔고딕", Font.BOLD, 14));
@@ -153,12 +158,14 @@ public class student_button1 extends JFrame{
         dropdownsPanel.add(seatsComboBox);
 
 
-        //검색 원하는 시간 받아오기
+        // 검색 원하는 시간 받아오기
+        // 시간표 패널 생성
         JPanel timePanel = new JPanel();
         timePanel.setLayout(new GridLayout(8, 5));
         timePanel.setBorder(BorderFactory.createTitledBorder("원하는 교시 선택"));
         timePanel.setBackground(new Color(255,255,255));
 
+        // 시간표 라벨 및 체크박스 생성
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri"};
         String[] times = {"1", "2", "3", "4", "5", "6", "7","8"};
 
@@ -171,7 +178,7 @@ public class student_button1 extends JFrame{
                 checkBox.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //선택된 부분에 대해서는 딕셔너리의 값을 true로 바꿔주기
+                        // 선택된 부분에 대해서는 딕셔너리의 값을 true로 바꿔주기
                         timeDictionary.put(name, true);
 
                     }
@@ -186,20 +193,23 @@ public class student_button1 extends JFrame{
         scrollPane.setBackground(new Color(255,255,255));
 
 
-        //resultButton & homeButton
+        // resultButton & homeButton 붙이는 Panel 생성
         JPanel ButtonPanel = new JPanel();
         ButtonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(ButtonPanel, BorderLayout.SOUTH);
         ButtonPanel.setLayout(new BorderLayout(0, 0));
 
+        // reuslt 버튼 붙이는 Panel 생성
         JPanel resultPanel = new JPanel(new FlowLayout());
         resultPanel.setBackground(new Color(255, 255, 255));
         ButtonPanel.add(resultPanel, BorderLayout.CENTER);
+        // result 버튼 생성
         JButton resultButton = new JButton("\uAC80\uC0C9");
         resultButton.setFont(new Font("나눔고딕", Font.BOLD, 16));
         resultButton.setBackground(new Color(255, 255, 255));
         resultPanel.add(resultButton);
 
+        // 디자인을 위한 빈 패널 생성
         JPanel emptyPanel = new JPanel();
         emptyPanel.setBackground(new Color(255,255,255));
         ButtonPanel.add(emptyPanel, BorderLayout.WEST);
@@ -251,6 +261,7 @@ public class student_button1 extends JFrame{
                 logo.setFont(new Font("Arial Black", Font.BOLD, 40));
                 logoPanel.add(logo);
 
+                //- 결과 - 로고 label 생성
                 JLabel userLabel = new JLabel("- 결과 -");
                 userLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
@@ -284,7 +295,7 @@ public class student_button1 extends JFrame{
 
 
     }
-//교실 정보를 찾는 함수
+    //교실 정보를 찾는 함수
     private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         if (eat) {
             //교실에서 식사를 원할 경우 아래와 같은 문자를 화면에 보이게 한다.
@@ -295,7 +306,7 @@ public class student_button1 extends JFrame{
         String query = buildQuery(content, project,eat, computer, 0);// 쿼리를 생성하는 함수를 실행하고
         executeQuery(seats, query, 0);//해당 쿼리를 실행시키는 함수를 호출한다. 여기서 0은 교실외가 아니라 교실을 선택했음을 알려주기 위한 숫자.
     }
-//교실 외 정보를 찾는 함수
+    //교실 외 정보를 찾는 함수
     private void searchClassroom_ExternalInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         String warnMessage="";
         if (computer) {
@@ -317,7 +328,7 @@ public class student_button1 extends JFrame{
     }
 
 
-//쿼리를 생성하는 코드
+    //쿼리를 생성하는 코드
     private String buildQuery(boolean content, boolean project, boolean eat, boolean computer, int type) {
 
         String query = "SELECT * FROM ";
@@ -356,7 +367,7 @@ public class student_button1 extends JFrame{
 
         return query;
     }
-//쿼리를 input으로 받아서 해당 쿼리를 실행하는 메소드 이후에 해당하는 쿼리를 실행한 결과를 받아 infoArea에 붙이기
+    //쿼리를 input으로 받아서 해당 쿼리를 실행하는 메소드 이후에 해당하는 쿼리를 실행한 결과를 받아 infoArea에 붙이기
     private void executeQuery(String seats, String query, int type) {
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         final String user = "DB2024Team05";
@@ -366,7 +377,7 @@ public class student_button1 extends JFrame{
         try (Connection conn = DriverManager.getConnection(url, user, password);
              Statement stmt = conn.createStatement();
 
-             ) {
+        ) {
             ResultSet rs = stmt.executeQuery(query);//연결 맺고 실행한 결과를 받아오기
 
             boolean found = false;
@@ -382,7 +393,7 @@ public class student_button1 extends JFrame{
             infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());//DB 연결이 실패한 경우
         }
     }
-//원하는 시간표에 맞는지 해당 쿼리 결가를 확인하는 코드
+    //원하는 시간표에 맞는지 해당 쿼리 결가를 확인하는 코드
     private boolean processResultSet(String seats, ResultSet rs) throws SQLException {
         String key;
         Boolean value;
@@ -403,7 +414,7 @@ public class student_button1 extends JFrame{
     }
 
 
-  // 좌석 수를 사용자에게 범위로 받았기에 이를 테이블의 값과 비교하기 위한 코드
+    // 좌석 수를 사용자에게 범위로 받았기에 이를 테이블의 값과 비교하기 위한 코드
     public static boolean isNumberInRange(String range, int number) {
         String[] parts = range.split("-");
 

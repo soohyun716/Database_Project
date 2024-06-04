@@ -1,3 +1,4 @@
+
 package student;
 
 import java.awt.*;
@@ -28,11 +29,15 @@ public class student_button3 extends JFrame{
 
 
     public student_button3() {
+
+        // main frame 설정
         setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
         setLocation(50, 50);
+
+        // main Panel 생성 및 설정
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(255, 255, 255));
@@ -54,6 +59,7 @@ public class student_button3 extends JFrame{
         logo.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo);
 
+        // - 교수님 찾기 - 로고 label 생성 및 설정
         JLabel userLabel = new JLabel("- \uAD50\uC218\uB2D8 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
         userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
@@ -72,6 +78,7 @@ public class student_button3 extends JFrame{
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         mainPanel.add(inputPanel);
 
+        // '교수님 이름을 입력하세요' label 생성 및 설정
         JLabel nameLabel = new JLabel("교수님 이름을 입력하세요");
         nameLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,6 +86,7 @@ public class student_button3 extends JFrame{
         nameLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         nameField = new JTextField(10);
 
+        // 검색 버튼 생성
         JButton searchButton = new JButton("Search");
         searchButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
@@ -128,17 +136,19 @@ public class student_button3 extends JFrame{
 
 
 
-        //home button
+        //home button 붙이는 Panel 생성 및 설정
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
+        //home button 생성 및 설정
         JButton homeButton = new JButton("HOME");
         homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+        // 디자인을 위한 empty Panel
         JPanel westPanel = new JPanel();
         westPanel.setPreferredSize(new Dimension(50,100));
         westPanel.setBackground(new Color(255, 255, 255));
@@ -148,7 +158,6 @@ public class student_button3 extends JFrame{
         eastPanel.setPreferredSize(new Dimension(50,100));
         eastPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(eastPanel, BorderLayout.EAST);
-
 
 
         // Add ActionListener to homeButton
@@ -288,7 +297,7 @@ public class student_button3 extends JFrame{
         // 현재 요일과 교시 강조 표시
         highlightCurrentDayAndPeriod();
     }
-//날짜 인덱스 만드는 함수
+    //날짜 인덱스 만드는 함수
     private int getDayIndex(String time) {
         switch (time.charAt(0)) {
             case '월':

@@ -20,16 +20,20 @@ import javax.swing.border.EmptyBorder;
 import mainFrame.mainGUI;
 
 
-public class choiceGUI extends JFrame {
+public class student_choiceGUI extends JFrame {
 
     private JPanel contentPane;
 
-    public choiceGUI() {
+    public student_choiceGUI() {
+
+        // main frame 설정
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
         setLocation(50, 50);
         setTitle("GONG-GANG");
+
+        // main Panel 생성 및 설정
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(255, 255, 255));
@@ -64,24 +68,26 @@ public class choiceGUI extends JFrame {
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
         // 학생 버튼 이미지
-        ImageIcon studentImage_temp = new ImageIcon(choiceGUI.class.getResource("/images/studentImage.png"));
+        ImageIcon studentImage_temp = new ImageIcon(student_choiceGUI.class.getResource("/images/studentImage.png"));
         Image stud_img = studentImage_temp.getImage();
         Image stud_Changing = stud_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon studentImage = new ImageIcon(stud_Changing);
 
-        // 학생임을 나타내는 레이블 생성
-        JLabel studentLabel = new JLabel("Student", studentImage, SwingConstants.CENTER);
-        studentLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-        studentLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-        studentLabel.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        studentLabel.setBackground(new Color(255, 255, 255));
-        buttonPanel.add(studentLabel);
+        // 학생 버튼 생성
+        JButton studentButton = new JButton("Student", studentImage);
+        studentButton.setBackground(new Color(255, 255, 255));
+        studentButton.setFont(new Font("Arial Black", Font.PLAIN, 20));
+        studentButton.setVerticalAlignment(SwingConstants.CENTER);
+        studentButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        buttonPanel.add(studentButton);
 
+        // 버튼 3개 붙이는 Panel 새성 및 설정
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         buttonPanel.add(panel);
         panel.setLayout(new GridLayout(3, 0, 20, 20));
 
+        // Button 1 생성 - 원하는 공간 찾기
         JButton button1 = new JButton("원하는 공간 찾기");
         button1.setBackground(new Color(255, 255, 255));
         button1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
@@ -96,6 +102,7 @@ public class choiceGUI extends JFrame {
             }
         });
 
+        // Button 2 생성 - 수업 강의실 찾기
         JButton button2 = new JButton("\uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30");
         button2.setBackground(new Color(255, 255, 255));
         button2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
@@ -110,7 +117,7 @@ public class choiceGUI extends JFrame {
             }
         });
 
-
+        // Button 3 생성 - 교수님 찾기
         JButton button3 = new JButton("교수님 찾기");
         button3.setBackground(new Color(255, 255, 255));
         button3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
@@ -126,11 +133,13 @@ public class choiceGUI extends JFrame {
             }
         });
 
-
+        // home button 붙이는 Panel 생성
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
+
+        // home button 생성
         JButton homeButton = new JButton("HOME");
         homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));

@@ -1,3 +1,4 @@
+
 package student;
 
 import java.awt.BorderLayout;
@@ -41,11 +42,15 @@ public class student_button2 extends JFrame{
     private JTextField textField;
 
     public student_button2() {
+
+        // main frame 설정
         setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
         setLocation(50, 50);
+
+        // main JPanel 생성
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(255, 255, 255));
@@ -66,26 +71,26 @@ public class student_button2 extends JFrame{
         logo.setHorizontalAlignment(SwingConstants.CENTER);
         logo.setFont(new Font("Arial Black", Font.BOLD, 40));
         logoPanel.add(logo);
-
+        // - 수업 강의실 찾기 - 로고 label 생성
         JLabel userLabel = new JLabel("- \uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
         userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
 
-
-        //inputPanel & resultPanel 포함하는 mainPanel
+        // inputPanel & resultPanel 포함하는 mainPanel
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
         mainPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-        //입력 받는 inputPanel
+        // 입력 받는 inputPanel
         JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(255,255,255));
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         mainPanel.add(inputPanel);
 
+        // 학수번호를 입력하세요' Label 생성
         JLabel inputLabel = new JLabel("\uD559\uC218\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694 (ex 14349-1)");
         inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         inputLabel.setPreferredSize(new Dimension(1050, 80));
@@ -94,14 +99,17 @@ public class student_button2 extends JFrame{
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         inputPanel.add(inputLabel);
 
+        // 결과 보여주는 TextField 생성
         lectureNumberField = new JTextField(17);
         inputPanel.add(lectureNumberField);
 
+        // 결과 출력을 위한 searchButton 생성
         searchButton = new JButton("Search");
         searchButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         inputPanel.add(searchButton);
 
+        // 결과 보여주는 Panel 생성
         JPanel resultPanel = new JPanel();
         resultPanel.setBackground(new Color(255, 255, 255));
         mainPanel.add(resultPanel);
