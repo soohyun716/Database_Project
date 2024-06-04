@@ -194,7 +194,7 @@ public class professor_button3 extends JFrame {
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "4542");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "DB2024Team05", "DB2024Team05");
             System.out.println("Database connected successfully.");
         } catch (Exception e) {
             e.printStackTrace();

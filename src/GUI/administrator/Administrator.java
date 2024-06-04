@@ -63,8 +63,8 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     static final String DB_URL = "jdbc:mysql://localhost/DB2024Team05";
     // Database credentials
     // MySQL 계정과 암호 입력
-    static final String USER = "root";
-    static final String PASS = "kms1";
+    static final String USER = "DB2024Team05";
+    static final String PASS = "DB2024Team05";
 
     private String tableName;
 

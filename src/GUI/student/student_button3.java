@@ -153,8 +153,8 @@ public class student_button3 extends JFrame{
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         //Database credentials
         // MySQL 계정과 암호 입력
-        final String user = "root";
-        final String password = "kms1";
+        final String user = "DB2024Team05";
+        final String password = "DB2024Team05";
 
         String query = "SELECT Email, Lab_Location, Phone FROM DB2024_Professor WHERE Name = ?";
         try (Connection conn = DriverManager.getConnection(url, user, password);

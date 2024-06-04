@@ -154,8 +154,8 @@ public class student_button2 extends JFrame{
 
     private void showRoomNumber(String lectureNumber) {
         String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
-        String dbUser = "root";
-        String dbPass = "kms1";
+        String dbUser = "DB2024Team05";
+        String dbPass = "DB2024Team05";
 
         // Assuming lectureNumber is entered as '14349-1'
         String[] parts = lectureNumber.split("-");

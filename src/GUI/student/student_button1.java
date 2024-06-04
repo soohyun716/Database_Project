@@ -302,8 +302,8 @@ public class student_button1 extends JFrame{
         //Database credentials
 
         // MySQL 계정과 암호 입력
-        final String user = "root";
-        final String password = "kms1";
+        final String user = "DB2024Team05";
+        final String password = "DB2024Team05";
         String message = "검색된 교실의 번호: \n";
 
 

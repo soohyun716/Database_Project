@@ -132,7 +132,7 @@ public class professor_button2 extends JFrame {
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "DB2024Team05", "DB2024Team05"); // 데이터베이스
             // 연결
             System.out.println("Database connected successfully."); // 연결 성공 메시지 출력
         } catch (Exception e) {

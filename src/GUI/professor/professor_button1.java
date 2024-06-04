@@ -296,8 +296,8 @@ public class professor_button1 extends JFrame{
     private void searchClassroomInfo() {
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team05";
-        final String USER = "root";
-        final String PASS = "kms1";
+        final String USER = "DB2024Team05";
+        final String PASS = "DB2024Team05";
         String message = "검색된 교실의 번호:\n";
 
         StringBuilder query = new StringBuilder("SELECT * FROM ClassroomView WHERE 1=1");
