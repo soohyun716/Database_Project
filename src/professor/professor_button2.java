@@ -1,105 +1,119 @@
 package professor;
-
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.sql.*;
-import java.util.Calendar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import mainFrame.mainGUI;
+
+import java.awt.*; // AWT 패키지 가져오기
+import java.awt.event.*; // 이벤트 관련 패키지 가져오기
+import javax.swing.*; // 스윙 패키지 가져오기
+import javax.swing.border.EmptyBorder; // 빈 테두리 관련 패키지 가져오기
+import javax.swing.table.DefaultTableCellRenderer; // 테이블 셀 렌더러 관련 패키지 가져오기
+import java.sql.*; // SQL 패키지 가져오기
+import java.util.Calendar; // 캘린더 클래스 가져오기
+
 
 public class professor_button2 extends JFrame {
 
-    private JPanel contentPane;
-    private JTextField searchField;
-    private JTable lectureTable;
-    private JTextArea professorInfoArea;
-    private Connection connection;
-
+    private JPanel contentPane; // 메인 콘텐츠 패널
+    private JTextField searchField; // 검색 필드
+    private JTable lectureTable; // 강의 테이블
+    private JTextArea professorInfoArea; // 교수 정보 영역
+    private Connection connection; // 데이터베이스 연결 객체
 
     /**
-     * Create the frame.
+     * 애플리케이션 실행 메서드
      */
-    public professor_button2() {
-        // Establish database connection
-        connectToDatabase();
-
-        setBackground(new Color(255, 255, 255));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1100, 600);
-        setLocation(50, 50);
-        contentPane = new JPanel();
-        contentPane.setForeground(new Color(255, 255, 255));
-        contentPane.setBackground(new Color(255, 255, 255));
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new BorderLayout(10, 10));
-        setContentPane(contentPane);
-
-        // Header Panel containing logo and search panel
-        JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(255, 255, 255));
-        headerPanel.setLayout(new BorderLayout());
-
-        // Logo Panel
-        JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(new Color(255, 255, 255));
-        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
-        logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-
-        JLabel logo1 = new JLabel("공간이 필요하다면?");
-        logo1.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        logo1.setHorizontalAlignment(SwingConstants.CENTER);
-        logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
-
-        JLabel logo2 = new JLabel("Gong-Gang");
-        logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-        logoPanel.add(logo2);
-
-        headerPanel.add(logoPanel, BorderLayout.NORTH);
-
-        // Search Panel
-        JPanel searchPanel = new JPanel();
-        searchPanel.setBackground(new Color(255, 255, 255));
-        searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-
-        JLabel searchLabel = new JLabel("교수님 이름:");
-        searchLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        searchPanel.add(searchLabel);
-
-        searchField = new JTextField();
-        searchField.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        searchField.setColumns(20);
-        searchPanel.add(searchField);
-
-        JButton searchButton = new JButton("검색");
-        searchButton.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                searchProfessor();
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() { // 이벤트 큐에서 실행
+            public void run() {
+                try {
+                    professor_button2 frame = new professor_button2(); // 프레임 객체 생성
+                    frame.setVisible(true); // 프레임 보이기
+                } catch (Exception e) {
+                    e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
+                }
             }
         });
-        searchPanel.add(searchButton);
+    }
 
-        headerPanel.add(searchPanel, BorderLayout.SOUTH);
+    /**
+     * 프레임 생성자
+     */
+    public professor_button2() {
+        // 데이터베이스 연결 설정
+        connectToDatabase();
 
-        contentPane.add(headerPanel, BorderLayout.NORTH);
+        setBackground(new Color(255, 255, 255)); // 배경색 설정
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 버튼 설정
+        setBounds(100, 100, 1100, 800); // 프레임 크기 설정
+        setLocation(50, 50); // 프레임 위치 설정
+        contentPane = new JPanel(); // 메인 콘텐츠 패널 생성
+        contentPane.setForeground(new Color(255, 255, 255)); // 전경색 설정
+        contentPane.setBackground(new Color(255, 255, 255)); // 배경색 설정
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5)); // 테두리 설정
+        contentPane.setLayout(new BorderLayout(10, 10)); // 레이아웃 설정
+        setContentPane(contentPane); // 프레임에 콘텐츠 패널 추가
+
+        // 헤더 패널 생성
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(255, 255, 255)); // 배경색 설정
+        headerPanel.setLayout(new BorderLayout()); // 레이아웃 설정
+
+        // 로고 패널 생성
+        JPanel logoPanel = new JPanel();
+        logoPanel.setBackground(new Color(255, 255, 255)); // 배경색 설정
+        logoPanel.setLayout(new GridLayout(2, 0, 0, 0)); // 그리드 레이아웃 설정
+        logoPanel.setPreferredSize(new Dimension(100, 100)); // 선호 크기 설정
+
+        JLabel logo1 = new JLabel("공간이 필요하다면?"); // 로고 텍스트1
+        logo1.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
+        logo1.setHorizontalAlignment(SwingConstants.CENTER); // 수평 정렬 설정
+        logo1.setVerticalAlignment(SwingConstants.BOTTOM); // 수직 정렬 설정
+        logoPanel.add(logo1); // 로고 패널에 추가
+
+        JLabel logo2 = new JLabel("Gong-Gang"); // 로고 텍스트2
+        logo2.setHorizontalAlignment(SwingConstants.CENTER); // 수평 정렬 설정
+        logo2.setFont(new Font("Arial Black", Font.BOLD, 40)); // 폰트 설정
+        logoPanel.add(logo2); // 로고 패널에 추가
+
+        headerPanel.add(logoPanel, BorderLayout.NORTH); // 헤더 패널에 로고 패널 추가
+
+        // 검색 패널 생성
+        JPanel searchPanel = new JPanel();
+        searchPanel.setBackground(new Color(255, 255, 255)); // 배경색 설정
+        searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // 플로우 레이아웃 설정
+
+        JLabel searchLabel = new JLabel("교수님 이름:"); // 검색 라벨
+        searchLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
+        searchPanel.add(searchLabel); // 검색 패널에 추가
+
+        searchField = new JTextField(); // 검색 필드 생성
+        searchField.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
+        searchField.setColumns(20); // 칼럼 수 설정
+        searchPanel.add(searchField); // 검색 패널에 추가
+
+        JButton searchButton = new JButton("검색"); // 검색 버튼 생성
+        searchButton.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
+        searchButton.addActionListener(new ActionListener() { // 검색 버튼 클릭 이벤트 리스너 추가
+            public void actionPerformed(ActionEvent e) {
+                searchProfessor(); // 교수 검색 메서드 호출
+            }
+        });
+        searchPanel.add(searchButton); // 검색 패널에 검색 버튼 추가
+
+        headerPanel.add(searchPanel, BorderLayout.SOUTH); // 헤더 패널에 검색 패널 추가
+
+        contentPane.add(headerPanel, BorderLayout.NORTH); // 메인 패널에 헤더 패널 추가
 
 
-        //홈 버튼 생성
+        //홈 버튼을 위한 홈 패널 생성
         JPanel homeButtonPanel = new JPanel();
-        homeButtonPanel.setBackground(new Color(255, 255, 255));
-        contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
+        homeButtonPanel.setBackground(new Color(255, 255, 255)); // 배경 색 설정
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); //홈 패널 플로우 레이아웃 설정
+        contentPane.add(homeButtonPanel, BorderLayout.SOUTH); //메인 패널에 홈 패널 추가
 
-        JButton homeButton = new JButton("HOME");
+        JButton homeButton = new JButton("HOME"); //홈 버튼 생성
         homeButton.setFont(new Font("Arial ExtraBold", Font.PLAIN, 12));
-        homeButton.setBackground(new Color(255, 255, 255));
-        homeButtonPanel.add(homeButton);
-        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        homeButton.setBackground(new Color(255, 255, 255)); // 배경 색 설정
+        homeButtonPanel.add(homeButton); // 홈 패널에 홈 버튼 추가
 
         // Add ActionListener to homeButton
         homeButton.addActionListener(new ActionListener() {
@@ -109,7 +123,6 @@ public class professor_button2 extends JFrame {
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
-
 
 
         // 결과 영역 (강의 테이블)
@@ -122,13 +135,14 @@ public class professor_button2 extends JFrame {
         lectureTable.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
         lectureTable.setRowHeight(50); // 행 높이 설정
         JScrollPane scrollPane = new JScrollPane(lectureTable); // 스크롤 패널 생성
-        contentPane.add(scrollPane, BorderLayout.CENTER); // 메인 패널에 추가
+        contentPane.add(scrollPane, BorderLayout.CENTER); // 메인 패널에 스크롤 패널 추가
     }
 
+    // 데이터베이스 연결 설정 메서드
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "DB2024Team05", "DB2024Team05"); // 데이터베이스
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스
             // 연결
             System.out.println("Database connected successfully."); // 연결 성공 메시지 출력
         } catch (Exception e) {
@@ -136,6 +150,7 @@ public class professor_button2 extends JFrame {
         }
     }
 
+    // 교수 검색 메서드
     private void searchProfessor() {
         String professorName = searchField.getText().trim(); // 검색어 가져오기
         if (professorName.isEmpty()) {
@@ -160,6 +175,7 @@ public class professor_button2 extends JFrame {
         }
     }
 
+    // 교수 정보 가져오기 메서드
     private ProfessorInfo getProfessorInfo(String professorName) throws SQLException {
         ProfessorInfo professorInfo = null;
 
@@ -170,13 +186,14 @@ public class professor_button2 extends JFrame {
         ResultSet professorRs = professorStmt.executeQuery(); // 쿼리 실행
 
         if (professorRs.next()) {
-            professorInfo = new ProfessorInfo();
+            professorInfo = new ProfessorInfo(); // 교수 정보 객체 생성
             professorInfo.setName(professorRs.getString("Name")); // 이름 설정
         }
 
         return professorInfo; // 교수 정보 반환
     }
 
+    // 강의 테이블 업데이트 메서드
     private void updateLectureTable(String professorName) {
         // 테이블 초기화
         for (int i = 0; i < 9; i++) {
@@ -186,40 +203,44 @@ public class professor_button2 extends JFrame {
         }
 
         try {
-            String lectureQuery = "SELECT Lecture_Name, Lecture_Time1, Lecture_Time2 FROM DB2024_Lecture WHERE Professor_Name = ?";
-            PreparedStatement lectureStmt = connection.prepareStatement(lectureQuery);
-            lectureStmt.setString(1, professorName);
-            ResultSet lectureRs = lectureStmt.executeQuery();
+            String lectureQuery = "SELECT Lecture_Name, Lecture_Time1, Lecture_Time2 FROM DB2024_Lecture WHERE Professor_Name = ?"; // 강의
+            // 정보를
+            // 가져오는
+            // 쿼리
+            PreparedStatement lectureStmt = connection.prepareStatement(lectureQuery); // 쿼리 준비
+            lectureStmt.setString(1, professorName); // 쿼리에 교수 이름 설정
+            ResultSet lectureRs = lectureStmt.executeQuery(); // 쿼리 실행 및 결과 저장
 
-            while (lectureRs.next()) {
-                String lectureName = lectureRs.getString("Lecture_Name");
-                String lectureTime1 = lectureRs.getString("Lecture_Time1");
-                String lectureTime2 = lectureRs.getString("Lecture_Time2");
+            while (lectureRs.next()) { // 결과 집합 순회
+                String lectureName = lectureRs.getString("Lecture_Name"); // 강의 이름 가져오기
+                String lectureTime1 = lectureRs.getString("Lecture_Time1"); // 강의 시간1 가져오기
+                String lectureTime2 = lectureRs.getString("Lecture_Time2"); // 강의 시간2 가져오기
 
-                int dayIndex = getDayIndex(lectureTime1);
-                if (dayIndex != -1) {
-                    int period = Integer.parseInt(lectureTime1.substring(1)) - 1;
-                    lectureTable.setValueAt(lectureName, period, dayIndex);
+                int dayIndex = getDayIndex(lectureTime1); // 강의 시간1의 요일 인덱스 가져오기
+                if (dayIndex != -1) { // 유효한 요일 인덱스일 경우
+                    int period = Integer.parseInt(lectureTime1.substring(1)) - 1; // 강의 시간1의 교시 계산
+                    lectureTable.setValueAt(lectureName, period, dayIndex); // 테이블 셀에 강의 이름 설정
                 }
 
-                if (lectureTime2 != null) {
-                    dayIndex = getDayIndex(lectureTime2);
-                    if (dayIndex != -1) {
-                        int period = Integer.parseInt(lectureTime2.substring(1)) - 1;
-                        lectureTable.setValueAt(lectureName, period, dayIndex);
+                if (lectureTime2 != null) { // 강의 시간2가 null이 아닌 경우
+                    dayIndex = getDayIndex(lectureTime2); // 강의 시간2의 요일 인덱스 가져오기
+                    if (dayIndex != -1) { // 유효한 요일 인덱스일 경우
+                        int period = Integer.parseInt(lectureTime2.substring(1)) - 1; // 강의 시간2의 교시 계산
+                        lectureTable.setValueAt(lectureName, period, dayIndex); // 테이블 셀에 강의 이름 설정
                     }
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // SQL 예외 발생 시 스택 트레이스 출력
         }
 
         // 현재 요일과 교시 강조 표시
-        highlightCurrentDayAndPeriod();
+        highlightCurrentDayAndPeriod(); // 현재 요일과 교시 강조 표시 메서드 호출
     }
 
+    // 요일 인덱스 가져오기 메서드
     private int getDayIndex(String time) {
-        switch (time.charAt(0)) {
+        switch (time.charAt(0)) { // 시간 문자열의 첫 글자로 요일 인덱스 반환
             case '월':
                 return 1;
             case '화':
@@ -231,10 +252,11 @@ public class professor_button2 extends JFrame {
             case '금':
                 return 5;
             default:
-                return -1;
+                return -1; // 유효하지 않은 경우 -1 반환
         }
     }
 
+    // 현재 요일과 교시 강조 표시 메서드
     private void highlightCurrentDayAndPeriod() {
         Calendar calendar = Calendar.getInstance(); // 현재 날짜와 시간을 가져오는 캘린더 인스턴스 생성
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); // 현재 요일 가져오기
@@ -286,6 +308,7 @@ public class professor_button2 extends JFrame {
         lectureTable.repaint(); // 테이블 다시 그리기
     }
 
+    // 사용자 정의 렌더러 클래스
     class CustomRenderer extends DefaultTableCellRenderer {
         private Color backgroundColor; // 배경색
         private int highlightedRow = -1; // 강조할 행
@@ -322,6 +345,7 @@ public class professor_button2 extends JFrame {
         }
     }
 
+    // 교수 정보 클래스
     class ProfessorInfo {
         private String name; // 교수 이름
 
@@ -334,6 +358,7 @@ public class professor_button2 extends JFrame {
         }
     }
 
+    // 강의 클래스
     class Lecture {
         private String lectureName; // 강의 이름
         private String lectureTime1; // 강의 시간1
