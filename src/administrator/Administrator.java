@@ -148,9 +148,24 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
             }
         });
 
+        // 뒤로가기 버튼 추가
+        // 다시 첫 화면으로 돌아감
+        JButton backButton = new JButton("BACK");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand() == "BACK"){
+                    dispose(); // Close current frame
+                    mainGUI mainFrame = new mainGUI();
+                    mainFrame.setVisible(true); // Open the mainGUI frame
+                }
+            }
+        });
+
         Panel p3 = new Panel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
         p3.add(submitButton);
+        p3.add(backButton);
 
         //Grid Center에 두기 위해 새로은 JPanel 생성
         JPanel centerPanel = new JPanel();
@@ -209,7 +224,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         logoPanel.add(logo2);
 
         //관리자 이미지 가져오기
-        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("./images/administratorImage.png"));
+        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
         Image admin_img = adminImage_temp.getImage();
         Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon adminImage = new ImageIcon(admin_Changing);
@@ -271,7 +286,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         // 롤백 버튼
         JButton jb_rollback = new JButton("Rollback");
         jb_rollback.setBackground(new Color(255, 255, 255));
-        jb_rollback.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        jb_rollback.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         jb_rollback.addActionListener(this);
 
         panel.add(jb_insert);
@@ -287,7 +302,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME"); //Home 화면으로 가는 버튼 
-        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
