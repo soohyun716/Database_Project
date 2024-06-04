@@ -26,7 +26,7 @@ import java.util.Vector;
  */
 
 public class Administrator { // 메인 실행 함수
-    public void Administrator(){
+    public Administrator(){
         new 관리자();
     }
 }

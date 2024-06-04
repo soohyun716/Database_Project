@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 
 import administrator.Administrator;
 import professor.professor_choiceGUI;
-import student.choiceGUI;
+import student.student_choiceGUI;
 
 public class mainGUI extends JFrame {
 
@@ -121,7 +121,7 @@ public class mainGUI extends JFrame {
         studentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                choiceGUI choiceFrame = new choiceGUI(); // Assuming choiceGUI is another frame class
+                student_choiceGUI choiceFrame = new student_choiceGUI(); // Assuming choiceGUI is another frame class
                 choiceFrame.setVisible(true); // Open the choiceGUI frame
             }
         });
@@ -143,7 +143,6 @@ public class mainGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
                 Administrator adminFrame = new Administrator(); // Assuming choiceGUI is another frame class
-
             }
         });
     }
