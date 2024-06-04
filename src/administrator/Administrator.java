@@ -10,23 +10,23 @@ import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Vector;
-import mainFrame.mainGUI;
 
 
 /*
- * 데이터베이스 수정 및 관리 위한 코드
+ * 데이터베이스 수정 및 관리 위한 관리자 코드
  *
  * [투플 값 관리] 추가/수정/삭제 선택
  * -> 5가지 테이블 중 관리할 테이블 선택
  * 추가 -> 데이터 입력받기
- * 수정 -> 변경할 데이터 선택
+ * 수정 -> 수정할 데이터 선택
  * 삭제 -> 삭제할 데이터 선택
  *
  */
 
 public class Administrator { // 메인 실행 함수
-    public Administrator(){
+    public void Administrator(){
         new 관리자();
     }
 }
@@ -41,13 +41,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
     Container ct = getContentPane(); // 컨테이너 객체 생성
 
-    JButton menu1_back = new JButton("뒤로가기");
+    JButton menu1_back = new JButton("뒤로가기"); 
     JButton input_back = new JButton("뒤로가기");
-
-    boolean AutoCommit_flag = true;
-    JTable table;
-
-    final int X = 200;
+    
+    boolean AutoCommit_flag = true; //AutoCommit의 기본 세팅 값이 true  
+	JTable table;
+	
+    final int X = 200;	//배치를 위해 X와 Y값을 지정 
     final int Y = 50;     // Next = Y * n
     final int Y_gap = 40;
 
@@ -59,9 +59,9 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     JScrollPane scrollPane = null;
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/DB2024Team05";
+    static final String DB_URL = "jdbc:mysql:/DB2024Team05";
     // Database credentials
-    // MySQL 계정과 암호 입력
+    // MySQL 계정과 암호 
     static final String USER = "DB2024Team05";
     static final String PASS = "DB2024Team05";
 
@@ -72,25 +72,25 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
     TextField idField, passField;
     Button submitButton;
+    
+    public Connection conn; 
+	public Statement stmt;
 
-    public Connection conn;
-    public Statement stmt;
-
-    public void DatabaseManager() {
-        try {
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            stmt = conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public 관리자() {
+	public void DatabaseManager() { //conn와 stmt를 매번 호출하지 않아도 실행되도록 함 
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);  // 데이터베이스 연결을 설정
+			stmt = conn.createStatement(); // Statement 객체를 생성하여 SQL 문을 실행할 준비를 함
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+    public 관리자() { //관리자 실행코드 
         password();
     }
 
-    public void password() {
-        setTitle("ID Password Input");
+    public void password() { // 보안유지를 위해 MySQL 계정과 암호 입력하도록 함 
+        setTitle("ID Password Input"); 
         setSize(1100, 600);
         setLocation(50, 50);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,7 +128,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         Label passLabel = new Label(String.format("%20s:", "PASSWORD"));
         p2.add(passLabel);
         TextField passField = new TextField(20);
-        passField.setEchoChar('*'); /* 비밀번호 입력 시 '*'로 표시*/
+        passField.setEchoChar('*'); //비밀번호 입력 시 '*'로 표시
         p2.add(passField);
 
         //Enter 버튼
@@ -140,25 +140,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
                     String id = idField.getText();
                     String password = passField.getText();
 
-                    System.out.println("ID: " + id);
+                    System.out.println("ID: " + id); 
                     System.out.println("Password: " + password);
 
-                    if (id.equals(USER) && password.equals(PASS)) {
-                        DatabaseManager();	//한번만 실행한
-                        menu1(); // pass
+                    if (id.equals(USER) && password.equals(PASS)) { // MySQL 계정과 암호가 입력한 내용과 같으면 메뉴를 호출 
+                    	DatabaseManager();	//한번만 실행한다 
+                        menu1();  
                     }
-                }
-            }
-        });
-
-        JButton backButton = new JButton("BACK");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand() == "BACK"){
-                    dispose(); // Close current frame
-                    mainGUI mainFrame = new mainGUI();
-                    mainFrame.setVisible(true); // Open the mainGUI frame
                 }
             }
         });
@@ -166,7 +154,6 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         Panel p3 = new Panel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
         p3.add(submitButton);
-        p3.add(backButton);
 
         //Grid Center에 두기 위해 새로은 JPanel 생성
         JPanel centerPanel = new JPanel();
@@ -181,15 +168,24 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         centerPanel.add(p1);
         centerPanel.add(p2);
         centerPanel.add(p3);
-
+        
+        JPanel homeButtonPanel = new JPanel();
+        homeButtonPanel.setBackground(new Color(255, 255, 255));
+        ct.add(homeButtonPanel, BorderLayout.SOUTH);
+        
         ct.add(centerPanel, BorderLayout.CENTER);
-
+        JButton homeButton = new JButton("HOME"); //Home 화면으로 돌아가는 버튼 
+        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setBackground(new Color(255, 255, 255));
+        homeButtonPanel.add(homeButton);
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        homeButton.addActionListener(this);
+        
 
     }
 
-    public void menu1() {
-        ct.removeAll();
-        //revalidate();
+    public void menu1() { //투플의 삽입, 수정, 삭제를 위해 선택하는 메뉴 
+        ct.removeAll(); // 기존 컴포넌트 초기화
         repaint();
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
         setVisible(true);
@@ -214,7 +210,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         logoPanel.add(logo2);
 
         //관리자 이미지 가져오기
-        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
+        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("./images/administratorImage.png"));
         Image admin_img = adminImage_temp.getImage();
         Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon adminImage = new ImageIcon(admin_Changing);
@@ -237,29 +233,30 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         adminPanel.add(panel);
-        panel.setLayout(new GridLayout(3, 2, 20, 20));
+        panel.setLayout(new GridLayout(3, 0, 20, 20));
 
-
-
-        JCheckBox chkbox = new JCheckBox("AutoCommit");
-        chkbox.addActionListener(this);
-        chkbox.setBackground(new Color(255, 255, 255));
-        chkbox.setSelected(AutoCommit_flag);
-
-
+		
+		JCheckBox chkbox = new JCheckBox("AutoCommit"); // 트랜잭션 시작을 선택할 수 있도록 checkbox 생성 
+		chkbox.addActionListener(this);
+		chkbox.setBackground(new Color(255, 255, 255));
+		chkbox.setSelected(AutoCommit_flag); 
+						
         JButton jb_insert = new JButton("투플추가");
         jb_insert.setBackground(new Color(255, 255, 255));
-        jb_insert.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
+        jb_insert.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        panel.add(jb_insert);
         jb_insert.addActionListener(this);
 
         JButton jb_modify = new JButton("투플수정");
         jb_modify.setBackground(new Color(255, 255, 255));
         jb_modify.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        panel.add(jb_modify);
         jb_modify.addActionListener(this);
 
         JButton jb_delete = new JButton("투플삭제");
         jb_delete.setBackground(new Color(255, 255, 255));
         jb_delete.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        panel.add(jb_delete);
         jb_delete.addActionListener(this);
 
         JButton jb_commit = new JButton("Commit");
@@ -284,31 +281,29 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         ct.add(homeButtonPanel, BorderLayout.SOUTH);
 
-        JButton homeButton = new JButton("HOME");
+        JButton homeButton = new JButton("HOME"); //Home 화면으로 가는 버튼 
         homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         homeButton.addActionListener(this);
-
-
-        chkbox.setBounds(   X + 150, Y * 2, 200, Y_gap);
-
-        jb_insert.setBounds(X + 150, Y * 5, 400, Y_gap);
-        jb_modify.setBounds(X + 150, Y * 6, 400, Y_gap);
-        jb_delete.setBounds(X + 150, Y * 7, 400, Y_gap);
-
-        jb_commit.setBounds(X + 150, Y * 10, 200, Y_gap);
-        jb_rollback.setBounds(X + 150, Y * 11, 200, Y_gap);
-
+        
+        chkbox.setBounds(   X + 150, Y * 2, 200, Y_gap); 
+		
+		jb_insert.setBounds(X + 150, Y * 5, 400, Y_gap);
+		jb_modify.setBounds(X + 150, Y * 6, 400, Y_gap);
+		jb_delete.setBounds(X + 150, Y * 7, 400, Y_gap);
+		
+		jb_commit.setBounds(X + 150, Y * 10, 200, Y_gap);
+		jb_rollback.setBounds(X + 150, Y * 11, 200, Y_gap);
+		
         setTitle("관리자");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임을 닫을 때 프로그램이 종료
         setVisible(true);
     }
 
-    public void addCommonComponents() {
-        ct.removeAll();
-        //revalidate();
+    public void addCommonComponents() { //관리할 테이블을 선택 
+        ct.removeAll(); // 기존 컴포넌트 초기화
         repaint();
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
         JPanel logoPanel = new JPanel();
@@ -338,6 +333,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         p.add(panel,BorderLayout.CENTER);
         panel.setLayout(new GridLayout(6,1,20,20));
 
+        //테이블을 선택할 수 있는 버튼을 생성하고 배치한다 
         JButton jb1 = new JButton("Space_Info");
         jb1.setBackground(new Color(255, 255, 255));
         jb1.setFont(new Font("Arial Black", Font.PLAIN, 20));
@@ -382,46 +378,46 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        switch(command) {
+        switch(command) { 
             case "투플추가":
             case "투플수정":
             case "투플삭제":
-                command1 = command;
-                addCommonComponents();
+                command1 = command; 
+                addCommonComponents(); // 테이블 선택 화면을 호출 
                 break;
-
-            case "AutoCommit":
-                JCheckBox chkbox = (JCheckBox)e.getSource();
-                try {
-                    AutoCommit_flag = chkbox.isSelected();
-                    conn.setAutoCommit(AutoCommit_flag);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-                break;
-
-            case "Commit":
-                try {
-                    conn.commit(); // transaction succeed
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-                break;
-
-            case "Rollback":
-                try {
-                    conn.rollback();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-                break;
+                
+        	case "AutoCommit": //트랜잭션을 시작하는 호출, 기본 값이 true 이기 때문에 체크하지 않고 관리해야 트랜잭션 실행됨 
+    			JCheckBox chkbox = (JCheckBox)e.getSource();
+    			try {				
+    				AutoCommit_flag = chkbox.isSelected(); // 체크박스가 선택되었는지 여부를 AutoCommit_flag에 저장
+    				conn.setAutoCommit(AutoCommit_flag); // 데이터베이스 연결의 자동 커밋 모드를 설정 
+    			} catch (SQLException e1) {
+    				e1.printStackTrace();
+    			}
+    			break;
+    			
+    		case "Commit":
+    			try {
+    				conn.commit(); // 트랜잭션이 성공하면 commit 
+    			} catch (SQLException e1) {
+    				e1.printStackTrace();
+    			}
+    			break;
+    			
+    		case "Rollback":		
+    			try {
+    				conn.rollback(); // 트랜잭션이 실패하면 rollback 
+    			} catch (SQLException e1) {
+    				e1.printStackTrace();
+    			}
+    			break;
 
             case "뒤로가기":
-                if( e.getSource() == menu1_back) {
-                    menu1();
+                if( e.getSource() == menu1_back) { 
+                    menu1(); //menu 화면으로 돌아감 
                 }
                 else if (e.getSource() == input_back) {
-                    addCommonComponents();
+                    addCommonComponents(); // 테이블 선택 화면으로 돌아감 
                 }
                 break;
 
@@ -444,8 +440,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
 
     private void showInputField() {
-        ct.removeAll();
-
+        ct.removeAll();  // 기존 컴포넌트 초기화
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
         run_prog(command1, tableName);
@@ -456,13 +451,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         input_back.addActionListener(this);
         ct.add(input_back);
 
-        결과보기(tableName); // select *
+        결과보기(tableName); // select * 
 
         revalidate();
         repaint();
     }
 
-    public void run_prog(String command1, String tableName) {
+    public void run_prog(String command1, String tableName) { //command1과 테이블을 매개변수로 입력 받음 
         if (command1.equals("투플추가")) {
             // 투플 추가 로직 실행
             insertTuple(tableName);
@@ -475,7 +470,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         }
     }
 
-    private void insertTuple(String tableName) {
+    private void insertTuple(String tableName) { // 투플 삽입 로직 실행
         // 기존 컴포넌트 초기화
         ct.setLayout(null);
         ct.setBackground(Color.white);
@@ -510,9 +505,9 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
         confirmButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
                 try (
-                        Statement stmt = conn.createStatement()) {
+                     Statement stmt = conn.createStatement()) {
 
                     String tupleInfo = inputField.getText();
                     if( tupleInfo.length() != 0) {
@@ -527,21 +522,20 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
                         결과보기(tableName);
                     }
 
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                    if (AutoCommit_flag == false) {// 트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
-                        // rollback here
-                        try {
-                            if (conn != null)
-                                conn.rollback();
-                        } catch (SQLException se2) {
-                            se2.printStackTrace();
-                        }
-                    }
+				} catch (SQLException se) {
+					se.printStackTrace();
+					if (AutoCommit_flag == false) { // 트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
+						try {
+							if (conn != null)
+								conn.rollback();
+						} catch (SQLException se2) {
+							se2.printStackTrace();
+						}
+					}
 
-                }
-            }
-        });
+				}
+			}
+		});
         ct.add(confirmButton);
 
         logoPanel.setBounds(0,0,1100,100);
@@ -555,9 +549,8 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.repaint();
     }
 
-    private void updateTuple(String tableName) {
+    private void updateTuple(String tableName) { // 투플 수정 로직 실행
         // 기존 컴포넌트 초기화
-        // see, https://blog.naver.com/PostView.nhn?blogId=javaking75&logNo=140157948347
         ct.setLayout(null);
         ct.setBackground(Color.white);
         inputWhere.setText(""); // 입력 필드 초기화
@@ -593,13 +586,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
         JButton confirmButton = new JButton("확인");
         confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
+        confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15)); 
         confirmButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
 
                 try (
-                        Statement stmt = conn.createStatement()) {
+                     Statement stmt = conn.createStatement()) {
 
                     String	condition_txt = inputWhere.getText();
                     String	tupleInfo = inputField.getText();
@@ -608,6 +601,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
                         String query = "UPDATE " + tableName + " SET " + tupleInfo + " WHERE " + condition_txt;
                         System.out.println(query); // 디버깅을 위해 출력
 
+                        // 쿼리 실행
                         stmt.executeUpdate(query);
 
                         // 결과를 다시 보여주기 위해 결과보기 메서드 호출
@@ -620,19 +614,19 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
 
                 } catch (SQLException se) {
-                    se.printStackTrace();
-                    if(AutoCommit_flag == false) {//트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
-                        // rollback here
-                        try {
-                            if (conn != null) conn.rollback();
-                        } catch (SQLException se2) {
-                            se2.printStackTrace();
-                        }
-                    }
-
-                }
-            }
-        });
+					se.printStackTrace();
+					if(AutoCommit_flag == false) {//트랜잭션이 시작되었으므로 실패시 rollback 해야 한다. 
+						// rollback here
+						try {
+							if (conn != null) conn.rollback();
+						} catch (SQLException se2) {
+							se2.printStackTrace();
+						}
+					}
+									
+				}
+			}
+		});
 
         ct.add(confirmButton);
 
@@ -651,87 +645,85 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.repaint();
     }
 
-    private void deleteTuple(String tableName) {
-        // 기존 컴포넌트 초기화
-        // ct.removeAll();
-        ct.setLayout(null);
-        ct.setBackground(Color.white);
+	private void deleteTuple(String tableName) { // 투플 삭제 로직 실행
+		// 기존 컴포넌트 초기화
+		// ct.removeAll();
+		ct.setLayout(null);
+		ct.setBackground(Color.white);
 
-        JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(new Color(255, 255, 255));
-        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
-        logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-        ct.add(logoPanel);
+		JPanel logoPanel = new JPanel();
+		logoPanel.setBackground(new Color(255, 255, 255));
+		logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
+		logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
+		ct.add(logoPanel);
 
-        JLabel logo1 = new JLabel("Gong-Gang");
-        logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
-        logo1.setHorizontalAlignment(SwingConstants.CENTER);
-        logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
+		JLabel logo1 = new JLabel("Gong-Gang");
+		logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
+		logo1.setHorizontalAlignment(SwingConstants.CENTER);
+		logo1.setVerticalAlignment(SwingConstants.BOTTOM);
+		logoPanel.add(logo1);
 
-        JLabel logo2 = new JLabel("Delete");
-        logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-        logoPanel.add(logo2);
-        // 결과 텍스트를 선언 및 초기화
-        result.setText("DELETE " + tableName + " WHERE Condition: ");
+		JLabel logo2 = new JLabel("Delete");
+		logo2.setHorizontalAlignment(SwingConstants.CENTER);
+		logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
+		logoPanel.add(logo2);
+		// 결과 텍스트를 선언 및 초기화
+		result.setText("DELETE " + tableName + " WHERE Condition: ");
 
-        // 결과 텍스트와 입력 필드를 컨테이너에 추가
-        ct.add(result);
-        ct.add(inputField);
+		// 결과 텍스트와 입력 필드를 컨테이너에 추가
+		ct.add(result);
+		ct.add(inputField);
 
-        JButton confirmButton = new JButton("확인");
-        confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try (
-                        Statement stmt = conn.createStatement()) {
+		JButton confirmButton = new JButton("확인");
+		confirmButton.setBackground(new Color(255, 255, 255));
+		confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
+		confirmButton.addActionListener(new ActionListener() { //확인 버튼 누르면 실행  
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try (
+						Statement stmt = conn.createStatement()) {
 
-                    String tupleInfo = inputField.getText();
-                    if (tupleInfo.length() != 0) {
-                        inputField.setText(""); // 입력 필드 초기화
-                        String query = "DELETE FROM " + tableName + " WHERE " + tupleInfo;
-                        System.out.println(query); // 디버깅을 위해 출력
+					String tupleInfo = inputField.getText();
+					if (tupleInfo.length() != 0) {
+						inputField.setText(""); // 입력 필드 초기화
+						String query = "DELETE FROM " + tableName + " WHERE " + tupleInfo;
+						System.out.println(query); // 디버깅을 위해 출력
 
-                        // 쿼리 실행
-                        stmt.executeUpdate(query);
+						// 쿼리 실행
+						stmt.executeUpdate(query);
 
-                        // 결과를 다시 보여주기 위해 결과보기 메서드 호출
-                        결과보기(tableName);
-                    }
+						// 결과를 다시 보여주기 위해 결과보기 메서드 호출
+						결과보기(tableName);
+					}
 
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                    if (AutoCommit_flag == false) { //트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
-                        // rollback here
-                        try {
-                            if (conn != null)
-                                conn.rollback();
-                        } catch (SQLException se2) {
-                            se2.printStackTrace();
-                        }
-                    }
+				} catch (SQLException se) {
+					se.printStackTrace();
+					if (AutoCommit_flag == false) { //트랜잭션이 시작되었으므로 실패시 rollback 해야 한다. 
+						try {
+							if (conn != null)
+								conn.rollback();
+						} catch (SQLException se2) {
+							se2.printStackTrace();
+						}
+					}
 
-                }
-            }
-        });
-        ct.add(confirmButton);
+				}
+			}
+		});
+		ct.add(confirmButton);
 
-        logoPanel.setBounds(0, 0, 1100, 100);
-        result.setBounds(XE, YE * 2, 400, YE_gap);
-        inputField.setBounds(XE2, YE * 2, 500, YE_gap);
-        confirmButton.setBounds(XE2, YE * 3, 100, YE_gap);
+		logoPanel.setBounds(0, 0, 1100, 100);
+		result.setBounds(XE, YE * 2, 400, YE_gap);
+		inputField.setBounds(XE2, YE * 2, 500, YE_gap);
+		confirmButton.setBounds(XE2, YE * 3, 100, YE_gap);
 
-        setTitle("튜플삭제");
-        // 컨테이너 변경사항 적용 및 화면 다시 그리기
-        ct.revalidate();
-        ct.repaint();
-    }
+		setTitle("튜플삭제");
+		// 컨테이너 변경사항 적용 및 화면 다시 그리기
+		ct.revalidate();
+		ct.repaint();
+	}
 
-    private String getTableName(String command2) {
-        // 버튼에 따른 테이블 이름을 반환하는 메서드
+    private String getTableName(String command2) { // 버튼에 따른 테이블 이름을 반환하는 메서드
         switch (command2) {
             case "Space_Info":
                 return "DB2024_Space_Info";
@@ -749,21 +741,23 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     }
 
 
-    public void 결과보기(String tableName){
+    public void 결과보기(String tableName){ //선택한 테이블 이름을 매개변수로 받아 해당 테이블을 보여주는 함수 
         String query2 = "SELECT * FROM " + tableName;
         System.out.println(query2); // 디버깅을 위해 출력
-
+        
+        // JTable에 데이터를 넣기 위한 기본 테이블 모델을 생성합니다.
         DefaultTableModel tableModel = new DefaultTableModel();
 
         try (
                 Statement stmt1 = conn.createStatement();
                 ResultSet rs = stmt1.executeQuery(query2)) {
 
-            // Get column names from ResultSet metadata
+        	 // ResultSet의 메타데이터를 가져오기 
             ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
+            int columnCount = metaData.getColumnCount(); // 열의 수를 가져오기 
             Vector<String> columnNames = new Vector<>();
-
+            
+            // 모든 열 이름을 가져와 벡터에 추가
             for (int column = 1; column <= columnCount; column++) {
                 columnNames.add(metaData.getColumnName(column));
             }
@@ -787,7 +781,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         // Create JTable with the table model
         JTable table = new JTable(tableModel);
         this.table = table;
-
+        
         scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         scrollPane.setAutoscrolls(true);
@@ -818,7 +812,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
             }
 
         });
-        table.addMouseListener(this); /* --> mouseClicked */
+		table.addMouseListener(this); /* --> mouseClicked */
 
         ct.add(scrollPane, FlowLayout.CENTER);
 
@@ -827,62 +821,53 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.repaint();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int row = table.getSelectedRow();
-        int col = table.getSelectedColumn();
-        String result="";
-        String sel="";
-		 /*
-		 for (int i = 0; i < table.getColumnCount(); i++) {
-			 result += table.getColumnName(i) + "=" + table.getModel().getValueAt(row, i);
-			 if ( i < (table.getColumnCount()-1)) result += ",";
+	 @Override
+	 public void mouseClicked(MouseEvent e) { //마우스가 가르키는 테이블의 값을 입력값으로 만드는 함수 
+		 int row = table.getSelectedRow(); // 선택된 행의 인덱스를 가져오기 
+		 int col = table.getSelectedColumn(); // 선택된 열의 인덱스를 가져오기 
+		 String result="";
+		 String sel="";
+		
+		 System.out.println(row + "," + col + ":" + result); // 디버깅을 위해 선택된 행과 열, 결과 값을 출력 
+		 
+
+		 // set inputField
+		 // 선택된 셀의 값을 가져와 inputField에 자동 입력 되도록 설정 
+		 sel = table.getColumnName(col) + "=" + table.getModel().getValueAt(row, col); 
+		 switch(command1) { // command1의 값에 따라 다른 동작을 수행합니다.
+			case "투플수정":
+					if(inputField.getText().length() == 0  ) { // 입력 필드가 비어 있으면 sel 값을 설정 
+					 	inputField.setText(sel);
+				 	}
+				 	else {
+					 	inputWhere.setText(sel); // 입력 필드가 비어 있지 않으면 inputWhere 필드에 sel 값을 설정 
+				 	}
+				 	break;
+			case "투플삭제":
+			case "투플추가":
+					inputField.setText(sel);    // "투플삭제"나 "투플추가" 명령어일 경우 입력 필드에 sel 값을 설정 
+					break;
 		 }
-		 */
-        System.out.println(row + "," + col + ":" + result);
+	  }
 
+	 @Override
+	 public void mousePressed(MouseEvent e) {
+	     // 마우스 버튼이 눌렸을 때의 이벤트를 처리
+	 }
 
-        // set inputField
-        sel = table.getColumnName(col) + "=" + table.getModel().getValueAt(row, col); //칼럼 이름 = 값을 inputField에 자동 입력 .
-        switch(command1) {
-            case "투플수정":
-                if(inputField.getText().length() == 0  ) {
-                    inputField.setText(sel);
-                }
-                else {
-                    inputWhere.setText(sel);
-                }
-                break;
-            case "투플삭제":
-            case "투플추가":
-                inputField.setText(sel);
-                break;
-        }
-    }
+	 @Override
+	 public void mouseReleased(MouseEvent e) {
+	     // 마우스 버튼이 떼어졌을 때의 이벤트를 처리
+	 }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+	 @Override
+	 public void mouseEntered(MouseEvent e) {
+	     // 마우스가 컴포넌트에 들어갔을 때의 이벤트를 처리 
+	 }
 
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-
+	 @Override
+	 public void mouseExited(MouseEvent e) {
+	     // 마우스가 컴포넌트를 벗어났을 때의 이벤트를 처리 
+	 }
+	 
 } // end main
