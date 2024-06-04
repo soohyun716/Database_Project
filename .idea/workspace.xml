@@ -5,27 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/administrator/admin_password.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/administrator/administrator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/images/administratorImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/images/professorImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/images/studentImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/mainFrame/mainGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/professor/professor_button1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/professor/professor_button2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/professor/professor_button3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/professor/professor_choiceGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/student/student_button1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/student/student_button2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/student/student_button3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GongGang/src/student/student_choiceGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/professor/Professor_findClassroom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/professor/Professor_findLecture.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/professor/Professor_findProf.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/professor/professor_choiceGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/professor/professor_choiceGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +170,7 @@
       <workItem from="1716793060385" duration="3341000" />
       <workItem from="1716884863379" duration="670000" />
       <workItem from="1717434005401" duration="9256000" />
-      <workItem from="1717450775444" duration="2078000" />
+      <workItem from="1717450775444" duration="2860000" />
     </task>
     <servers />
   </component>

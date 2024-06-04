@@ -225,40 +225,47 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         adminPanel.add(panel);
-        panel.setLayout(new GridLayout(3, 0, 20, 20));
+        panel.setLayout(new GridLayout(3, 2, 20, 20));
 
 
 
         JCheckBox chkbox = new JCheckBox("AutoCommit");
         chkbox.addActionListener(this);
+        chkbox.setBackground(new Color(255, 255, 255));
         chkbox.setSelected(AutoCommit_flag);
 
-        panel.add(chkbox);
 
         JButton jb_insert = new JButton("투플추가");
         jb_insert.setBackground(new Color(255, 255, 255));
-        jb_insert.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_insert);
+        jb_insert.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         jb_insert.addActionListener(this);
 
         JButton jb_modify = new JButton("투플수정");
         jb_modify.setBackground(new Color(255, 255, 255));
         jb_modify.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_modify);
         jb_modify.addActionListener(this);
 
         JButton jb_delete = new JButton("투플삭제");
         jb_delete.setBackground(new Color(255, 255, 255));
         jb_delete.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_delete);
         jb_delete.addActionListener(this);
 
         JButton jb_commit = new JButton("Commit");
+        jb_commit.setBackground(new Color(255, 255, 255));
+        jb_commit.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
         jb_commit.addActionListener(this);
-        panel.add(jb_commit);
+
 
         JButton jb_rollback = new JButton("Rollback");
+        jb_rollback.setBackground(new Color(255, 255, 255));
+        jb_rollback.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
         jb_rollback.addActionListener(this);
+
+        panel.add(jb_insert);
+        panel.add(chkbox);
+        panel.add(jb_modify);
+        panel.add(jb_commit);
+        panel.add(jb_delete);
         panel.add(jb_rollback);
 
         JPanel homeButtonPanel = new JPanel();
