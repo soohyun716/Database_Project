@@ -152,7 +152,7 @@ public class Professor_findClassroom {
     private void searchClassroomInfo() {
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; // JDBC 드라이버 설정
         final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team05"; // DB URL 설정
-        final String USER = "root"; // DB 사용자명 설정
+        final String USER = "DB2024Team05"; // DB 사용자명 설정
         final String PASS = "root"; // DB 비밀번호 설정
         String message = "검색된 교실의 번호:\n"; // 결과 메시지 초기값 설정
 

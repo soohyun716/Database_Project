@@ -1,8 +1,11 @@
+//원하는 공간을 찾기 위한 코드
+
 package student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import mainFrame.mainGUI;
@@ -30,11 +34,7 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.Component;
-
-/*
-검색 ClassroomView를 통해 하도록 수정
-출력하면에 번호, 이름, 위치, 가능시간 4개가 뜨도록 함.
-*/
+import javax.swing.UIManager;
 
 public class student_button1 extends JFrame{
 
@@ -215,7 +215,12 @@ public class student_button1 extends JFrame{
                 eat= eatCheckBox.isSelected();
                 computer= computerCheckBox.isSelected();
                 infoArea=new JTextArea(1100,600);
+                //교실 정보를 선택한 경우
                 if(usage.equals("교실")) searchClassroomInfo(seats, content, project, eat, computer);
+                //교실 외의 정보를 선택한 경우
+                if(usage.equals("교실 외")) searchClassroom_ExternalInfo(seats, content, project, eat, computer);
+
+
 
 
                 //else searchClassroomExternalInfo(content, project, eat, computer);
@@ -231,7 +236,6 @@ public class student_button1 extends JFrame{
 
 
                 infoArea.setEditable(false);
-                //infoArea.setPreferredSize(new Dimension(700,400));
                 newFrame.getContentPane().add(infoArea, BorderLayout.CENTER);
                 newFrame.setVisible(true);
 
@@ -290,172 +294,113 @@ public class student_button1 extends JFrame{
 
     }
 
-
     private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
+        if (eat) {
+            infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요");
+            return;
+        }
 
-        //JDBC driver name and database URL
-        final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        String query = buildQuery(content, project,eat, computer, 0);
+        executeQuery(seats, query, 0);
+    }
+
+    private void searchClassroom_ExternalInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
+        String warnMessage="";
+        if (computer) {
+            warnMessage+="컴퓨터 실습을 원한다면 교실을 선택해 주세요";
+            if(project)
+                warnMessage+="\n빔프로젝트를 교실을 선택해주세요";
+            infoArea.setText(warnMessage);
+            return;
+        } else if (project) {
+            warnMessage+="빔프로젝트 원한다면 교실을 선택해 주세요";
+            infoArea.setText(warnMessage);
+            return;
+        }
+
+        String query = buildQuery(content, project, eat, computer, 1);
+        executeQuery(seats, query, 1);
+    }
+
+
+
+    private String buildQuery(boolean content, boolean project, boolean eat, boolean computer, int type) {
+
+        String query = "SELECT * FROM DB2024_Classroom";
+        if(type==0){
+            if (computer || project) {
+                query += " WHERE";
+                if (computer) {
+                    query += " Practicable='실습가능'";
+                    if (project) {
+                        query += " AND";
+                    }
+                }
+                if (project) {
+                    query += " Projector='빔 있음'";
+                }
+            }
+
+
+        }if (type==1) {
+            query+="_External ";
+            if(content) {
+                query+="WHERE Outlet_Count > 0 ";
+                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_Classroom_External WHERE Eat_Available = 1)";
+                query+=";";
+            }
+            else{
+                if(eat) query+="WHERE Eat_Available = True;";
+
+            }
+
+        }
+
+        return query;
+    }
+
+    private void executeQuery(String seats, String query, int type) {
         final String url = "jdbc:mysql://localhost/DB2024Team05";
-        //Database credentials
-
-        // MySQL 계정과 암호 입력
         final String user = "DB2024Team05";
         final String password = "DB2024Team05";
         String message = "검색된 교실의 번호: \n";
 
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
 
-        String query;
-        if (eat) {infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요"); return;};
-        if (computer)
-            if (project) {
-                query = "SELECT * FROM ClassroomView WHERE Projector='빔 있음' AND Practicable='실습가능'";
-                try (Connection conn = DriverManager.getConnection(url, user, password);
-                     PreparedStatement stmt = conn.prepareStatement(query)) {
-
-                    ResultSet rs = stmt.executeQuery();
-                    // 결과 집합을 순회하며 모든 행 처리
-                    while (rs.next()) {
-                        // for boolean empty=rs.getBoolean()
-                        String Room_number = rs.getString("Room_number");
-                        String Room_name = rs.getString("Room_Name");
-                        String Location = rs.getString("Location");
-
-                        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
-                            String key = entry.getKey();
-                            Boolean value = entry.getValue();
-                            Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
-                            if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
-                            };
-                        }
-
-                    }
-
-
-                    // 결과 문자열을 텍스트 영역에 설정
-                    if (!message.isEmpty()) {
-                        infoArea.setText(message);
-                    } else {
-                        infoArea.setText("원하는 교실이 없습니다. 조건을 재선택하세요.");
-                    }
-
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다. 다시 확인하세요");
+            boolean found = false;
+            while (rs.next()) {
+                if (processResultSet(seats, rs)||type==1) {
+                    message += formatRoomInfo(rs);
+                    found = true;
                 }
-                return;
-
-
-            } else {
-                query = "SELECT * FROM ClassroomView WHERE Practicable='실습가능'";
-                try (Connection conn = DriverManager.getConnection(url, user, password);
-                     PreparedStatement stmt = conn.prepareStatement(query)) {
-
-                    ResultSet rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        String Room_number = rs.getString("Room_number");
-                        String Room_name = rs.getString("Room_Name");
-                        String Location = rs.getString("Location");
-
-                        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
-                            String key = entry.getKey();
-                            Boolean value = entry.getValue();
-                            Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
-                            if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
-                            };
-                        }
-                    }
-
-
-
-                    // 결과 문자열을 텍스트 영역에 설정
-                    if (!message.isEmpty()) {
-                        infoArea.setText(message);
-                    } else {
-                        infoArea.setText("원하는 교실이 없습니다. 조건을 재선택하세요.");
-                    }
-
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다. 다시 확인하세요");
-                }return;
             }
-        else {
-            if(project){
-                query = "SELECT * FROM ClassroomView WHERE Projector='빔 있음'";
-                try (Connection conn = DriverManager.getConnection(url, user, password);
-                     PreparedStatement stmt = conn.prepareStatement(query)) {
+            infoArea.setText(found ? message : "원하는 교실이 없습니다. 조건을 재선택하세요.");
 
-                    ResultSet rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        String Room_number = rs.getString("Room_number");
-                        String Room_name = rs.getString("Room_Name");
-                        String Location = rs.getString("Location");
-
-                        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
-                            String key = entry.getKey();
-                            Boolean value = entry.getValue();
-                            Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
-                            if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
-                            };
-                        }
-                    }
-
-
-                    // 결과 문자열을 텍스트 영역에 설정
-                    if (!message.isEmpty()) {
-                        infoArea.setText(message);
-                    } else {
-                        infoArea.setText("원하는 교실이 없습니다. 조건을 재선택하세요.");
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다. 다시 확인하세요");
-                }return;
-            }else {
-                query = "SELECT * FROM ClassroomView";
-                try (Connection conn = DriverManager.getConnection(url, user, password);
-                     PreparedStatement stmt = conn.prepareStatement(query)) {
-
-                    ResultSet rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        String Room_number = rs.getString("Room_number");
-                        String Room_name = rs.getString("Room_Name");
-                        String Location = rs.getString("Location");
-
-                        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
-                            String key = entry.getKey();
-                            Boolean value = entry.getValue();
-                            Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
-                            if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" 가능\n";
-                            };
-                        }
-                    }
-
-
-                    // 결과 문자열을 텍스트 영역에 설정
-                    if (!message.isEmpty()) {
-                        infoArea.setText(message);
-                    } else {
-                        infoArea.setText("원하는 교실이 없습니다. 조건을 재선택하세요.");
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다. 다시 확인하세요");
-                }return;
-            }
-
-
+        } catch (SQLException e) {
+            infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());
         }
-
     }
+
+    private boolean processResultSet(String seats, ResultSet rs) throws SQLException {
+        String key;
+        Boolean value;
+        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
+            key = entry.getKey();
+            value = entry.getValue();
+            if (value && isNumberInRange(seats, rs.getInt("SeatCount")) && rs.getBoolean(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String formatRoomInfo(ResultSet rs) throws SQLException {
+        return rs.getString("Room_number") + " 가능\n";
+    }
+
+
     //private void searchClassroomExternalInfo(boolean content, boolean project, boolean eat, boolean computer){
     // }
     public static boolean isNumberInRange(String range, int number) {
