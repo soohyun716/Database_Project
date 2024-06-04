@@ -1,47 +1,50 @@
 package GUI.professor;
 
-import GUI.mainFrame.mainGUI;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Professor_findProf extends JFrame {
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import mainFrame.mainGUI;
+import javax.swing.JTextArea;
+
+public class professor_button3 extends JFrame {
 
     private JPanel contentPane;
     private JTextField roomField;
-    private JCheckBox[] timeCheckBoxes;
     private JTextArea professorInfoArea;
+    private JCheckBox[] timeCheckBoxes;
     private Connection connection;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Professor_findProf frame = new Professor_findProf();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    Map<String, Boolean> timeDictionary = new HashMap<>();
 
-    /**
-     * Create the frame.
-     */
-    public Professor_findProf() {
-        // Establish database connection
-        connectToDatabase();
-
+    public professor_button3() {
+        setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -50,84 +53,131 @@ public class Professor_findProf extends JFrame {
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new BorderLayout(10, 10));
+        contentPane.setLayout(new BorderLayout(10, 0));
         setContentPane(contentPane);
 
-        // Header Panel
-        JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(255, 255, 255));
-        headerPanel.setLayout(new BorderLayout());
+        // 로고 붙이는 Panel
+        JPanel logoPanel = new JPanel();
+        logoPanel.setBackground(new Color(255, 255, 255));
+        logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
+        contentPane.add(logoPanel, BorderLayout.NORTH);
+        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-        // Title
-        JLabel titleLabel = new JLabel("강의실 및 시간으로 교수님 정보 찾기");
-        titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        headerPanel.add(titleLabel, BorderLayout.NORTH);
+        // GONG-GANG 로고 label 생성
+        JLabel logo = new JLabel("Gong-Gang");
+        logo.setBackground(new Color(255, 255, 255));
+        logo.setHorizontalAlignment(SwingConstants.CENTER);
+        logo.setFont(new Font("Arial Black", Font.BOLD, 40));
+        logoPanel.add(logo);
 
-        contentPane.add(headerPanel, BorderLayout.NORTH);
+        JLabel userLabel = new JLabel("- \uAD50\uC218\uB2D8 \uCC3E\uAE30 -");
+        userLabel.setBackground(new Color(255, 255, 255));
+        userLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        userLabel.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 22));
+        logoPanel.add(userLabel);
 
-        // Search Panel
-        JPanel searchPanel = new JPanel();
-        searchPanel.setBackground(new Color(255, 255, 255));
-        searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        //inputPanel & Info display area 붙이는 mainPanel
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(new Color(255, 255, 255));
+        mainPanel.setPreferredSize(new Dimension(700, 400));
+        contentPane.add(mainPanel, BorderLayout.CENTER);
+        mainPanel.setLayout(new BorderLayout(10, 10));
 
-        JLabel roomLabel = new JLabel("강의실 위치:");
-        roomLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        searchPanel.add(roomLabel);
+        // Input Panel
+        JPanel inputPanel = new JPanel();
+        inputPanel.setBackground(new Color(255, 255, 255));
+        inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        roomField = new JTextField();
-        roomField.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        roomField.setColumns(10);
-        searchPanel.add(roomField);
+        mainPanel.add(inputPanel, BorderLayout.NORTH);
 
-        JLabel timeLabel = new JLabel("강의 시간:");
-        timeLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-        searchPanel.add(timeLabel);
+
+
+
 
         JPanel timePanel = new JPanel();
-        timePanel.setLayout(new GridLayout(0, 5));
+        timePanel.setBorder(BorderFactory.createTitledBorder("강의 시간 선택"));
+        timePanel.setBackground(new Color(255, 255, 255));
+        timePanel.setLayout(new GridLayout(9,5,10,8)); // Adjusted layout to 6 rows and 9 columns
+        timePanel.setPreferredSize(new Dimension(470, 200)); // Adjusted size
+
         String[] times = {
-                "월1", "월2", "월3", "월4", "월5", "월6", "월7", "월8", "월9",
-                "화1", "화2", "화3", "화4", "화5", "화6", "화7", "화8", "화9",
-                "수1", "수2", "수3", "수4", "수5", "수6", "수7", "수8", "수9",
-                "목1", "목2", "목3", "목4", "목5", "목6", "목7", "목8", "목9",
-                "금1", "금2", "금3", "금4", "금5", "금6", "금7", "금8", "금9"
+                "Mon1", "Tue1", "Wed1", "Thu1", "Fri1",
+                "Mon2", "Tue2", "Wed2", "Thu2", "Fri2",
+                "Mon3", "Tue3", "Wed3", "Thu3", "Fri3",
+                "Mon4", "Tue4", "Wed4", "Thu4", "Fri4",
+                "Mon5", "Tue5", "Wed5", "Thu5", "Fri5",
+                "Mon6", "Tue6", "Wed6", "Thu6", "Fri6",
+                "Mon7", "Tue7", "Wed7", "Thu7", "Fri7",
+                "Mon8", "Tue8", "Wed8", "Thu8", "Fri8",
+                "Mon9", "Tue9", "Wed9", "Thu9", "Fri9"
         };
+
         timeCheckBoxes = new JCheckBox[times.length];
+
         for (int i = 0; i < times.length; i++) {
             timeCheckBoxes[i] = new JCheckBox(times[i]);
+            timeCheckBoxes[i].setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12)); // Smaller font
+            timeCheckBoxes[i].setPreferredSize(new Dimension(50, 20)); // Adjusted size
+            timeCheckBoxes[i].setBackground(new Color(255,255,255));
             timePanel.add(timeCheckBoxes[i]);
-        }
-        searchPanel.add(timePanel);
 
-        JButton searchButton = new JButton("검색");
-        searchButton.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+        }
+        inputPanel.add(timePanel);
+
+        JPanel roomPanel = new JPanel();
+        roomPanel.setBackground(new Color(255, 255, 255));
+        roomPanel.setPreferredSize(new Dimension(350, 100)); // Adjusted height
+        inputPanel.add(roomPanel);
+
+        JLabel roomLabel = new JLabel("\uAC15\uC758\uC2E4 \uC704\uCE58    :");
+        roomLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        roomLabel.setPreferredSize(new Dimension(190, 40)); // Adjusted width
+        roomLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
+        roomField = new JTextField(10);
+        JButton searchButton = new JButton("Search");
+        searchButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+        searchButton.setBackground(new Color(255, 255, 255));
         searchButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 searchProfessorByRoomAndTime();
             }
         });
-        searchPanel.add(searchButton);
+        roomPanel.add(roomLabel);
+        roomPanel.add(roomField);
+        roomPanel.add(searchButton);
 
-        contentPane.add(searchPanel, BorderLayout.CENTER);
 
-        // Professor Info Area
-        professorInfoArea = new JTextArea();
-        professorInfoArea.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+
+        // Info display area
+        professorInfoArea = new JTextArea(5, 30);
+        professorInfoArea.setTabSize(5);
         professorInfoArea.setEditable(false);
-        JScrollPane infoScrollPane = new JScrollPane(professorInfoArea);
-        infoScrollPane.setPreferredSize(new Dimension(800, 200));
-        contentPane.add(infoScrollPane, BorderLayout.SOUTH);
+        JScrollPane scrollPane = new JScrollPane(professorInfoArea);
 
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        //home button
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        //mainPanel 위치 조정하기 위해 넣은 panel 2개
+        JPanel westPanel = new JPanel();
+        westPanel.setPreferredSize(new Dimension(50, 100));
+        westPanel.setBackground(new Color(255, 255, 255));
+        contentPane.add(westPanel, BorderLayout.WEST);
+
+        JPanel eastPanel = new JPanel();
+        eastPanel.setPreferredSize(new Dimension(50, 100));
+        eastPanel.setBackground(new Color(255, 255, 255));
+        contentPane.add(eastPanel, BorderLayout.EAST);
 
         // Add ActionListener to homeButton
         homeButton.addActionListener(new ActionListener() {
@@ -137,12 +187,14 @@ public class Professor_findProf extends JFrame {
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
+
+        connectToDatabase();
     }
 
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "4542");
             System.out.println("Database connected successfully.");
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package professor;
+package GUI.professor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,10 +36,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 public class professor_button1 extends JFrame{
-	
-	private JPanel contentPane;
-	
-	String usage;
+
+    private JPanel contentPane;
+
+    String usage;
     String seats;
     String cameraType;
     boolean outlet;
@@ -49,10 +49,10 @@ public class professor_button1 extends JFrame{
     boolean practicable;
     Map<String, Boolean> timeDictionary = new HashMap<>();
     private JTextArea infoArea;
-	
-	
-	public professor_button1() {
-		setTitle("GONG-GANG");
+
+
+    public professor_button1() {
+        setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -65,14 +65,14 @@ public class professor_button1 extends JFrame{
         setContentPane(contentPane);
 
 
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ë¡œê³  ë¶™ì´ëŠ” Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-        // GONG-GANG ·Î°í label »ı¼º
+        // GONG-GANG ë¡œê³  label ìƒì„±
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,93 +81,93 @@ public class professor_button1 extends JFrame{
 
         JLabel userLabel = new JLabel("- \uC6D0\uD558\uB294 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+        userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 22));
         logoPanel.add(userLabel);
-        
-        
+
+
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
-        
-        // options ¹öÆ° ºÙÀÌ´Â Panel
+
+        // options ë²„íŠ¼ ë¶™ì´ëŠ” Panel
         JPanel optionPanel = new JPanel();
         optionPanel.setBackground(new Color(255, 255, 255));
         mainPanel.add(optionPanel);
         optionPanel.setPreferredSize(new Dimension(500, 170));
-        
-        //comboBox ºÙÀÌ´Â Panel
+
+        //comboBox ë¶™ì´ëŠ” Panel
         JPanel dropdownsPanel = new JPanel();
         optionPanel.add(dropdownsPanel);
         dropdownsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         dropdownsPanel.setBackground(new Color(255, 255, 255));
         dropdownsPanel.setSize(new Dimension(600, 200));
         dropdownsPanel.setLayout(new GridLayout(3, 2, 40, 10));
-        
+
         JLabel usageLabel = new JLabel("\uACF5\uAC04 \uC720\uD615   : ");
         usageLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        usageLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        usageLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(usageLabel);
 
-        JComboBox usageComboBox = new JComboBox(new String[]{"¼±ÅÃ", "±³½Ç", "±³½Ç ¿Ü"});
+        JComboBox usageComboBox = new JComboBox(new String[]{"ì„ íƒ", "êµì‹¤", "êµì‹¤ ì™¸"});
         usageComboBox.setBackground(new Color(255, 255, 255));
-        usageComboBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        usageComboBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(usageComboBox);
         usageComboBox.setPreferredSize(new Dimension(200, usageComboBox.getPreferredSize().height));
 
         JLabel seatsLabel = new JLabel("\uC88C\uC11D \uC218       : ");
         seatsLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        seatsLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        seatsLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(seatsLabel);
 
-        JComboBox seatsComboBox = new JComboBox(new String[]{"¼±ÅÃ", "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90"});
+        JComboBox seatsComboBox = new JComboBox(new String[]{"ì„ íƒ", "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90"});
         seatsComboBox.setBackground(new Color(255, 255, 255));
-        seatsComboBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        seatsComboBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(seatsComboBox);
-        
+
         JLabel cameraLabel = new JLabel("\uCE74\uBA54\uB77C \uC720\uD615 :");
         dropdownsPanel.add(cameraLabel);
-        cameraLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
-        
-        JComboBox cameraComboBox = new JComboBox(new String[]{"¼±ÅÃ", "°íÁ¤½Ä Ä«¸Ş¶ó", "ÃßÀû½Ä Ä«¸Ş¶ó"});
+        cameraLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
+
+        JComboBox cameraComboBox = new JComboBox(new String[]{"ì„ íƒ", "ê³ ì •ì‹ ì¹´ë©”ë¼", "ì¶”ì ì‹ ì¹´ë©”ë¼"});
         cameraComboBox.setBackground(new Color(255, 255, 255));
-        cameraComboBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        cameraComboBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(cameraComboBox);
-        
+
         JPanel checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new FlowLayout(FlowLayout.CENTER,15,10));
         checkBoxPanel.setBackground(new Color(255, 255, 255));
         optionPanel.add(checkBoxPanel);
-        
+
         JCheckBox CheckBox1 = new JCheckBox("\uCF58\uC13C\uD2B8");
         CheckBox1.setBackground(new Color(255, 255, 255));
         checkBoxPanel.add(CheckBox1);
-        CheckBox1.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
-        
+        CheckBox1.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
+
         JCheckBox CheckBox2 = new JCheckBox("\uBE54\uD504\uB85C\uC81D\uD2B8");
         checkBoxPanel.add(CheckBox2);
         CheckBox2.setBackground(new Color(255, 255, 255));
-        CheckBox2.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
-        
+        CheckBox2.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
+
         JCheckBox CheckBox3 = new JCheckBox("\uC608\uC57D \uD544\uC694");
         checkBoxPanel.add(CheckBox3);
         CheckBox3.setBackground(new Color(255, 255, 255));
-        CheckBox3.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
-        
+        CheckBox3.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
+
         JCheckBox CheckBox4 = new JCheckBox("\uB179\uD654 \uAC00\uB2A5");
         checkBoxPanel.add(CheckBox4);
         CheckBox4.setBackground(new Color(255, 255, 255));
-        CheckBox4.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
-        
+        CheckBox4.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
+
         JCheckBox CheckBox5 = new JCheckBox("\uC2E4\uC2B5 \uAC00\uB2A5");
         checkBoxPanel.add(CheckBox5);
         CheckBox5.setBackground(new Color(255, 255, 255));
-        CheckBox5.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
-        
-        
+        CheckBox5.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
+
+
         // Time table
         JPanel timePanel = new JPanel();
         timePanel.setLayout(new GridLayout(8, 5));
-        timePanel.setBorder(BorderFactory.createTitledBorder("¿øÇÏ´Â ±³½Ã ¼±ÅÃ"));
+        timePanel.setBorder(BorderFactory.createTitledBorder("ì›í•˜ëŠ” êµì‹œ ì„ íƒ"));
         timePanel.setBackground(new Color(255,255,255));
 
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri"};
@@ -194,9 +194,9 @@ public class professor_button1 extends JFrame{
         JScrollPane scrollPane = new JScrollPane(timePanel);
         mainPanel.add(scrollPane);
         scrollPane.setBackground(new Color(255,255,255));
-        
-        
-        
+
+
+
         //resultButton & homeButton
         JPanel ButtonPanel = new JPanel();
         ButtonPanel.setBackground(new Color(255, 255, 255));
@@ -207,10 +207,10 @@ public class professor_button1 extends JFrame{
         resultPanel.setBackground(new Color(255, 255, 255));
         ButtonPanel.add(resultPanel, BorderLayout.CENTER);
         JButton resultButton = new JButton("\uAC80\uC0C9");
-        resultButton.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
+        resultButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 16));
         resultButton.setBackground(new Color(255, 255, 255));
         resultPanel.add(resultButton);
-        
+
         resultButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -227,9 +227,9 @@ public class professor_button1 extends JFrame{
 
                 searchClassroomInfo();
 
-                // »õ·Î¿î Ã¢À» ¿­¾î °á°ú¸¦ º¸¿©ÁÜ                
-                // »õ Ã¢À» ¿©´Â ·ÎÁ÷
-                JFrame newFrame = new JFrame("°Ë»öµÈ Á¤º¸");
+                // ìƒˆë¡œìš´ ì°½ì„ ì—´ì–´ ê²°ê³¼ë¥¼ ë³´ì—¬ì¤Œ
+                // ìƒˆ ì°½ì„ ì—¬ëŠ” ë¡œì§
+                JFrame newFrame = new JFrame("ê²€ìƒ‰ëœ ì •ë³´");
                 newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 newFrame.setBackground(new Color(255, 255, 255));
                 newFrame.setBounds(100, 100, 1100, 600);
@@ -241,8 +241,8 @@ public class professor_button1 extends JFrame{
                 infoArea.setEditable(false);
                 newFrame.getContentPane().add(infoArea);
                 newFrame.setVisible(true);
-                
-                // ·Î°í ºÙÀÌ´Â Panel
+
+                // ë¡œê³  ë¶™ì´ëŠ” Panel
                 JPanel logoPanel = new JPanel();
                 logoPanel.setBackground(new Color(255, 255, 255));
                 logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
@@ -250,22 +250,22 @@ public class professor_button1 extends JFrame{
                 logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
                 newFrame.getContentPane().setBackground(new Color(255,255,255));
 
-                // GONG-GANG ·Î°í label »ı¼º
+                // GONG-GANG ë¡œê³  label ìƒì„±
                 JLabel logo = new JLabel("Gong-Gang");
                 logo.setBackground(new Color(255, 255, 255));
                 logo.setHorizontalAlignment(SwingConstants.CENTER);
                 logo.setFont(new Font("Arial Black", Font.BOLD, 40));
                 logoPanel.add(logo);
 
-                JLabel userLabel = new JLabel("- °á°ú -");
+                JLabel userLabel = new JLabel("- ê²°ê³¼ -");
                 userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+                userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 22));
                 logoPanel.add(userLabel);
             }
         });
-        
-        
-        //homebuttom 
+
+
+        //homebuttom
         JPanel homePanel = new JPanel();
         homePanel.setBackground(new Color(255, 255, 255));
         JButton homeButton = new JButton("HOME");
@@ -273,7 +273,7 @@ public class professor_button1 extends JFrame{
         homePanel.setLayout(new BorderLayout(0, 0));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 12));
+        homeButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.BOLD, 12));
         homePanel.add(homeButton, BorderLayout.SOUTH);
 
         // Add ActionListener to homeButton
@@ -284,65 +284,67 @@ public class professor_button1 extends JFrame{
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
-        
-        // µğÀÚÀÎ»ó ÇÊ¿äÇÑ ºÎºĞ 
+
+        // ë””ìì¸ìƒ í•„ìš”í•œ ë¶€ë¶„
         JPanel emptyPanel = new JPanel();
         emptyPanel.setBackground(new Color(255,255,255));
         ButtonPanel.add(emptyPanel, BorderLayout.WEST);
         emptyPanel.setPreferredSize(new Dimension(90,0));
 
-	}
-	
-	private void searchClassroomInfo() {
+    }
+
+    private void searchClassroomInfo() {
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team05";
         final String USER = "root";
-        final String PASS = "4542";
-        String message = "°Ë»öµÈ ±³½ÇÀÇ ¹øÈ£:\n";
+        final String PASS = "kms1";
+        String message = "ê²€ìƒ‰ëœ êµì‹¤ì˜ ë²ˆí˜¸:\n";
 
-        StringBuilder query = new StringBuilder("SELECT * FROM DB2024_Classroom WHERE 1=1");
+        StringBuilder query = new StringBuilder("SELECT * FROM ClassroomView WHERE 1=1");
 
         String[] seatRange = seats.split("-");
-        if (!seats.equals("¼±ÅÃ")) {
+        if (!seats.equals("ì„ íƒ")) {
             query.append(" AND SeatCount BETWEEN ").append(Integer.parseInt(seatRange[0])).append(" AND ")
                     .append(Integer.parseInt(seatRange[1]));
         }
-        if (!cameraType.equals("¼±ÅÃ")) {
+        if (!cameraType.equals("ì„ íƒ")) {
             query.append(" AND CameraType = '").append(cameraType).append("'");
         }
         if (outlet)
             query.append(" AND OutletCount > 0");
         if (projector)
-            query.append(" AND Projector = 'ºö ÀÖÀ½'");
+            query.append(" AND Projector = 'ë¹” ìˆìŒ'");
         if (reservation)
-            query.append(" AND ReservationRequired = '¿¹¾à ÇÊ¿ä'");
+            query.append(" AND ReservationRequired = 'ì˜ˆì•½ í•„ìš”'");
         if (recording)
-            query.append(" AND RecordingAvailable = '°¡´É'");
+            query.append(" AND RecordingAvailable = 'ê°€ëŠ¥'");
         if (practicable)
-            query.append(" AND Practicable = '½Ç½À °¡´É'");
+            query.append(" AND Practicable = 'ì‹¤ìŠµ ê°€ëŠ¥'");
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                PreparedStatement stmt = conn.prepareStatement(query.toString())) {
+             PreparedStatement stmt = conn.prepareStatement(query.toString())) {
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String roomNumber = rs.getString("Room_Number");
+                String Room_name = rs.getString("Room_Name");
+                String Location = rs.getString("Location");
                 String availableTimes = getAvailableTimes(rs);
                 if (!availableTimes.isEmpty()) {
-                    message += roomNumber + " °¡´É ½Ã°£: " + availableTimes + "\n";
+                    message += roomNumber+" "+Room_name+" "+Location + " ê°€ëŠ¥ ì‹œê°„: " + availableTimes + "\n";
                 }
             }
 
-            if (!message.equals("°Ë»öµÈ ±³½ÇÀÇ ¹øÈ£:\n")) {
+            if (!message.equals("ê²€ìƒ‰ëœ êµì‹¤ì˜ ë²ˆí˜¸:\n")) {
                 infoArea.setText(message);
             } else {
-                infoArea.setText("¿øÇÏ´Â ±³½ÇÀÌ ¾ø½À´Ï´Ù. Á¶°ÇÀ» Àç¼±ÅÃÇÏ¼¼¿ä.");
+                infoArea.setText("ì›í•˜ëŠ” êµì‹¤ì´ ì—†ìŠµë‹ˆë‹¤. ì¡°ê±´ì„ ì¬ì„ íƒí•˜ì„¸ìš”.");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            infoArea.setText("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â °úÁ¤¿¡¼­ ¿À·ù°¡ ÀÖ½À´Ï´Ù. ´Ù½Ã È®ÀÎÇÏ¼¼¿ä.");
+            infoArea.setText("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 

@@ -79,7 +79,8 @@ public class professor_choiceGUI extends JFrame{
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                new Professor_findClassroom();
+                professor_button1 button1Frame = new professor_button1();
+                button1Frame.setVisible(true); // Open the button1GUI frame
             }
         });
 
@@ -92,16 +93,8 @@ public class professor_choiceGUI extends JFrame{
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        try {
-                            Professor_findLecture frame = new Professor_findLecture();
-                            frame.setVisible(true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                professor_button2 button2Frame = new professor_button2();
+                button2Frame.setVisible(true); // Open the button2GUI frame
             }
         });
 
@@ -116,16 +109,9 @@ public class professor_choiceGUI extends JFrame{
         button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close current frame
-                EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        try {
-                            Professor_findProf frame = new Professor_findProf();
-                            frame.setVisible(true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                professor_button3 button3Frame = new professor_button3();
+                button3Frame.setVisible(true); // Open the button2GUI frame
+
             }
         });
 

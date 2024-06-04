@@ -1,17 +1,21 @@
 package GUI.professor;
 
-import GUI.mainFrame.mainGUI;
-
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
-import java.util.Calendar;
 
-public class Professor_findLecture extends JFrame {
+import mainFrame.mainGUI;
+
+public class professor_button2 extends JFrame {
 
     private JPanel contentPane;
     private JTextField searchField;
@@ -19,26 +23,11 @@ public class Professor_findLecture extends JFrame {
     private JTextArea professorInfoArea;
     private Connection connection;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Professor_findLecture frame = new Professor_findLecture();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * Create the frame.
      */
-    public Professor_findLecture() {
+    public professor_button2() {
         // Establish database connection
         connectToDatabase();
 
@@ -104,17 +93,6 @@ public class Professor_findLecture extends JFrame {
 
         contentPane.add(headerPanel, BorderLayout.NORTH);
 
-        // 결과 영역 (강의 테이블)
-        String[] columnNames = { "", "월", "화", "수", "목", "금" }; // 테이블 컬럼 이름 설정
-        String[][] data = new String[9][6]; // 테이블 데이터 배열 생성, 9교시 기준
-        for (int i = 0; i < 9; i++) {
-            data[i][0] = String.valueOf(i + 1); // 교시 번호 설정
-        }
-        lectureTable = new JTable(data, columnNames); // 테이블 생성
-        lectureTable.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
-        lectureTable.setRowHeight(50); // 행 높이 설정
-        JScrollPane scrollPane = new JScrollPane(lectureTable); // 스크롤 패널 생성
-        contentPane.add(scrollPane, BorderLayout.CENTER); // 메인 패널에 추가
 
         //홈 버튼 생성
         JPanel homeButtonPanel = new JPanel();
@@ -122,7 +100,7 @@ public class Professor_findLecture extends JFrame {
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("Arial ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -135,13 +113,27 @@ public class Professor_findLecture extends JFrame {
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
+
+
+
+        // 결과 영역 (강의 테이블)
+        String[] columnNames = { "", "월", "화", "수", "목", "금" }; // 테이블 컬럼 이름 설정
+        String[][] data = new String[9][6]; // 테이블 데이터 배열 생성, 9교시 기준
+        for (int i = 0; i < 9; i++) {
+            data[i][0] = String.valueOf(i + 1); // 교시 번호 설정
+        }
+        lectureTable = new JTable(data, columnNames); // 테이블 생성
+        lectureTable.setFont(new Font("맑은 고딕", Font.PLAIN, 20)); // 폰트 설정
+        lectureTable.setRowHeight(50); // 행 높이 설정
+        JScrollPane scrollPane = new JScrollPane(lectureTable); // 스크롤 패널 생성
+        contentPane.add(scrollPane, BorderLayout.CENTER); // 메인 패널에 추가
     }
 
     private void connectToDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 드라이버 로드
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "kms1"); // 데이터베이스
-                                                                                                                  // 연결
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB2024Team05", "root", "root"); // 데이터베이스
+            // 연결
             System.out.println("Database connected successfully."); // 연결 성공 메시지 출력
         } catch (Exception e) {
             e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
@@ -161,11 +153,11 @@ public class Professor_findLecture extends JFrame {
                 updateLectureTable(professorName); // 테이블 업데이트
             } else {
                 JOptionPane.showMessageDialog(this, "해당 교수님의 정보를 찾을 수 없습니다.", "경고", JOptionPane.WARNING_MESSAGE); // 교수
-                                                                                                                  // 정보
-                                                                                                                  // 없을
-                                                                                                                  // 시
-                                                                                                                  // 경고
-                                                                                                                  // 메시지
+                // 정보
+                // 없을
+                // 시
+                // 경고
+                // 메시지
             }
         } catch (SQLException e) {
             e.printStackTrace(); // SQL 예외 발생 시 스택 트레이스 출력
@@ -176,7 +168,7 @@ public class Professor_findLecture extends JFrame {
         ProfessorInfo professorInfo = null;
 
         String professorQuery = "SELECT Name, Lab_Location, Phone, Email FROM DB2024_Professor WHERE Name = ?"; // 교수 정보
-                                                                                                                // 쿼리
+        // 쿼리
         PreparedStatement professorStmt = connection.prepareStatement(professorQuery); // 쿼리 준비
         professorStmt.setString(1, professorName); // 검색어 설정
         ResultSet professorRs = professorStmt.executeQuery(); // 쿼리 실행
@@ -280,7 +272,7 @@ public class Professor_findLecture extends JFrame {
         for (int i = 0; i < lectureTable.getRowCount(); i++) {
             for (int j = 0; j < lectureTable.getColumnCount(); j++) {
                 lectureTable.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer()); // 기본 셀 렌더러로
-                                                                                                            // 초기화
+                // 초기화
             }
         }
 
@@ -320,7 +312,7 @@ public class Professor_findLecture extends JFrame {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-                int row, int column) {
+                                                       int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if ((highlightedRow == -1 || row == highlightedRow)
                     && (highlightedColumn == -1 || column == highlightedColumn)) {
