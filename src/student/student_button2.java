@@ -106,14 +106,15 @@ public class student_button2 extends JFrame{
         resultPanel.setBackground(new Color(255, 255, 255));
         mainPanel.add(resultPanel);
 
+        //학수번호를 입력후 값을 search 버튼을 눌렀을 경우
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String lectureNumber = lectureNumberField.getText();
+                String lectureNumber = lectureNumberField.getText();//텍스트를 받아온 뒤에
                 if (!lectureNumber.isEmpty()) {
-                    showRoomNumber(lectureNumber);
+                    showRoomNumber(lectureNumber);//해당 강의의 공간번호를 보여주는 함수 호출
                 } else {
-                    JOptionPane.showMessageDialog(null, "올바른 학수 번호를 입력하세요.");
+                    JOptionPane.showMessageDialog(null, "학수 번호를 입력하세요.");
                 }
             }
         });
@@ -148,22 +149,25 @@ public class student_button2 extends JFrame{
         });
     }
 
+    //강의번호에 해당하는 공간번호를 보여주는 코드
     private void showRoomNumber(String lectureNumber) {
         String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
         String dbUser = "DB2024Team05";
         String dbPass = "DB2024Team05";
 
-        // Assuming lectureNumber is entered as '14349-1'
+        //학수번호와 함께 받아와기에 분리해주기
         String[] parts = lectureNumber.split("-");
         if (parts.length != 2) {
             JOptionPane.showMessageDialog(this, "입력값을 확인하세요");
-            return;
+            return;//두 개로 분리가 안 된경우 처리하는 법
         }
 
+        //사용자로부터 받아온 강의번호와 학수번호를 통해서 원하는 정보 검색
         String query = "SELECT Room_Number,Room_Name,Location FROM LectureInfo WHERE Lecture_Num = ? AND Class_Num = ?";
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
              PreparedStatement stmt = conn.prepareStatement(query)) {
+            //DBD연결을 맺고 쿼리를 실행
 
             stmt.setString(1, parts[0]); // Lecture_Num
             stmt.setString(2, parts[1]); // Class_Num
@@ -172,12 +176,13 @@ public class student_button2 extends JFrame{
                     String roomNumber = rs.getString("Room_Number");
                     String Room_name = rs.getString("Room_Name");
                     String Location = rs.getString("Location");
-                    displayResult(roomNumber,Room_name,Location);
+                    displayResult(roomNumber,Room_name,Location);//결과를 보여주는 함수 호출
                 } else {
-                    JOptionPane.showMessageDialog(this, "학수번호를 다시 확인하세요");
+                    JOptionPane.showMessageDialog(this, "학수번호를 다시 확인하세요");//테이블 결과 검색되지 않는 경우
                 }
             }
         } catch (SQLException ex) {
+            //DB와 연결에서 문제가 생기는 경우
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
         }

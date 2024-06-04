@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
+    <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Professor_findClassroom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Professor_findClassroom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Professor_findLecture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Professor_findLecture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Professor_findProf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Professor_findProf.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,12 +184,33 @@
       <workItem from="1717434005401" duration="9256000" />
       <workItem from="1717450775444" duration="2860000" />
       <workItem from="1717482839734" duration="2209000" />
-      <workItem from="1717486524706" duration="306000" />
+      <workItem from="1717486524706" duration="3795000" />
     </task>
+    <task id="LOCAL-00001" summary="Changes">
+      <option name="closed" value="true" />
+      <created>1717487019313</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717487019313</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes">
+      <option name="closed" value="true" />
+      <created>1717488035965</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717488035965</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

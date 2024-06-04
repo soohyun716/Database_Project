@@ -10,11 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +44,7 @@ public class student_button1 extends JFrame{
     boolean computer;
     Map<String, Boolean> timeDictionary=new HashMap<>();
     private JTextArea infoArea;
+    String message = "검색된 교실의 번호: \n";
 
     public student_button1() {
 
@@ -136,24 +133,27 @@ public class student_button1 extends JFrame{
         usageLabel.setFont(new Font("나눔고딕", Font.BOLD, 14));
         dropdownsPanel.add(usageLabel);
 
+        //찾고자하는 공간의 유형 선택
         JComboBox usageComboBox = new JComboBox(new String[]{"선택", "교실", "교실 외"});
         usageComboBox.setBackground(new Color(255, 255, 255));
         usageComboBox.setFont(new Font("나눔고딕", Font.BOLD, 14));
         dropdownsPanel.add(usageComboBox);
         usageComboBox.setPreferredSize(new Dimension(200, usageComboBox.getPreferredSize().height));
 
+
         JLabel seatsLabel = new JLabel("\uC88C\uC11D \uC218    : ");
         seatsLabel.setHorizontalAlignment(SwingConstants.LEFT);
         seatsLabel.setFont(new Font("나눔고딕", Font.BOLD, 14));
         dropdownsPanel.add(seatsLabel);
 
+        //좌석수를 JComboBox로 받아오기
         JComboBox seatsComboBox = new JComboBox(new String[]{"선택", "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90"});
         seatsComboBox.setBackground(new Color(255, 255, 255));
         seatsComboBox.setFont(new Font("나눔고딕", Font.BOLD, 14));
         dropdownsPanel.add(seatsComboBox);
 
 
-        // Time table
+        //검색 원하는 시간 받아오기
         JPanel timePanel = new JPanel();
         timePanel.setLayout(new GridLayout(8, 5));
         timePanel.setBorder(BorderFactory.createTitledBorder("원하는 교시 선택"));
@@ -171,6 +171,7 @@ public class student_button1 extends JFrame{
                 checkBox.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        //선택된 부분에 대해서는 딕셔너리의 값을 true로 바꿔주기
                         timeDictionary.put(name, true);
 
                     }
@@ -220,10 +221,6 @@ public class student_button1 extends JFrame{
                 //교실 외의 정보를 선택한 경우
                 if(usage.equals("교실 외")) searchClassroom_ExternalInfo(seats, content, project, eat, computer);
 
-
-
-
-                //else searchClassroomExternalInfo(content, project, eat, computer);
                 // 새 창을 여는 로직
                 JFrame newFrame = new JFrame("검색된 정보");
                 newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -238,10 +235,6 @@ public class student_button1 extends JFrame{
                 infoArea.setEditable(false);
                 newFrame.getContentPane().add(infoArea, BorderLayout.CENTER);
                 newFrame.setVisible(true);
-
-
-                //newFrame.add(contentPane);
-
 
                 // 로고 붙이는 Panel
                 JPanel logoPanel = new JPanel();
@@ -290,8 +283,6 @@ public class student_button1 extends JFrame{
         });
 
 
-
-
     }
 //교실 정보를 찾는 함수
     private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
@@ -329,11 +320,12 @@ public class student_button1 extends JFrame{
 //쿼리를 생성하는 코드
     private String buildQuery(boolean content, boolean project, boolean eat, boolean computer, int type) {
 
-        String query = "SELECT * FROM DB2024_Classroom";//기본적인 쿼리 틀을 만들고 여기에 원하는 조건을 WHERE절을 추가하는 식으로 코드를 진행한다.
-        //type은 사용자가 찾기를 원하는 것이 교실(0)인지 교실 외(1)인지를 구분해준다.
+        String query = "SELECT * FROM ";
+        //type은 사용자가 찾기를 원하는 것이 교실(0)인지 교실 외(1)인지를 구분
         if(type==0){
+            query+="ClassroomView";
             if (computer || project) {
-                //교실에서 컴퓨터와 빔프로젝트를 원하는 경우에는 조건을 붙여준다.  교실에서는 식사가 불가하고 모든 교실에 콘센트가 있으므로 해당하는 조건은 추가하지 않아도 된다 .
+                //교실에서 컴퓨터와 빔프로젝트를 원하는 경우에는 조건을 붙여준다.  교실에서는 식사가 불가하고 모든 교실에 콘센트가 있으므로 해당하는 조건은 추가하지 않아도 됨
                 query += " WHERE";
                 if (computer) {
                     query += " Practicable='실습가능'";
@@ -348,11 +340,11 @@ public class student_button1 extends JFrame{
 
 
         }if (type==1) {
-            //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있다.
-            query+="_External ";//현재 찾으려고 하는 테이블이 Classroom_External임
+            query += "ClassroomExternalView";
+            //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있음.
             if(content) {
                 query+="WHERE Outlet_Count > 0 ";
-                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_Classroom_External WHERE Eat_Available = 1)";
+                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM ClassroomExternalView WHERE Eat_Available = 1)";
                 query+=";";
             }
             else{
@@ -364,16 +356,18 @@ public class student_button1 extends JFrame{
 
         return query;
     }
-
+//쿼리를 input으로 받아서 해당 쿼리를 실행하는 메소드 이후에 해당하는 쿼리를 실행한 결과를 받아 infoArea에 붙이기
     private void executeQuery(String seats, String query, int type) {
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         final String user = "DB2024Team05";
         final String password = "DB2024Team05";
-        String message = "검색된 교실의 번호: \n";
+
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+             Statement stmt = conn.createStatement();
+
+             ) {
+            ResultSet rs = stmt.executeQuery(query);//연결 맺고 실행한 결과를 받아오기
 
             boolean found = false;
             while (rs.next()) {
@@ -382,13 +376,13 @@ public class student_button1 extends JFrame{
                     found = true;
                 }
             }
-            infoArea.setText(found ? message : "원하는 교실이 없습니다. 조건을 재선택하세요.");
+            infoArea.setText(found ? message : "원하는 교실이 없습니다. 조건을 재선택하세요.");//결과값이 없는 경우
 
         } catch (SQLException e) {
-            infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());
+            infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());//DB 연결이 실패한 경우
         }
     }
-
+//원하는 시간표에 맞는지 해당 쿼리 결가를 확인하는 코드
     private boolean processResultSet(String seats, ResultSet rs) throws SQLException {
         String key;
         Boolean value;
@@ -396,23 +390,22 @@ public class student_button1 extends JFrame{
             key = entry.getKey();
             value = entry.getValue();
             if (value && isNumberInRange(seats, rs.getInt("SeatCount")) && rs.getBoolean(key)) {
+                message+=key+" ";
                 return true;
             }
         }
         return false;
     }
 
+    //검색된 결과에서 Room_number를 가져오고 출력할 수 있도록 만들어주는 코드
     private String formatRoomInfo(ResultSet rs) throws SQLException {
         return rs.getString("Room_number") + " 가능\n";
     }
 
 
-    //private void searchClassroomExternalInfo(boolean content, boolean project, boolean eat, boolean computer){
-    // }
+  // 좌석 수를 사용자에게 범위로 받았기에 이를 테이블의 값과 비교하기 위한 코드
     public static boolean isNumberInRange(String range, int number) {
         String[] parts = range.split("-");
-
-
 
         int start = Integer.parseInt(parts[0].trim());
         int end = Integer.parseInt(parts[1].trim());
