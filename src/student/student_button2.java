@@ -91,11 +91,11 @@ public class student_button2 extends JFrame{
         mainPanel.add(inputPanel);
 
         // 학수번호나 강의이름과 분반 번호를 입력하세요' Label 생성
-        JLabel inputLabel = new JLabel("학수번나 강의이름과 분반 번호를 입력하세요 (ex 20471-3, 데이터베이스-3)");
+        JLabel inputLabel = new JLabel("학수번호나 강의이름과 분반 번호를 입력하세요 (ex 20471-3, 데이터베이스-3)");
         inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         inputLabel.setPreferredSize(new Dimension(1050, 80));
         inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+        inputLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         inputPanel.add(inputLabel);
 

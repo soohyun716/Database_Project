@@ -1,0 +1,18 @@
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-233.13135.103\">\n    <data-source name=\"DB2024Team05\" uuid=\"2cc291d1-787d-402e-9110-40d3b6d3eeca\">\n      <database-info product=\"MySQL\" version=\"8.0.36\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)\" dbms=\"MYSQL\" exact-version=\"8.0.36\" exact-driver-version=\"8.2\">\n        <extra-name-characters>#@</extra-name-characters>\n        <identifier-quote-string>`</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"lower\" quoted-identifiers=\"lower\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>root</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\">\n            <name qname=\"db2024team05\" />\n            <name qname=\"@\" />\n          </node>\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	
++++ b/.idea/dataSources.local.xml	
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="dataSourceStorageLocal" created-in="IU-233.13135.103">
++  <component name="dataSourceStorageLocal" created-in="IU-241.14494.240">
+     <data-source name="DB2024Team05" uuid="2cc291d1-787d-402e-9110-40d3b6d3eeca">
+       <database-info product="MySQL" version="8.0.36" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.0.36" exact-driver-version="8.2">
+         <extra-name-characters>#@</extra-name-characters>
