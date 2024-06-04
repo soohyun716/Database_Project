@@ -1,4 +1,4 @@
-package GUI.professor;
+package professor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
-import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

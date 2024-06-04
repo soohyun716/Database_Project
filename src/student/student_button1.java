@@ -3,7 +3,6 @@ package student;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import mainFrame.mainGUI;
@@ -32,13 +30,17 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.Component;
-import javax.swing.UIManager;
+
+/*
+ê²€ìƒ‰ ClassroomViewë¥¼ í†µí•´ í•˜ë„ë¡ ìˆ˜ì •
+ì¶œë ¥í•˜ë©´ì— ë²ˆí˜¸, ì´ë¦„, ìœ„ì¹˜, ê°€ëŠ¥ì‹œê°„ 4ê°œê°€ ëœ¨ë„ë¡ í•¨.
+*/
 
 public class student_button1 extends JFrame{
 
-	private JPanel contentPane;
+    private JPanel contentPane;
 
-	String usage;
+    String usage;
     String seats;
     boolean content;
     boolean project;
@@ -47,9 +49,9 @@ public class student_button1 extends JFrame{
     Map<String, Boolean> timeDictionary=new HashMap<>();
     private JTextArea infoArea;
 
-	public student_button1() {
+    public student_button1() {
 
-		setTitle("GONG-GANG");
+        setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -62,14 +64,14 @@ public class student_button1 extends JFrame{
         setContentPane(contentPane);
 
 
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ë¡œê³  ë¶™ì´ëŠ” Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-        // GONG-GANG ·Î°í label »ı¼º
+        // GONG-GANG ë¡œê³  label ìƒì„±
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -78,16 +80,16 @@ public class student_button1 extends JFrame{
 
         JLabel userLabel = new JLabel("- \uC6D0\uD558\uB294 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+        userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
-        //¿É¼Çµé ºÙÀÌ´Â mainPanel
+        //ì˜µì…˜ë“¤ ë¶™ì´ëŠ” mainPanel
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
         mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 20));
 
-        //combobox¿Í checkbox ºÙÀÌ´Â subMainPanel
+        //comboboxì™€ checkbox ë¶™ì´ëŠ” subMainPanel
         JPanel subMainPanel = new JPanel();
         subMainPanel.setBackground(new Color(255, 255, 255));
         mainPanel.add(subMainPanel);
@@ -100,19 +102,19 @@ public class student_button1 extends JFrame{
         checkBoxPanel.setBackground(new Color(255, 255, 255));
         subMainPanel.add(checkBoxPanel);
 
-        JCheckBox contentCheckBox = new JCheckBox("ÄÜ¼¾Æ®");
+        JCheckBox contentCheckBox = new JCheckBox("ì½˜ì„¼íŠ¸");
         contentCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
-        contentCheckBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
+        contentCheckBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
         contentCheckBox.setBackground(new Color(255, 255, 255));
-        JCheckBox beamProjectCheckBox = new JCheckBox("ºöÇÁ·ÎÁ§Æ®");
-        beamProjectCheckBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
+        JCheckBox beamProjectCheckBox = new JCheckBox("ë¹”í”„ë¡œì íŠ¸");
+        beamProjectCheckBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
         beamProjectCheckBox.setBackground(new Color(255, 255, 255));
-        JCheckBox eatCheckBox = new JCheckBox("½Ä»ç");
+        JCheckBox eatCheckBox = new JCheckBox("ì‹ì‚¬");
         eatCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
-        eatCheckBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
+        eatCheckBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
         eatCheckBox.setBackground(new Color(255, 255, 255));
-        JCheckBox computerCheckBox=new JCheckBox("ÄÄÇ»ÅÍ");
-        computerCheckBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 13));
+        JCheckBox computerCheckBox=new JCheckBox("ì»´í“¨í„°");
+        computerCheckBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 13));
         computerCheckBox.setBackground(new Color(255, 255, 255));
         checkBoxPanel.setLayout(new GridLayout(2, 2, 0, 2));
         checkBoxPanel.add(contentCheckBox);
@@ -131,30 +133,30 @@ public class student_button1 extends JFrame{
 
         JLabel usageLabel = new JLabel("\uACF5\uAC04 \uC720\uD615 : ");
         usageLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        usageLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        usageLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(usageLabel);
 
-        JComboBox usageComboBox = new JComboBox(new String[]{"¼±ÅÃ", "±³½Ç", "±³½Ç ¿Ü"});
+        JComboBox usageComboBox = new JComboBox(new String[]{"ì„ íƒ", "êµì‹¤", "êµì‹¤ ì™¸"});
         usageComboBox.setBackground(new Color(255, 255, 255));
-        usageComboBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        usageComboBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(usageComboBox);
         usageComboBox.setPreferredSize(new Dimension(200, usageComboBox.getPreferredSize().height));
 
         JLabel seatsLabel = new JLabel("\uC88C\uC11D \uC218    : ");
         seatsLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        seatsLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        seatsLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(seatsLabel);
 
-        JComboBox seatsComboBox = new JComboBox(new String[]{"¼±ÅÃ", "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90"});
+        JComboBox seatsComboBox = new JComboBox(new String[]{"ì„ íƒ", "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90"});
         seatsComboBox.setBackground(new Color(255, 255, 255));
-        seatsComboBox.setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
+        seatsComboBox.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 14));
         dropdownsPanel.add(seatsComboBox);
 
 
         // Time table
         JPanel timePanel = new JPanel();
         timePanel.setLayout(new GridLayout(8, 5));
-        timePanel.setBorder(BorderFactory.createTitledBorder("¿øÇÏ´Â ±³½Ã ¼±ÅÃ"));
+        timePanel.setBorder(BorderFactory.createTitledBorder("ì›í•˜ëŠ” êµì‹œ ì„ íƒ"));
         timePanel.setBackground(new Color(255,255,255));
 
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri"};
@@ -193,7 +195,7 @@ public class student_button1 extends JFrame{
         resultPanel.setBackground(new Color(255, 255, 255));
         ButtonPanel.add(resultPanel, BorderLayout.CENTER);
         JButton resultButton = new JButton("\uAC80\uC0C9");
-        resultButton.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
+        resultButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 16));
         resultButton.setBackground(new Color(255, 255, 255));
         resultPanel.add(resultButton);
 
@@ -213,12 +215,12 @@ public class student_button1 extends JFrame{
                 eat= eatCheckBox.isSelected();
                 computer= computerCheckBox.isSelected();
                 infoArea=new JTextArea(1100,600);
-                if(usage.equals("±³½Ç")) searchClassroomInfo(seats, content, project, eat, computer);
+                if(usage.equals("êµì‹¤")) searchClassroomInfo(seats, content, project, eat, computer);
 
 
                 //else searchClassroomExternalInfo(content, project, eat, computer);
-                // »õ Ã¢À» ¿©´Â ·ÎÁ÷
-                JFrame newFrame = new JFrame("°Ë»öµÈ Á¤º¸");
+                // ìƒˆ ì°½ì„ ì—¬ëŠ” ë¡œì§
+                JFrame newFrame = new JFrame("ê²€ìƒ‰ëœ ì •ë³´");
                 newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 newFrame.setBackground(new Color(255, 255, 255));
                 newFrame.setBounds(100, 100, 1100, 600);
@@ -237,7 +239,7 @@ public class student_button1 extends JFrame{
                 //newFrame.add(contentPane);
 
 
-                // ·Î°í ºÙÀÌ´Â Panel
+                // ë¡œê³  ë¶™ì´ëŠ” Panel
                 JPanel logoPanel = new JPanel();
                 logoPanel.setBackground(new Color(255, 255, 255));
                 logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
@@ -245,23 +247,23 @@ public class student_button1 extends JFrame{
                 logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
                 newFrame.getContentPane().setBackground(new Color(255,255,255));
 
-                // GONG-GANG ·Î°í label »ı¼º
+                // GONG-GANG ë¡œê³  label ìƒì„±
                 JLabel logo = new JLabel("Gong-Gang");
                 logo.setBackground(new Color(255, 255, 255));
                 logo.setHorizontalAlignment(SwingConstants.CENTER);
                 logo.setFont(new Font("Arial Black", Font.BOLD, 40));
                 logoPanel.add(logo);
 
-                JLabel userLabel = new JLabel("- °á°ú -");
+                JLabel userLabel = new JLabel("- ê²°ê³¼ -");
                 userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+                userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 22));
                 logoPanel.add(userLabel);
 
             }
 
         });
 
-        //homebuttom 
+        //homebuttom
         JPanel homePanel = new JPanel();
         homePanel.setBackground(new Color(255, 255, 255));
         JButton homeButton = new JButton("HOME");
@@ -269,7 +271,7 @@ public class student_button1 extends JFrame{
         homePanel.setLayout(new BorderLayout(0, 0));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 12));
+        homeButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.BOLD, 12));
         homePanel.add(homeButton, BorderLayout.SOUTH);
 
 
@@ -286,161 +288,167 @@ public class student_button1 extends JFrame{
 
 
 
-	}
+    }
 
 
-	private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
+    private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
 
-    	//JDBC driver name and database URL
+        //JDBC driver name and database URL
         final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         //Database credentials
 
-        // MySQL °èÁ¤°ú ¾ÏÈ£ ÀÔ·Â
-        final String user = "root";
-        final String password = "4542";
-        String message = "°Ë»öµÈ ±³½ÇÀÇ ¹øÈ£: \n";
+        // MySQL ê³„ì •ê³¼ ì•”í˜¸ ì…ë ¥
+        final String user = "DB2024Team05";
+        final String password = "DB2024Team05";
+        String message = "ê²€ìƒ‰ëœ êµì‹¤ì˜ ë²ˆí˜¸: \n";
 
 
         String query;
-        if (eat) {infoArea.setText("±³½Ç¿¡¼­´Â Ãë½ÄÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù. Àç¼±ÅÃ ÇØÁÖ¼¼¿ä"); return;};
+        if (eat) {infoArea.setText("êµì‹¤ì—ì„œëŠ” ì·¨ì‹ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤. ì¬ì„ íƒ í•´ì£¼ì„¸ìš”"); return;};
         if (computer)
             if (project) {
-                query = "SELECT * FROM DB2024_Classroom WHERE Projector='ºö ÀÖÀ½' AND Practicable='½Ç½À°¡´É'";
+                query = "SELECT * FROM ClassroomView WHERE Projector='ë¹” ìˆìŒ' AND Practicable='ì‹¤ìŠµê°€ëŠ¥'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
-                    // °á°ú ÁıÇÕÀ» ¼øÈ¸ÇÏ¸ç ¸ğµç Çà Ã³¸®
+                    // ê²°ê³¼ ì§‘í•©ì„ ìˆœíšŒí•˜ë©° ëª¨ë“  í–‰ ì²˜ë¦¬
                     while (rs.next()) {
-                       // for boolean empty=rs.getBoolean()
+                        // for boolean empty=rs.getBoolean()
                         String Room_number = rs.getString("Room_number");
-
-
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" °¡´É\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" ê°€ëŠ¥\n";
                             };
                         }
 
                     }
 
 
-                    // °á°ú ¹®ÀÚ¿­À» ÅØ½ºÆ® ¿µ¿ª¿¡ ¼³Á¤
+                    // ê²°ê³¼ ë¬¸ìì—´ì„ í…ìŠ¤íŠ¸ ì˜ì—­ì— ì„¤ì •
                     if (!message.isEmpty()) {
                         infoArea.setText(message);
                     } else {
-                        infoArea.setText("¿øÇÏ´Â ±³½ÇÀÌ ¾ø½À´Ï´Ù. Á¶°ÇÀ» Àç¼±ÅÃÇÏ¼¼¿ä.");
+                        infoArea.setText("ì›í•˜ëŠ” êµì‹¤ì´ ì—†ìŠµë‹ˆë‹¤. ì¡°ê±´ì„ ì¬ì„ íƒí•˜ì„¸ìš”.");
                     }
 
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    infoArea.setText("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â °úÁ¤¿¡¼­ ¿À·ù°¡ ÀÖ½À´Ï´Ù. ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
+                    infoArea.setText("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”");
                 }
                 return;
 
 
             } else {
-                query = "SELECT * FROM DB2024_Classroom WHERE Practicable='½Ç½À°¡´É'";
+                query = "SELECT * FROM ClassroomView WHERE Practicable='ì‹¤ìŠµê°€ëŠ¥'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" °¡´É\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" ê°€ëŠ¥\n";
                             };
                         }
                     }
 
 
 
-                    // °á°ú ¹®ÀÚ¿­À» ÅØ½ºÆ® ¿µ¿ª¿¡ ¼³Á¤
+                    // ê²°ê³¼ ë¬¸ìì—´ì„ í…ìŠ¤íŠ¸ ì˜ì—­ì— ì„¤ì •
                     if (!message.isEmpty()) {
                         infoArea.setText(message);
                     } else {
-                        infoArea.setText("¿øÇÏ´Â ±³½ÇÀÌ ¾ø½À´Ï´Ù. Á¶°ÇÀ» Àç¼±ÅÃÇÏ¼¼¿ä.");
+                        infoArea.setText("ì›í•˜ëŠ” êµì‹¤ì´ ì—†ìŠµë‹ˆë‹¤. ì¡°ê±´ì„ ì¬ì„ íƒí•˜ì„¸ìš”.");
                     }
 
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    infoArea.setText("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â °úÁ¤¿¡¼­ ¿À·ù°¡ ÀÖ½À´Ï´Ù. ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
+                    infoArea.setText("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”");
                 }return;
             }
         else {
             if(project){
-                query = "SELECT * FROM DB2024_Classroom WHERE Projector='ºö ÀÖÀ½'";
+                query = "SELECT * FROM ClassroomView WHERE Projector='ë¹” ìˆìŒ'";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" °¡´É\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" ê°€ëŠ¥\n";
                             };
                         }
                     }
 
 
-                    // °á°ú ¹®ÀÚ¿­À» ÅØ½ºÆ® ¿µ¿ª¿¡ ¼³Á¤
+                    // ê²°ê³¼ ë¬¸ìì—´ì„ í…ìŠ¤íŠ¸ ì˜ì—­ì— ì„¤ì •
                     if (!message.isEmpty()) {
                         infoArea.setText(message);
                     } else {
-                        infoArea.setText("¿øÇÏ´Â ±³½ÇÀÌ ¾ø½À´Ï´Ù. Á¶°ÇÀ» Àç¼±ÅÃÇÏ¼¼¿ä.");
+                        infoArea.setText("ì›í•˜ëŠ” êµì‹¤ì´ ì—†ìŠµë‹ˆë‹¤. ì¡°ê±´ì„ ì¬ì„ íƒí•˜ì„¸ìš”.");
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    infoArea.setText("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â °úÁ¤¿¡¼­ ¿À·ù°¡ ÀÖ½À´Ï´Ù. ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
+                    infoArea.setText("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”");
                 }return;
             }else {
-                query = "SELECT * FROM DB2024_Classroom";
+                query = "SELECT * FROM ClassroomView";
                 try (Connection conn = DriverManager.getConnection(url, user, password);
                      PreparedStatement stmt = conn.prepareStatement(query)) {
 
                     ResultSet rs = stmt.executeQuery();
                     while (rs.next()) {
                         String Room_number = rs.getString("Room_number");
+                        String Room_name = rs.getString("Room_Name");
+                        String Location = rs.getString("Location");
 
                         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
                             String key = entry.getKey();
                             Boolean value = entry.getValue();
                             Boolean seatAvailable=isNumberInRange(seats, rs.getInt("SeatCount"));
                             if(value&&seatAvailable) {
-                                if(rs.getBoolean(key)) message += Room_number + " " + key+" °¡´É\n";
+                                if(rs.getBoolean(key)) message += Room_number + " " +Room_name+ " " +Location+ " " + key+" ê°€ëŠ¥\n";
                             };
                         }
                     }
 
 
-                    // °á°ú ¹®ÀÚ¿­À» ÅØ½ºÆ® ¿µ¿ª¿¡ ¼³Á¤
+                    // ê²°ê³¼ ë¬¸ìì—´ì„ í…ìŠ¤íŠ¸ ì˜ì—­ì— ì„¤ì •
                     if (!message.isEmpty()) {
                         infoArea.setText(message);
                     } else {
-                        infoArea.setText("¿øÇÏ´Â ±³½ÇÀÌ ¾ø½À´Ï´Ù. Á¶°ÇÀ» Àç¼±ÅÃÇÏ¼¼¿ä.");
+                        infoArea.setText("ì›í•˜ëŠ” êµì‹¤ì´ ì—†ìŠµë‹ˆë‹¤. ì¡°ê±´ì„ ì¬ì„ íƒí•˜ì„¸ìš”.");
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    infoArea.setText("µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â °úÁ¤¿¡¼­ ¿À·ù°¡ ÀÖ½À´Ï´Ù. ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
+                    infoArea.setText("ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”");
                 }return;
             }
 
@@ -455,10 +463,10 @@ public class student_button1 extends JFrame{
 
 
 
-            int start = Integer.parseInt(parts[0].trim());
-            int end = Integer.parseInt(parts[1].trim());
+        int start = Integer.parseInt(parts[0].trim());
+        int end = Integer.parseInt(parts[1].trim());
 
-            return number >= start && number <= end;
+        return number >= start && number <= end;
 
     }
 

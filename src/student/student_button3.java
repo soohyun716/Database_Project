@@ -2,12 +2,10 @@ package student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,16 +14,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import mainFrame.mainGUI;
@@ -33,12 +28,12 @@ import javax.swing.JTextArea;
 
 public class student_button3 extends JFrame{
 
-	private JPanel contentPane;
-	private JTextField nameField;
+    private JPanel contentPane;
+    private JTextField nameField;
     private JTextArea infoArea;
 
-	public student_button3() {
-		setTitle("GONG-GANG");
+    public student_button3() {
+        setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -50,14 +45,14 @@ public class student_button3 extends JFrame{
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
 
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ë¡œê³  ë¶™ì´ëŠ” Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-        // GONG-GANG ·Î°í label »ı¼º
+        // GONG-GANG ë¡œê³  label ìƒì„±
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -66,10 +61,10 @@ public class student_button3 extends JFrame{
 
         JLabel userLabel = new JLabel("- \uAD50\uC218\uB2D8 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 22));
+        userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
-        //inputPanel & Info display area ºÙÀÌ´Â mainPanel
+        //inputPanel & Info display area ë¶™ì´ëŠ” mainPanel
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255,255,255));
         mainPanel.setPreferredSize(new Dimension(700,400));
@@ -82,14 +77,14 @@ public class student_button3 extends JFrame{
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
 
         mainPanel.add(inputPanel);
-        JLabel nameLabel = new JLabel("±³¼ö´Ô ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+        JLabel nameLabel = new JLabel("êµìˆ˜ë‹˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”");
         nameLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setPreferredSize(new Dimension(1000,80));
-        nameLabel.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 20));
+        nameLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 20));
         nameField = new JTextField(10);
         JButton searchButton = new JButton("Search");
-        searchButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        searchButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -115,12 +110,12 @@ public class student_button3 extends JFrame{
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        //mainPanel À§Ä¡ Á¶Á¤ÇÏ±â À§ÇØ ³ÖÀº panel 2°³
+        //mainPanel ìœ„ì¹˜ ì¡°ì •í•˜ê¸° ìœ„í•´ ë„£ì€ panel 2ê°œ
         JPanel westPanel = new JPanel();
         westPanel.setPreferredSize(new Dimension(50,100));
         westPanel.setBackground(new Color(255, 255, 255));
@@ -144,17 +139,17 @@ public class student_button3 extends JFrame{
 
 
 
-	}
+    }
 
-	private void searchProfessorInfo(String name) {
+    private void searchProfessorInfo(String name) {
 
         //JDBC driver name and database URL
         final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         final String url = "jdbc:mysql://localhost/DB2024Team05";
         //Database credentials
-        // MySQL °èÁ¤°ú ¾ÏÈ£ ÀÔ·Â
-        final String user = "root";
-        final String password = "4542";
+        // MySQL ê³„ì •ê³¼ ì•”í˜¸ ì…ë ¥
+        final String user = "DB2024Team05";
+        final String password = "DB2024Team05";
 
         String query = "SELECT Email, Lab_Location, Phone FROM DB2024_Professor WHERE Name = ?";
         try (Connection conn = DriverManager.getConnection(url, user, password);

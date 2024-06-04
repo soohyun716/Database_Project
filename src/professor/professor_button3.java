@@ -1,4 +1,4 @@
-package GUI.professor;
+package professor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -5,10 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7377a9f1-e070-4fa5-9639-d8d88255a825" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Administrator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/administrator/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/administrator/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/mainFrame/mainGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/professor/professor_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_button1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/professor/professor_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_button2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/professor/professor_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_button3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/professor/professor_choiceGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_choiceGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/choiceGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/student/student_button3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Professor_findClassroom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Professor_findLecture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Professor_findProf.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StartPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Student_ClassSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Student_ProfessorInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Student_RoomSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainFrame/mainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainFrame/mainGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/choiceGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/choiceGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/student/student_button3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,12 +123,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.mainGUI">
-    <configuration name="GUI.administrator.Administrator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.administrator.Administrator" />
+    <configuration name="Administrator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="administrator.Administrator" />
       <module name="Database_Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.administrator.*" />
+          <option name="PATTERN" value="administrator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,7 +141,7 @@
       <module name="Database_Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.professor.*" />
+          <option name="PATTERN" value="professor.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -143,11 +164,11 @@
       </method>
     </configuration>
     <configuration name="mainGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.mainFrame.mainGUI" />
+      <option name="MAIN_CLASS_NAME" value="mainFrame.mainGUI" />
       <module name="Database_Project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.mainFrame.*" />
+          <option name="PATTERN" value="mainFrame.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -187,7 +208,7 @@
       <workItem from="1716884863379" duration="670000" />
       <workItem from="1717434005401" duration="9256000" />
       <workItem from="1717450775444" duration="2860000" />
-      <workItem from="1717482839734" duration="888000" />
+      <workItem from="1717482839734" duration="1191000" />
     </task>
     <servers />
   </component>

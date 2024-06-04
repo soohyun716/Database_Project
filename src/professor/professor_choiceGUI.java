@@ -1,6 +1,6 @@
-package GUI.professor;
+package professor;
 
-import GUI.mainFrame.mainGUI;
+import mainFrame.mainGUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

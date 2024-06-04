@@ -1,4 +1,4 @@
-package GUI.administrator;
+package administrator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +10,8 @@ import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Vector;
-import GUI.mainFrame.mainGUI;
+import mainFrame.mainGUI;
 
 
 /*

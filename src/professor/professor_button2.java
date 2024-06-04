@@ -1,15 +1,11 @@
-package GUI.professor;
+package professor;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

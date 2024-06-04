@@ -2,12 +2,10 @@ package student;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,19 +24,24 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import mainFrame.mainGUI;
-import javax.swing.JTextArea;
+
+/*
+LectureInfo ë·°ë¥¼ ì‚¬ìš©
+ê²°ê³¼ ì°½ì— ê°•ì˜ì‹¤ ë²ˆí˜¸, ì´ë¦„, ìœ„ì¹˜ ì¶œë ¥í•˜ë„ë¡ ìˆ˜ì •
+*/
+
 
 public class student_button2 extends JFrame{
 
-	private JPanel contentPane;
+    private JPanel contentPane;
 
-	private JTextField lectureNumberField;
+    private JTextField lectureNumberField;
     private JButton searchButton;
     private JFrame resultFrame;
     private JTextField textField;
 
-	public student_button2() {
-		setTitle("GONG-GANG");
+    public student_button2() {
+        setTitle("GONG-GANG");
         setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 600);
@@ -51,14 +53,14 @@ public class student_button2 extends JFrame{
         contentPane.setLayout(new BorderLayout(10, 10));
         setContentPane(contentPane);
 
-        // ·Î°í ºÙÀÌ´Â Panel
+        // ë¡œê³  ë¶™ì´ëŠ” Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setPreferredSize(new Dimension(1100, 103)); // Set preferred size for the North panel
         contentPane.add(logoPanel, BorderLayout.NORTH);
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-        // GONG-GANG ·Î°í label »ı¼º
+        // GONG-GANG ë¡œê³  label ìƒì„±
         JLabel logo = new JLabel("Gong-Gang");
         logo.setBackground(new Color(255, 255, 255));
         logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,18 +69,18 @@ public class student_button2 extends JFrame{
 
         JLabel userLabel = new JLabel("- \uC218\uC5C5 \uAC15\uC758\uC2E4 \uCC3E\uAE30 -");
         userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        userLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 22));
+        userLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”•", Font.BOLD, 22));
         logoPanel.add(userLabel);
 
 
 
-        //inputPanel & resultPanel Æ÷ÇÔÇÏ´Â mainPanel
+        //inputPanel & resultPanel í¬í•¨í•˜ëŠ” mainPanel
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         contentPane.add(mainPanel, BorderLayout.CENTER);
         mainPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-        //ÀÔ·Â ¹Ş´Â inputPanel
+        //ì…ë ¥ ë°›ëŠ” inputPanel
         JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(255,255,255));
         inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
@@ -88,7 +90,7 @@ public class student_button2 extends JFrame{
         inputLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         inputLabel.setPreferredSize(new Dimension(1050, 80));
         inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 21));
+        inputLabel.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 21));
         inputLabel.setBounds(200, 400, WIDTH, HEIGHT);
         inputPanel.add(inputLabel);
 
@@ -96,7 +98,7 @@ public class student_button2 extends JFrame{
         inputPanel.add(lectureNumberField);
 
         searchButton = new JButton("Search");
-        searchButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        searchButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 12));
         searchButton.setBackground(new Color(255, 255, 255));
         inputPanel.add(searchButton);
 
@@ -111,7 +113,7 @@ public class student_button2 extends JFrame{
                 if (!lectureNumber.isEmpty()) {
                     showRoomNumber(lectureNumber);
                 } else {
-                    JOptionPane.showMessageDialog(null, "¿Ã¹Ù¸¥ ÇĞ¼ö ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                    JOptionPane.showMessageDialog(null, "ì˜¬ë°”ë¥¸ í•™ìˆ˜ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
                 }
             }
         });
@@ -123,7 +125,7 @@ public class student_button2 extends JFrame{
         contentPane.add(homeButtonPanel, BorderLayout.SOUTH);
 
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("³ª´®°íµñ ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("ë‚˜ëˆ”ê³ ë”• ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -144,54 +146,58 @@ public class student_button2 extends JFrame{
                 mainFrame.setVisible(true); // Open the mainGUI frame
             }
         });
-	}
+    }
 
-	 private void showRoomNumber(String lectureNumber) {
-	        String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
-	        String dbUser = "root";
-	        String dbPass = "4542";
+    private void showRoomNumber(String lectureNumber) {
+        String dbUrl = "jdbc:mysql://localhost/DB2024Team05";
+        String dbUser = "DB2024Team05";
+        String dbPass = "DB2024Team05";
 
-	        // Assuming lectureNumber is entered as '14349-1'
-	        String[] parts = lectureNumber.split("-");
-	        if (parts.length != 2) {
-	            JOptionPane.showMessageDialog(this, "ÀÔ·Â°ªÀ» È®ÀÎÇÏ¼¼¿ä");
-	            return;
-	        }
+        // Assuming lectureNumber is entered as '14349-1'
+        String[] parts = lectureNumber.split("-");
+        if (parts.length != 2) {
+            JOptionPane.showMessageDialog(this, "ì…ë ¥ê°’ì„ í™•ì¸í•˜ì„¸ìš”");
+            return;
+        }
 
-	        String query = "SELECT Room_Number FROM DB2024_Lecture WHERE Lecture_Num = ? AND Class_Num = ?";
+        String query = "SELECT Room_Number,Room_Name,Location FROM LectureInfo WHERE Lecture_Num = ? AND Class_Num = ?";
 
-	        try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
-	             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-	            stmt.setString(1, parts[0]); // Lecture_Num
-	            stmt.setString(2, parts[1]); // Class_Num
-	            try (ResultSet rs = stmt.executeQuery()) {
-	                if (rs.next()) {
-	                    String roomNumber = rs.getString("Room_Number");
-	                    displayResult(roomNumber);
-	                } else {
-	                    JOptionPane.showMessageDialog(this, "ÇĞ¼ö¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇÏ¼¼¿ä");
-	                }
-	            }
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
-	        }
-	    }
+            stmt.setString(1, parts[0]); // Lecture_Num
+            stmt.setString(2, parts[1]); // Class_Num
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String roomNumber = rs.getString("Room_Number");
+                    String Room_name = rs.getString("Room_Name");
+                    String Location = rs.getString("Location");
+                    displayResult(roomNumber,Room_name,Location);
+                } else {
+                    JOptionPane.showMessageDialog(this, "í•™ìˆ˜ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+        }
+    }
 
 
-	    private void displayResult(String roomNumber) {
-	        //°á°ú¸¦ »õ Ã¢¿¡ Ç¥½Ã
-	        if (resultFrame != null) {
-	            resultFrame.dispose();
-	        }
-	        resultFrame = new JFrame("Classroom Information");
-	        resultFrame.setSize(300, 100);
-	        resultFrame.getContentPane().setLayout(new FlowLayout());
-	    	//mainPanel.add(new JLabel("°­ÀÇ½Ç ¹øÈ£: " + roomNumber));
-	        resultFrame.getContentPane().add(new JLabel("°­ÀÇ½Ç ¹øÈ£: " + roomNumber));
-	        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        resultFrame.setVisible(true);
-	    }
+    private void displayResult(String roomNumber, String Room_name, String Location) {
+        //ê²°ê³¼ë¥¼ ìƒˆ ì°½ì— í‘œì‹œ
+        if (resultFrame != null) {
+            resultFrame.dispose();
+        }
+        resultFrame = new JFrame("Classroom Information");
+        resultFrame.setSize(300, 100);
+        resultFrame.getContentPane().setLayout(new GridLayout(3,0));
+        //mainPanel.add(new JLabel("ê°•ì˜ì‹¤ ë²ˆí˜¸: " + roomNumber));
+        resultFrame.getContentPane().add(new JLabel("ê°•ì˜ì‹¤ ë²ˆí˜¸: " + roomNumber));
+        resultFrame.getContentPane().add(new JLabel("ê°•ì˜ì‹¤ ì´ë¦„: " + Room_name));
+        resultFrame.getContentPane().add(new JLabel("ê°•ì˜ì‹¤ ìœ„ì¹˜: " + Location));
+        resultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        resultFrame.setVisible(true);
+    }
 
 }
