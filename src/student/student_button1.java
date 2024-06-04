@@ -293,42 +293,47 @@ public class student_button1 extends JFrame{
 
 
     }
-
+//교실 정보를 찾는 함수
     private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         if (eat) {
+            //교실에서 식사를 원할 경우 아래와 같은 문자를 화면에 보이게 한다.
             infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요");
             return;
         }
 
-        String query = buildQuery(content, project,eat, computer, 0);
-        executeQuery(seats, query, 0);
+        String query = buildQuery(content, project,eat, computer, 0);// 쿼리를 생성하는 함수를 실행하고
+        executeQuery(seats, query, 0);//해당 쿼리를 실행시키는 함수를 호출한다. 여기서 0은 교실외가 아니라 교실을 선택했음을 알려주기 위한 숫자.
     }
-
+//교실 외 정보를 찾는 함수
     private void searchClassroom_ExternalInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         String warnMessage="";
         if (computer) {
+            //컴퓨터를 사용하길 원하는 경우
             warnMessage+="컴퓨터 실습을 원한다면 교실을 선택해 주세요";
             if(project)
-                warnMessage+="\n빔프로젝트를 교실을 선택해주세요";
+                //빔 프로젝트도 사용하길 원하는 경우
+                warnMessage+="\n빔프로젝트를 원한다면 교실을 선택해주세요";
             infoArea.setText(warnMessage);
             return;
         } else if (project) {
+            //빔 프로젝트를 원하는 경우
             warnMessage+="빔프로젝트 원한다면 교실을 선택해 주세요";
             infoArea.setText(warnMessage);
             return;
         }
-
-        String query = buildQuery(content, project, eat, computer, 1);
-        executeQuery(seats, query, 1);
+        String query = buildQuery(content, project, eat, computer, 1); //빔프로젝트나 컴퓨터 실습을 원하는 상황이 아닌경우 쿼리를 만드는 함수를 호출
+        executeQuery(seats, query, 1);//쿼리 실행
     }
 
 
-
+//쿼리를 생성하는 코드
     private String buildQuery(boolean content, boolean project, boolean eat, boolean computer, int type) {
 
-        String query = "SELECT * FROM DB2024_Classroom";
+        String query = "SELECT * FROM DB2024_Classroom";//기본적인 쿼리 틀을 만들고 여기에 원하는 조건을 WHERE절을 추가하는 식으로 코드를 진행한다.
+        //type은 사용자가 찾기를 원하는 것이 교실(0)인지 교실 외(1)인지를 구분해준다.
         if(type==0){
             if (computer || project) {
+                //교실에서 컴퓨터와 빔프로젝트를 원하는 경우에는 조건을 붙여준다.  교실에서는 식사가 불가하고 모든 교실에 콘센트가 있으므로 해당하는 조건은 추가하지 않아도 된다 .
                 query += " WHERE";
                 if (computer) {
                     query += " Practicable='실습가능'";
@@ -343,7 +348,8 @@ public class student_button1 extends JFrame{
 
 
         }if (type==1) {
-            query+="_External ";
+            //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있다.
+            query+="_External ";//현재 찾으려고 하는 테이블이 Classroom_External임
             if(content) {
                 query+="WHERE Outlet_Count > 0 ";
                 if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_Classroom_External WHERE Eat_Available = 1)";
