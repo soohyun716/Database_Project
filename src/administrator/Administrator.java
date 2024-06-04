@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-//import mainFrame.mainGUI;
+import mainFrame.mainGUI;
 
 import java.sql.*;
 import javax.swing.*;
@@ -39,10 +39,10 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     public JLabel result_wh = new JLabel();
     public JTextField inputWhere = new JTextField(30); // 사용자 입력을 받기 위한 텍스트 필드 추가
 
-    Container ct = getContentPane(); // 컨테이너 객체 생성
+    Container ct = getContentPane(); // 메인 컨테이너 객체 생성
 
-    JButton menu1_back = new JButton("뒤로가기"); 
-    JButton input_back = new JButton("뒤로가기");
+    JButton menu1_back = new JButton("뒤로가기"); // 첫 화면으로 돌아갈 뒤로가기 버튼 생성
+    JButton input_back = new JButton("뒤로가기"); // 테이블을 선택 화면으로 돌아갈 뒤로가기 버튼 생성
     
     boolean AutoCommit_flag = true; //AutoCommit의 기본 세팅 값이 true  
 	JTable table;
@@ -70,9 +70,6 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     String command1 = null;
     String command2 = null;
 
-    TextField idField, passField;
-    Button submitButton;
-    
     public Connection conn; 
 	public Statement stmt;
 
@@ -90,44 +87,44 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     }
 
     public void password() { // 보안유지를 위해 MySQL 계정과 암호 입력하도록 함 
-        setTitle("ID Password Input"); 
+        setTitle("ID Password Input");
         setSize(1100, 600);
         setLocation(50, 50);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
         setVisible(true);
 
-        JPanel logoPanel = new JPanel();
+        JPanel logoPanel = new JPanel(); //공강 로고를 넣을 패널
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-        ct.add(logoPanel, BorderLayout.NORTH);
+        ct.add(logoPanel, BorderLayout.NORTH); // 로고 패널 메인 컨테이너에 추가
 
-        JLabel logo1 = new JLabel("Gong-Gang");
+        JLabel logo1 = new JLabel("Gong-Gang"); //로고 레이블 생성
         logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
+        logoPanel.add(logo1); //로고 패널에 추가
 
-        JLabel logo2 = new JLabel("Administrator LOGIN");
+        JLabel logo2 = new JLabel("Administrator LOGIN"); // 화면 창을 간단히 설명 하는 레이블 생성
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-        logoPanel.add(logo2);
+        logoPanel.add(logo2); //로고 패널에 추가
 
         //ID 입력
-        Panel p1 = new Panel();
-        p1.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        Label idLabel = new Label(String.format("%20s :", "ID"));
+        Panel p1 = new Panel(); // 아이디관련 패널 생성
+        p1.setLayout(new FlowLayout(FlowLayout.RIGHT)); // 패널 레이아웃 설정
+        Label idLabel = new Label(String.format("%20s :", "ID")); // ID 입력 창임을 알려 주는 레이블
         p1.add(idLabel);
-        TextField idField = new TextField(20);
+        TextField idField = new TextField(20); // 아이디 입력 받을 필드
         p1.add(idField);
 
         //password 입력
-        Panel p2 = new Panel();
+        Panel p2 = new Panel(); // 비밀번호관련 패널 생성
         p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        Label passLabel = new Label(String.format("%20s:", "PASSWORD"));
+        Label passLabel = new Label(String.format("%20s:", "PASSWORD")); // 비번 입력 창임을 알려 주는 레이블
         p2.add(passLabel);
-        TextField passField = new TextField(20);
+        TextField passField = new TextField(20); // 비번 입력 받을 필드
         passField.setEchoChar('*'); //비밀번호 입력 시 '*'로 표시
         p2.add(passField);
 
@@ -137,8 +134,8 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == submitButton) {
-                    String id = idField.getText();
-                    String password = passField.getText();
+                    String id = idField.getText(); // 입력 받은 id 저장
+                    String password = passField.getText(); // 입력 받은 password 저장
 
                     System.out.println("ID: " + id); 
                     System.out.println("Password: " + password);
@@ -168,16 +165,17 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         centerPanel.add(p1);
         centerPanel.add(p2);
         centerPanel.add(p3);
-        
-        JPanel homeButtonPanel = new JPanel();
+
+        // 홈 버튼
+        JPanel homeButtonPanel = new JPanel(); // 홈 버튼 패널 생성
         homeButtonPanel.setBackground(new Color(255, 255, 255));
-        ct.add(homeButtonPanel, BorderLayout.SOUTH);
+        ct.add(homeButtonPanel, BorderLayout.SOUTH); // 메인 컨테이너에 추가
         
         ct.add(centerPanel, BorderLayout.CENTER);
         JButton homeButton = new JButton("HOME"); //Home 화면으로 돌아가는 버튼 
-        homeButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 12));
+        homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
-        homeButtonPanel.add(homeButton);
+        homeButtonPanel.add(homeButton); // 홈 버튼 패널에 추가
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         homeButton.addActionListener(this);
         
@@ -190,6 +188,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
         setVisible(true);
 
+        // 로고 들어갈 패널 생성
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
@@ -198,7 +197,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
         // 공간이 필요하다면? 로고 label
         JLabel logo1 = new JLabel("공간이 필요하다면?");
-        logo1.setFont(new Font("������� ExtraBold", Font.PLAIN, 20));
+        logo1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
@@ -216,12 +215,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ImageIcon adminImage = new ImageIcon(admin_Changing);
 
 
-        //관리자 임을 나타내는 이미지와 글
+        // 관리자임을 나타내는 이미지와 글을 담을 패널
         JPanel adminPanel = new JPanel();
         adminPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 60));
         adminPanel.setBackground(new Color(255, 255, 255));
         ct.add(adminPanel, BorderLayout.CENTER);
 
+        // 관리자임을 나타내는 이미지와 글 레이블
         JLabel adminLabel = new JLabel("Administrator", adminImage, SwingConstants.CENTER);
         adminLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         adminLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -229,7 +229,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         adminLabel.setBackground(new Color(255, 255, 255));
         adminPanel.add(adminLabel);
 
-
+        // 관리자가 수행할 수 있는 기능을 담는 패널
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         adminPanel.add(panel);
@@ -240,31 +240,35 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 		chkbox.addActionListener(this);
 		chkbox.setBackground(new Color(255, 255, 255));
 		chkbox.setSelected(AutoCommit_flag); 
-						
+
+        // insert 할 곳으로 연결되는 버튼
         JButton jb_insert = new JButton("투플추가");
         jb_insert.setBackground(new Color(255, 255, 255));
-        jb_insert.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        jb_insert.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(jb_insert);
         jb_insert.addActionListener(this);
 
+        // Update 할 곳으로 연결되는 버튼
         JButton jb_modify = new JButton("투플수정");
         jb_modify.setBackground(new Color(255, 255, 255));
-        jb_modify.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        jb_modify.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(jb_modify);
         jb_modify.addActionListener(this);
 
+        //delete 할 곳으로 연결되는 버튼
         JButton jb_delete = new JButton("투플삭제");
         jb_delete.setBackground(new Color(255, 255, 255));
-        jb_delete.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        jb_delete.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         panel.add(jb_delete);
         jb_delete.addActionListener(this);
 
+        // 커밋 버튼
         JButton jb_commit = new JButton("Commit");
         jb_commit.setBackground(new Color(255, 255, 255));
-        jb_commit.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
+        jb_commit.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
         jb_commit.addActionListener(this);
 
-
+        // 롤백 버튼
         JButton jb_rollback = new JButton("Rollback");
         jb_rollback.setBackground(new Color(255, 255, 255));
         jb_rollback.setFont(new Font("������� ExtraBold", Font.PLAIN, 22));
@@ -277,6 +281,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         panel.add(jb_delete);
         panel.add(jb_rollback);
 
+        // 홈 버튼 생성
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         ct.add(homeButtonPanel, BorderLayout.SOUTH);
@@ -306,32 +311,38 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.removeAll(); // 기존 컴포넌트 초기화
         repaint();
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
+
+        // 로고 패널 생성
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         ct.add(logoPanel, BorderLayout.NORTH);
 
+        // 로고 생성
         JLabel logo1 = new JLabel("Gong-Gang");
         logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
 
+        // 현재 창을 안내 하는 레이블 생성
         JLabel logo2 = new JLabel("관리할 테이블을 골라주세요.");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("������� ExtraBold", Font.BOLD, 40));
+        logo2.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 40));
         logoPanel.add(logo2);
 
+        // 가운데로 정렬할 패널
         JPanel p = new JPanel();
         p.setBackground(new Color(255,255,255));
         ct.add(p,BorderLayout.CENTER);
         p.setSize(300,250);
 
+        // 관리할 테이블을 고르는 버튼을 담을 패널
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         p.add(panel,BorderLayout.CENTER);
-        panel.setLayout(new GridLayout(6,1,20,20));
+        panel.setLayout(new GridLayout(6,1,20,20)); // 6행 1열의 그리드 레이아웃
 
         //테이블을 선택할 수 있는 버튼을 생성하고 배치한다 
         JButton jb1 = new JButton("Space_Info");
@@ -365,7 +376,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         panel.add(jb5);
 
         menu1_back.setBackground(new Color(255, 255, 255));
-        menu1_back.setFont(new Font("������� ExtraBold", Font.PLAIN, 20));
+        menu1_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         panel.add(menu1_back);
         menu1_back.addActionListener(this);
 
@@ -379,9 +390,9 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch(command) { 
-            case "투플추가":
-            case "투플수정":
-            case "투플삭제":
+            case "투플추가": // 누른 버튼이 투플추가일 때
+            case "투플수정": // 누른 버튼이 투플수정일 때
+            case "투플삭제": // 누른 버튼이 투플 삭제일 떄
                 command1 = command; 
                 addCommonComponents(); // 테이블 선택 화면을 호출 
                 break;
@@ -396,7 +407,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     			}
     			break;
     			
-    		case "Commit":
+    		case "Commit": // 커밋 버튼을 눌렀을 때
     			try {
     				conn.commit(); // 트랜잭션이 성공하면 commit 
     			} catch (SQLException e1) {
@@ -404,7 +415,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     			}
     			break;
     			
-    		case "Rollback":		
+    		case "Rollback": // 롤백 버튼을 눌렀을 때
     			try {
     				conn.rollback(); // 트랜잭션이 실패하면 rollback 
     			} catch (SQLException e1) {
@@ -412,7 +423,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     			}
     			break;
 
-            case "뒤로가기":
+            case "뒤로가기": // 뒤로가기 버튼을 눌렀을 때
                 if( e.getSource() == menu1_back) { 
                     menu1(); //menu 화면으로 돌아감 
                 }
@@ -421,11 +432,12 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
                 }
                 break;
 
-            case "HOME":
+            case "HOME": // 홈 버튼을 눌렀을 때
                 dispose(); // Close current frame
                 mainGUI mainFrame = new mainGUI();
                 mainFrame.setVisible(true); // Open the mainGUI frame
 
+            // 관리할 테이블을 선택했을 때
             case "Space_Info":
             case "Classroom":
             case "Classroom_External":
@@ -443,10 +455,11 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.removeAll();  // 기존 컴포넌트 초기화
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
 
-        run_prog(command1, tableName);
+        run_prog(command1, tableName); // 커맨드에 따라 사용할 기능 함수로 연결
 
+        // 뒤로가기 버튼
         input_back.setBackground(new Color(255, 255, 255));
-        input_back.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
+        input_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
         input_back.setBounds( XE2+100, YE*3,  100, YE_gap );
         input_back.addActionListener(this);
         ct.add(input_back);
@@ -475,18 +488,21 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.setLayout(null);
         ct.setBackground(Color.white);
 
+        // 로고 패널 생성
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         ct.add(logoPanel);
 
+        // 로고 생성
         JLabel logo1 = new JLabel("Gong-Gang");
         logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
 
+        // insert 임을 알려주는 글 생성
         JLabel logo2 = new JLabel("Insert");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
@@ -502,7 +518,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
         JButton confirmButton = new JButton("확인");
         confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
+        confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
@@ -556,18 +572,21 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         inputWhere.setText(""); // 입력 필드 초기화
         inputField.setText(""); // 입력 필드 초기화
 
+        // 로고 패널 생성
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         ct.add(logoPanel);
 
+        // 로고 생성
         JLabel logo1 = new JLabel("Gong-Gang");
         logo1.setFont(new Font("Arial Black", Font.BOLD, 10));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
         logoPanel.add(logo1);
 
+        // Update 관련 기능 탭임을 알려주는 글 생성
         JLabel logo2 = new JLabel("Update");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 20));
@@ -586,7 +605,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
         JButton confirmButton = new JButton("확인");
         confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15)); 
+        confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
@@ -651,18 +670,21 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 		ct.setLayout(null);
 		ct.setBackground(Color.white);
 
+        // 로고 패널 생성
 		JPanel logoPanel = new JPanel();
 		logoPanel.setBackground(new Color(255, 255, 255));
 		logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
 		ct.add(logoPanel);
 
+        // 로고 생성
 		JLabel logo1 = new JLabel("Gong-Gang");
 		logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
 		logo1.setHorizontalAlignment(SwingConstants.CENTER);
 		logo1.setVerticalAlignment(SwingConstants.BOTTOM);
 		logoPanel.add(logo1);
 
+        // Delete 관련 기능임을 알려주는 탭임을 알려주는 레이블
 		JLabel logo2 = new JLabel("Delete");
 		logo2.setHorizontalAlignment(SwingConstants.CENTER);
 		logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
@@ -676,7 +698,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
 
 		JButton confirmButton = new JButton("확인");
 		confirmButton.setBackground(new Color(255, 255, 255));
-		confirmButton.setFont(new Font("������� ExtraBold", Font.PLAIN, 15));
+		confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		confirmButton.addActionListener(new ActionListener() { //확인 버튼 누르면 실행  
 			@Override
 			public void actionPerformed(ActionEvent e) {
