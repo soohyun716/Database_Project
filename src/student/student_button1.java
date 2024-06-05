@@ -382,7 +382,7 @@ public class student_button1 extends JFrame{
 
             boolean found = false;
             while (rs.next()) {
-                if (processResultSet(seats, rs)||type==1) {
+                if (processResultSet(seats, rs, conn)||type==1) {
                     message += formatRoomInfo(rs);
                     found = true;
                 }
@@ -393,15 +393,27 @@ public class student_button1 extends JFrame{
             infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());//DB 연결이 실패한 경우
         }
     }
-    //원하는 시간표에 맞는지 해당 쿼리 결가를 확인하는 코드
-    private boolean processResultSet(String seats, ResultSet rs) throws SQLException {
+    //원하는 시간표에 맞는지 해당 쿼리 결과를 확인하는 코드
+    private boolean processResultSet(String seats, ResultSet rs, Connection conn) throws SQLException {
         String key;
         Boolean value;
         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
             key = entry.getKey();
             value = entry.getValue();
-            if (value && isNumberInRange(seats, rs.getInt("SeatCount")) && rs.getBoolean(key)) {
-                message+=key+" ";
+
+            if (value && isNumberInRange(seats, rs.getInt("SeatCount"))) {
+                String query2="SELECT * FROM DB2024_Classroom_Schedule WHERE Room_Number=? AND Lecture_Time=?";
+
+                PreparedStatement stmt=conn.prepareStatement(query2);
+                stmt.setString(1, rs.getString("Room_Number"));
+                stmt.setString(2, key);
+
+                ResultSet rs2=stmt.executeQuery();
+
+                while(rs2.next()){
+                    if(!rs2.wasNull()) message+=key+" ";
+                }
+
                 return true;
             }
         }
