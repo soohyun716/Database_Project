@@ -97,7 +97,7 @@ public class professor_button3 extends JFrame {
         timePanel.setLayout(new GridLayout(9, 5, 10, 8)); // 그리드 레이아웃 설정
         timePanel.setPreferredSize(new Dimension(470, 200)); // 선호 크기 설정
 
-        String[] times = { "Mon1", "Tue1", "Wed1", "Thu1", "Fri1", "Mon2", "Tue2", "Wed2", "Thu2", "Fri2", "Mon3", "Tue3", "Wed3", "Thu3", "Fri3", "Mon4", "Tue4", "Wed4", "Thu4", "Fri4", "Mon5", "Tue5", "Wed5", "Thu5", "Fri5", "Mon6", "Tue6", "Wed6", "Thu6", "Fri6", "Mon7", "Tue7", "Wed7", "Thu7", "Fri7", "Mon8", "Tue8", "Wed8", "Thu8", "Fri8", "Mon9", "Tue9", "Wed9", "Thu9", "Fri9" };
+        String[] times = { "월1", "화1", "수1", "목1", "금1", "월2", "화2", "수2", "목2", "금2", "월3", "화3", "수3", "목3", "금3", "월4", "화4", "수4", "목4", "금4", "월5", "화5", "수5", "목5", "금5", "월6", "화6", "수6", "목6", "금6", "월7", "화7", "수7", "목7", "금7", "월8", "화8", "수8", "목8", "금8", "월9", "화9", "수9", "목9", "금9" };
 
         timeCheckBoxes = new JCheckBox[times.length];
 
