@@ -290,7 +290,6 @@ public class professor_button2 extends JFrame {
             lectureTable.getColumnModel().getColumn(currentDayIndex)
                     .setCellRenderer(new CustomRenderer(Color.RED, currentPeriod, currentDayIndex)); // 현재 교시와 요일 셀 강조
         }
-
         lectureTable.repaint(); // 테이블 다시 그리기
     }
 

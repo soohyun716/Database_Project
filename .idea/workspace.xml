@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b224712d-e708-45d1-9070-c8ee8f8615ec" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca/storage_v2/_src_/schema/db2024team05.IOGLWA.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca/storage_v2/_src_/schema/db2024team05.IOGLWA.zip" afterDir="false" />
+    <list default="true" id="b224712d-e708-45d1-9070-c8ee8f8615ec" name="Changes" comment="Changes">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2cc291d1-787d-402e-9110-40d3b6d3eeca.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/professor/professor_button2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/professor/professor_button2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/student/student_button1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/student_button1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +46,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.mainGUI.executor": "Run"
   }
 }]]></component>
   <component name="RunManager">
@@ -63,7 +66,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.mainGUI" />
+        <item itemvalue="애플리케이션.mainGUI" />
       </list>
     </recent_temporary>
   </component>
@@ -89,5 +92,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes" />
   </component>
 </project>

@@ -226,6 +226,7 @@ public class student_button1 extends JFrame{
                 eat= eatCheckBox.isSelected();
                 computer= computerCheckBox.isSelected();
                 infoArea=new JTextArea(1100,600);
+                message = "검색된 교실의 번호: \n";
                 //교실 정보를 선택한 경우
                 if(usage.equals("교실")) searchClassroomInfo(seats, content, project, eat, computer);
                 //교실 외의 정보를 선택한 경우
@@ -382,7 +383,7 @@ public class student_button1 extends JFrame{
 
             boolean found = false;
             while (rs.next()) {
-                if (processResultSet(seats, rs, conn)||type==1) {
+                if (type==1||processResultSet(seats, rs, conn)) {
                     message += formatRoomInfo(rs);
                     found = true;
                 }
