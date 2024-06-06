@@ -1,3 +1,4 @@
+
 //원하는 공간을 찾기 위한 코드
 
 package student;
@@ -10,29 +11,24 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import mainFrame.mainGUI;
-import javax.swing.JCheckBox;
+
 import java.awt.FlowLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
 import java.awt.Component;
-import javax.swing.UIManager;
 
 public class student_button1 extends JFrame{
+
 
     private JPanel contentPane;
 
@@ -43,10 +39,13 @@ public class student_button1 extends JFrame{
     boolean eat;             // 식사 가능 유무
     boolean computer;        // 컴퓨터 유무
     Map<String, Boolean> timeDictionary=new HashMap<>();
+    ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
     private JTextArea infoArea; // 결과 가져오는 텍스트
-    String message = "검색된 교실의 번호: \n";
+    String message = null;
 
     public student_button1() {
+
+
 
         // main frame 설정
         setTitle("GONG-GANG");
@@ -166,7 +165,7 @@ public class student_button1 extends JFrame{
         timePanel.setBackground(new Color(255,255,255));
 
         // 시간표 라벨 및 체크박스 생성
-        String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri"};
+        String[] days = {"월", "화", "수", "목", "금"};
         String[] times = {"1", "2", "3", "4", "5", "6", "7","8"};
 
         for (String time : times) {
@@ -185,6 +184,7 @@ public class student_button1 extends JFrame{
                 });
                 checkBox.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 timePanel.add(checkBox);
+                checkBoxList.add(checkBox);
 
             }
         }
@@ -225,7 +225,18 @@ public class student_button1 extends JFrame{
                 project= beamProjectCheckBox.isSelected();
                 eat= eatCheckBox.isSelected();
                 computer= computerCheckBox.isSelected();
-                infoArea=new JTextArea(1100,600);
+                infoArea=new JTextArea();
+                infoArea.setFont(new Font("나눔고딕", Font.BOLD, 16));
+                infoArea.setBorder(new EmptyBorder(10, 50, 20, 20));
+                JScrollPane scrollPane = new JScrollPane(infoArea);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        //스크롤바 위치 맨 위로 조정
+                        scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
+                    }
+                });
+
                 message = "검색된 교실의 번호: \n";
                 //교실 정보를 선택한 경우
                 if(usage.equals("교실")) searchClassroomInfo(seats, content, project, eat, computer);
@@ -244,7 +255,7 @@ public class student_button1 extends JFrame{
 
 
                 infoArea.setEditable(false);
-                newFrame.getContentPane().add(infoArea, BorderLayout.CENTER);
+                newFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
                 newFrame.setVisible(true);
 
                 // 로고 붙이는 Panel
@@ -267,6 +278,23 @@ public class student_button1 extends JFrame{
                 userLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 userLabel.setFont(new Font("나눔고딕", Font.BOLD, 22));
                 logoPanel.add(userLabel);
+
+                newFrame.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        super.windowClosing(e);
+                        // 새 창이 닫힐 때 timeTable 초기화
+                        for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
+                            entry.setValue(false);
+                        }
+                        // 체크박스 선택 상태 초기화
+                        for (JCheckBox checkBox : checkBoxList) {
+                            checkBox.setSelected(false);
+                        }
+
+
+                    }
+                });
 
             }
 
@@ -296,31 +324,33 @@ public class student_button1 extends JFrame{
 
 
     }
+
     //교실 정보를 찾는 함수
     private void searchClassroomInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         if (eat) {
             //교실에서 식사를 원할 경우 아래와 같은 문자를 화면에 보이게 한다.
-            infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요");
+            infoArea.setText("교실에서는 취식이 불가능합니다. 재선택 해주세요.");
             return;
         }
 
-        String query = buildQuery(content, project,eat, computer, 0);// 쿼리를 생성하는 함수를 실행하고
+        String query = buildQuery(content, project, eat, computer, 0);// 쿼리를 생성하는 함수를 실행하고
         executeQuery(seats, query, 0);//해당 쿼리를 실행시키는 함수를 호출한다. 여기서 0은 교실외가 아니라 교실을 선택했음을 알려주기 위한 숫자.
     }
+
     //교실 외 정보를 찾는 함수
     private void searchClassroom_ExternalInfo(String seats, boolean content, boolean project, boolean eat, boolean computer) {
         String warnMessage="";
         if (computer) {
             //컴퓨터를 사용하길 원하는 경우
-            warnMessage+="컴퓨터 실습을 원한다면 교실을 선택해 주세요";
+            warnMessage+="컴퓨터 실습을 원한다면 교실을 선택해 주세요.";
             if(project)
                 //빔 프로젝트도 사용하길 원하는 경우
-                warnMessage+="\n빔프로젝트를 원한다면 교실을 선택해주세요";
+                warnMessage+="\n빔프로젝트를 원한다면 교실을 선택해주세요.";
             infoArea.setText(warnMessage);
             return;
         } else if (project) {
             //빔 프로젝트를 원하는 경우
-            warnMessage+="빔프로젝트 원한다면 교실을 선택해 주세요";
+            warnMessage+="빔프로젝트 원한다면 교실을 선택해 주세요.";
             infoArea.setText(warnMessage);
             return;
         }
@@ -355,19 +385,20 @@ public class student_button1 extends JFrame{
             query += "DB2024_ClassroomExternalView";
             //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있음.
             if(content) {
-                query+="WHERE Outlet_Count > 0 ";
+                query+=" WHERE Outlet_Count > 0 ";
                 if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_ClassroomExternalView WHERE Eat_Available = 1)";
                 query+=";";
             }
             else{
                 if(eat) query+="WHERE Eat_Available = True;";
-
             }
 
         }
 
         return query;
     }
+
+
     //쿼리를 input으로 받아서 해당 쿼리를 실행하는 메소드 이후에 해당하는 쿼리를 실행한 결과를 받아 infoArea에 붙이기
     private void executeQuery(String seats, String query, int type) {
         final String url = "jdbc:mysql://localhost/DB2024Team05";
@@ -383,47 +414,61 @@ public class student_button1 extends JFrame{
 
             boolean found = false;
             while (rs.next()) {
-                if (type==1||processResultSet(seats, rs, conn)) {
+                if (type==0 && processResultSet(seats, rs, conn)) {
+                    found = true;
+                }else if((type == 1) && isNumberInRange(seats, rs.getInt("Seat_Count"))){
                     message += formatRoomInfo(rs);
                     found = true;
                 }
             }
+
             infoArea.setText(found ? message : "원하는 교실이 없습니다. 조건을 재선택하세요.");//결과값이 없는 경우
 
         } catch (SQLException e) {
-            infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다: " + e.getMessage());//DB 연결이 실패한 경우
+            infoArea.setText("데이터를 불러오는 과정에서 오류가 있습니다 \n" + e.getMessage());//DB 연결이 실패한 경우
         }
     }
-    //원하는 시간표에 맞는지 해당 쿼리 결과를 확인하는 코드
+
     private boolean processResultSet(String seats, ResultSet rs, Connection conn) throws SQLException {
-        String key;
-        Boolean value;
+        boolean hasFalse = false; // 각 시간대에 대해 결과가 false인지 확인하는 변수
+
+        // 각 시간대에 대해 반복
         for (Map.Entry<String, Boolean> entry : timeDictionary.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
+            String key = entry.getKey();
+            Boolean value = entry.getValue();
 
-            if (value && isNumberInRange(seats, rs.getInt("SeatCount"))) {
-                String query2="SELECT * FROM DB2024_Classroom_Schedule WHERE Room_Number=? AND Lecture_Time=?";
+            // 만약 현재 시간대에 대한 값이 true이고 좌석 수가 조건에 맞는다면
+            if (value && isNumberInRange(seats, rs.getInt("Seat_Count"))) {
+                String query2 = "SELECT * FROM DB2024_Classroom_Schedule WHERE Room_Number=? AND Lecture_Time=?";
 
-                PreparedStatement stmt=conn.prepareStatement(query2);
+                PreparedStatement stmt = conn.prepareStatement(query2);
                 stmt.setString(1, rs.getString("Room_Number"));
                 stmt.setString(2, key);
 
-                ResultSet rs2=stmt.executeQuery();
 
-                while(rs2.next()){
-                    if(!rs2.wasNull()) message+=key+" ";
+                ResultSet rs2 = stmt.executeQuery();
+
+                // 현재 시간대에 대한 결과가 없는 경우
+                if (!rs2.next()) {
+                    // 결과가 없으면 hasFalse를 true로 설정
+                    message+=rs.getString("Room_Number");
+                    message+=" "+key+"가능\n";
+                    hasFalse=true;
+                } else {
+                    // 결과가 있으면 바로 false 반환
+                    //앞에서 한번만 true로 바꿔주면 있기는 한거니까 hsaFalse를 다시 false로 바꿀 필요는 없음.
+
                 }
-
-                return true;
             }
         }
-        return false;
+        // 각 시간대에 대해 결과가 없는 경우에만 true 반환
+        return hasFalse;
     }
-
     //검색된 결과에서 Room_number를 가져오고 출력할 수 있도록 만들어주는 코드
     private String formatRoomInfo(ResultSet rs) throws SQLException {
-        return rs.getString("Room_number") + " 가능\n";
+        String result=rs.getString("Room_number") +" "+rs.getString("Room_Name")+ " 가능\n";
+
+        return result;
     }
 
 
