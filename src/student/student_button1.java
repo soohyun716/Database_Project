@@ -228,12 +228,12 @@ public class student_button1 extends JFrame{
                 infoArea=new JTextArea();
                 infoArea.setFont(new Font("나눔고딕", Font.BOLD, 16));
                 infoArea.setBorder(new EmptyBorder(10, 50, 20, 20));
-                JScrollPane scrollPane = new JScrollPane(infoArea);
+                JScrollPane scroll = new JScrollPane(infoArea);
                 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         //스크롤바 위치 맨 위로 조정
-                        scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
+                        scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar().getMinimum());
                     }
                 });
 
@@ -255,7 +255,7 @@ public class student_button1 extends JFrame{
 
 
                 infoArea.setEditable(false);
-                newFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+                newFrame.getContentPane().add(scroll, BorderLayout.CENTER);
                 newFrame.setVisible(true);
 
                 // 로고 붙이는 Panel
