@@ -29,7 +29,7 @@ import javax.swing.border.EmptyBorder;
 import mainFrame.mainGUI;
 
 /*
-LectureInfo 뷰를 사용
+DB2024_LectureView 뷰를 사용
 결과 창에 강의실 번호, 이름, 위치 출력하도록 수정
 */
 

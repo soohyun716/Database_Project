@@ -386,11 +386,11 @@ public class student_button1 extends JFrame{
             //교실 외에서는 콘센트 필요유무, 식사 가능 여부에 대해서 검색 조건을 걸어줄 수 있음.
             if(content) {
                 query+=" WHERE Outlet_Count > 0 ";
-                if(eat) query+="AND Room_Number IN (SELECT Room_Number FROM DB2024_ClassroomExternalView WHERE Eat_Available = 1)";
+                if(eat) query+="AND Eat_Available = 1";
                 query+=";";
             }
             else{
-                if(eat) query+="WHERE Eat_Available = True;";
+                if(eat) query+=" WHERE Eat_Available = 1;";
             }
 
         }

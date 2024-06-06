@@ -1,7 +1,6 @@
+//관리자 코드
 package administrator;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 import mainFrame.mainGUI;
@@ -12,7 +11,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Vector;
-
 
 /*
  * 데이터베이스 수정 및 관리 위한 관리자 코드
@@ -26,67 +24,89 @@ import java.util.Vector;
  */
 
 public class Administrator { // 메인 실행 함수
-    public Administrator(){
+    public Administrator() {
         new 관리자();
     }
 }
 
 class 관리자 extends JFrame implements ActionListener, MouseListener {
 
-    public JLabel result = new JLabel();
-    public JTextField inputField = new JTextField(30); // 사용자 입력을 받기 위한 텍스트 필드 추가
+    public JLabel result = new JLabel(); // 결과를 알리기 위한 라벨 생성
 
-    public JLabel result_wh = new JLabel();
-    public JTextField inputWhere = new JTextField(30); // 사용자 입력을 받기 위한 텍스트 필드 추가
+    public JLabel result1 = new JLabel();
+    public JTextField inLecture_Num = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result2 = new JLabel();
+    public JTextField inClass_Num = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result3 = new JLabel();
+    public JTextField inLecture_Name = new JTextField(30); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result4 = new JLabel();
+    public JTextField inProfessor_Num = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result5 = new JLabel();
+    public JTextField inProfessor_Name = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result6 = new JLabel();
+    public JTextField inRoom_Number = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result7 = new JLabel();
+    public JTextField inLecture_Time1 = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    public JLabel result8 = new JLabel();
+    public JTextField inLecture_Time2 = new JTextField(10); // 사용자 입력을 받기 위한 텍스트 필드 추가
+
+    // 수정 전 원본 값
+    private String Room_Number_ori;
+    private String Lecture_Time1_ori;
+    private String Lecture_Time2_ori;
+    private String Lecture_Num_ori;
+    private String Class_Num_ori;
 
     Container ct = getContentPane(); // 메인 컨테이너 객체 생성
 
-    JButton menu1_back = new JButton("뒤로가기"); // 첫 화면으로 돌아갈 뒤로가기 버튼 생성
-    JButton input_back = new JButton("뒤로가기"); // 테이블을 선택 화면으로 돌아갈 뒤로가기 버튼 생성
-    
-    boolean AutoCommit_flag = true; //AutoCommit의 기본 세팅 값이 true  
-	JTable table;
-	
-    final int X = 200;	//배치를 위해 X와 Y값을 지정 
-    final int Y = 50;     // Next = Y * n
+    JButton menu1_back = new JButton("취소"); // 첫 화면으로 돌아갈 뒤로가기 버튼 생성
+    JButton input_back = new JButton("뒤로가기"); // 테이블을 관리 후에 돌아갈 뒤로가기 버튼 생성
+
+    boolean AutoCommit_flag = true; // AutoCommit의 기본 세팅 값이 true
+    JTable table;
+
+    final int X = 200; // 배치를 위해 X와 Y값을 지정
+    final int Y = 50; // Next = Y * n
     final int Y_gap = 40;
 
-    //input Start Point
-    final int XE = 50;    // label Posision
-    final int XE2 = 400;  // input Field
-    final int YE = 50;    // Next = YE * n
+    // input Start Point
+    final int XE = 50; // label Posision
+    final int XE2 = 400; // input Field
+    final int YE = 40; // Next = YE * n
     final int YE_gap = 40;
     JScrollPane scrollPane = null;
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql:/DB2024Team05";
     // Database credentials
-    // MySQL 계정과 암호 
+    // MySQL 계정과 암호
     static final String USER = "DB2024Team05";
     static final String PASS = "DB2024Team05";
 
-    private String tableName;
+    public Connection conn;
+    public Statement stmt;
 
-    String command1 = null;
-    String command2 = null;
+    public void DatabaseManager() { // conn와 stmt를 매번 호출하지 않아도 실행되도록 함
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS); // 데이터베이스 연결을 설정
+            stmt = conn.createStatement(); // Statement 객체를 생성하여 SQL 문을 실행할 준비를 함
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public Connection conn; 
-	public Statement stmt;
-
-	public void DatabaseManager() { //conn와 stmt를 매번 호출하지 않아도 실행되도록 함 
-		try {
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);  // 데이터베이스 연결을 설정
-			stmt = conn.createStatement(); // Statement 객체를 생성하여 SQL 문을 실행할 준비를 함
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-    public 관리자() { //관리자 실행코드 
+    public 관리자() { // 관리자 실행코드
         password();
     }
 
-    public void password() { // 보안유지를 위해 MySQL 계정과 암호 입력하도록 함 
+    public void password() { // 보안유지를 위해 MySQL 계정과 암호 입력하도록 함
         setTitle("ID Password Input");
         setSize(1100, 600);
         setLocation(50, 50);
@@ -94,24 +114,24 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
         setVisible(true);
 
-        JPanel logoPanel = new JPanel(); //공강 로고를 넣을 패널
+        JPanel logoPanel = new JPanel(); // 공강 로고를 넣을 패널
         logoPanel.setBackground(new Color(255, 255, 255));
         logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         ct.add(logoPanel, BorderLayout.NORTH); // 로고 패널 메인 컨테이너에 추가
 
-        JLabel logo1 = new JLabel("Gong-Gang"); //로고 레이블 생성
+        JLabel logo1 = new JLabel("Gong-Gang"); // 로고 레이블 생성
         logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1); //로고 패널에 추가
+        logoPanel.add(logo1); // 로고 패널에 추가
 
         JLabel logo2 = new JLabel("Administrator LOGIN"); // 화면 창을 간단히 설명 하는 레이블 생성
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-        logoPanel.add(logo2); //로고 패널에 추가
+        logoPanel.add(logo2); // 로고 패널에 추가
 
-        //ID 입력
+        // ID 입력
         Panel p1 = new Panel(); // 아이디관련 패널 생성
         p1.setLayout(new FlowLayout(FlowLayout.RIGHT)); // 패널 레이아웃 설정
         Label idLabel = new Label(String.format("%20s :", "ID")); // ID 입력 창임을 알려 주는 레이블
@@ -119,16 +139,16 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         TextField idField = new TextField(20); // 아이디 입력 받을 필드
         p1.add(idField);
 
-        //password 입력
+        // password 입력
         Panel p2 = new Panel(); // 비밀번호관련 패널 생성
         p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
         Label passLabel = new Label(String.format("%20s:", "PASSWORD")); // 비번 입력 창임을 알려 주는 레이블
         p2.add(passLabel);
         TextField passField = new TextField(20); // 비번 입력 받을 필드
-        passField.setEchoChar('*'); //비밀번호 입력 시 '*'로 표시
+        passField.setEchoChar('*'); // 비밀번호 입력 시 '*'로 표시
         p2.add(passField);
 
-        //Enter 버튼
+        // Enter 버튼
         JButton submitButton = new JButton("ENTER");
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -137,27 +157,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
                     String id = idField.getText(); // 입력 받은 id 저장
                     String password = passField.getText(); // 입력 받은 password 저장
 
-                    System.out.println("ID: " + id); 
+                    System.out.println("ID: " + id);
                     System.out.println("Password: " + password);
 
-                    if (id.equals(USER) && password.equals(PASS)) { // MySQL 계정과 암호가 입력한 내용과 같으면 메뉴를 호출 
-                    	DatabaseManager();	//한번만 실행한다 
-                        menu1();  
+                    if (id.equals(USER) && password.equals(PASS)) { // MySQL 계정과 암호가 입력한 내용과 같으면 메뉴를 호출
+                        DatabaseManager(); // 한번만 실행한다
+                        menu1();
                     }
-                }
-            }
-        });
-
-        // 뒤로가기 버튼 추가
-        // 다시 첫 화면으로 돌아감
-        JButton backButton = new JButton("BACK");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand() == "BACK"){
-                    dispose(); // Close current frame
-                    mainGUI mainFrame = new mainGUI();
-                    mainFrame.setVisible(true); // Open the mainGUI frame
                 }
             }
         });
@@ -165,14 +171,13 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         Panel p3 = new Panel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
         p3.add(submitButton);
-        p3.add(backButton);
 
-        //Grid Center에 두기 위해 새로은 JPanel 생성
+        // Grid Center에 두기 위해 새로은 JPanel 생성
         JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(null); //위치 커스텀을 위해 null
+        centerPanel.setLayout(null); // 위치 커스텀을 위해 null
         centerPanel.setBackground(new Color(255, 255, 255));
 
-        //위치 조정
+        // 위치 조정
         p1.setBounds(X, Y * 1, 500, Y_gap); // x, y , Width, Height
         p2.setBounds(X, Y * 2, 500, Y_gap);
         p3.setBounds(500, Y * 3, 500, Y_gap);
@@ -185,217 +190,77 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         JPanel homeButtonPanel = new JPanel(); // 홈 버튼 패널 생성
         homeButtonPanel.setBackground(new Color(255, 255, 255));
         ct.add(homeButtonPanel, BorderLayout.SOUTH); // 메인 컨테이너에 추가
-        
+
         ct.add(centerPanel, BorderLayout.CENTER);
-        JButton homeButton = new JButton("HOME"); //Home 화면으로 돌아가는 버튼 
+        JButton homeButton = new JButton("HOME"); // Home 화면으로 돌아가는 버튼
         homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton); // 홈 버튼 패널에 추가
         homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         homeButton.addActionListener(this);
-        
 
     }
 
-    public void menu1() { //투플의 삽입, 수정, 삭제를 위해 선택하는 메뉴 
+    public void menu1() { // 투플의 삽입, 수정, 삭제를 위해 선택하는 메뉴
         ct.removeAll(); // 기존 컴포넌트 초기화
+        revalidate();
         repaint();
         ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
-        setVisible(true);
 
         // 로고 들어갈 패널 생성
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(new Color(255, 255, 255));
-        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
+        logoPanel.setLayout(new BorderLayout());
         logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
         ct.add(logoPanel, BorderLayout.NORTH);
 
-        // 공간이 필요하다면? 로고 label
-        JLabel logo1 = new JLabel("공간이 필요하다면?");
+        // 강의 전체 보기 label
+        JLabel logo1 = new JLabel("강의 전체 보기");
         logo1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
         logo1.setHorizontalAlignment(SwingConstants.CENTER);
         logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
+        logoPanel.add(logo1, BorderLayout.WEST);
 
         // GONG-GANG 로고 label
         JLabel logo2 = new JLabel("Gong-Gang");
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
         logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-        logoPanel.add(logo2);
+        logoPanel.add(logo2, BorderLayout.CENTER);
 
-        //관리자 이미지 가져오기
-        ImageIcon adminImage_temp = new ImageIcon(Administrator.class.getResource("/images/administratorImage.png"));
-        Image admin_img = adminImage_temp.getImage();
-        Image admin_Changing = admin_img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        ImageIcon adminImage = new ImageIcon(admin_Changing);
+        // 강의 등록 버튼 패널 생성
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(255, 255, 255));
+        logoPanel.add(buttonPanel, BorderLayout.EAST);
 
-
-        // 관리자임을 나타내는 이미지와 글을 담을 패널
-        JPanel adminPanel = new JPanel();
-        adminPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 60));
-        adminPanel.setBackground(new Color(255, 255, 255));
-        ct.add(adminPanel, BorderLayout.CENTER);
-
-        // 관리자임을 나타내는 이미지와 글 레이블
-        JLabel adminLabel = new JLabel("Administrator", adminImage, SwingConstants.CENTER);
-        adminLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-        adminLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-        adminLabel.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        adminLabel.setBackground(new Color(255, 255, 255));
-        adminPanel.add(adminLabel);
-
-        // 관리자가 수행할 수 있는 기능을 담는 패널
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(255, 255, 255));
-        adminPanel.add(panel);
-        panel.setLayout(new GridLayout(3, 0, 20, 20));
-
-		
-		JCheckBox chkbox = new JCheckBox("AutoCommit"); // 트랜잭션 시작을 선택할 수 있도록 checkbox 생성 
-		chkbox.addActionListener(this);
-		chkbox.setBackground(new Color(255, 255, 255));
-		chkbox.setSelected(AutoCommit_flag); 
-
-        // insert 할 곳으로 연결되는 버튼
-        JButton jb_insert = new JButton("투플추가");
+        JButton jb_insert = new JButton("강의등록");
         jb_insert.setBackground(new Color(255, 255, 255));
+        buttonPanel.add(jb_insert);
         jb_insert.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_insert);
         jb_insert.addActionListener(this);
 
-        // Update 할 곳으로 연결되는 버튼
-        JButton jb_modify = new JButton("투플수정");
-        jb_modify.setBackground(new Color(255, 255, 255));
-        jb_modify.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_modify);
-        jb_modify.addActionListener(this);
+        // 결과보기 영역 추가
+        JPanel resultPanel = new JPanel();
+        resultPanel.setBackground(new Color(255, 255, 255));
+        resultPanel.setLayout(new BorderLayout());
 
-        //delete 할 곳으로 연결되는 버튼
-        JButton jb_delete = new JButton("투플삭제");
-        jb_delete.setBackground(new Color(255, 255, 255));
-        jb_delete.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
-        panel.add(jb_delete);
-        jb_delete.addActionListener(this);
+        JScrollPane scrollPane = new JScrollPane(resultPanel);
+        ct.add(scrollPane, BorderLayout.CENTER);
 
-        // 커밋 버튼
-        JButton jb_commit = new JButton("Commit");
-        jb_commit.setBackground(new Color(255, 255, 255));
-        jb_commit.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
-        jb_commit.addActionListener(this);
+        결과보기(); // 결과보기 내용 호출
 
-        // 롤백 버튼
-        JButton jb_rollback = new JButton("Rollback");
-        jb_rollback.setBackground(new Color(255, 255, 255));
-        jb_rollback.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 22));
-        jb_rollback.addActionListener(this);
-
-        panel.add(jb_insert);
-        panel.add(chkbox);
-        panel.add(jb_modify);
-        panel.add(jb_commit);
-        panel.add(jb_delete);
-        panel.add(jb_rollback);
-
-        // 홈 버튼 생성
+        // 홈 버튼 패널 생성
         JPanel homeButtonPanel = new JPanel();
         homeButtonPanel.setBackground(new Color(255, 255, 255));
+        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         ct.add(homeButtonPanel, BorderLayout.SOUTH);
 
-        JButton homeButton = new JButton("HOME"); //Home 화면으로 가는 버튼 
+        JButton homeButton = new JButton("HOME"); // Home 화면으로 가는 버튼
         homeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
         homeButton.setBackground(new Color(255, 255, 255));
         homeButtonPanel.add(homeButton);
-        homeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         homeButton.addActionListener(this);
-        
-        chkbox.setBounds(   X + 150, Y * 2, 200, Y_gap); 
-		
-		jb_insert.setBounds(X + 150, Y * 5, 400, Y_gap);
-		jb_modify.setBounds(X + 150, Y * 6, 400, Y_gap);
-		jb_delete.setBounds(X + 150, Y * 7, 400, Y_gap);
-		
-		jb_commit.setBounds(X + 150, Y * 10, 200, Y_gap);
-		jb_rollback.setBounds(X + 150, Y * 11, 200, Y_gap);
-		
+
         setTitle("관리자");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임을 닫을 때 프로그램이 종료
-        setVisible(true);
-    }
-
-    public void addCommonComponents() { //관리할 테이블을 선택 
-        ct.removeAll(); // 기존 컴포넌트 초기화
-        repaint();
-        ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
-
-        // 로고 패널 생성
-        JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(new Color(255, 255, 255));
-        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
-        logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-        ct.add(logoPanel, BorderLayout.NORTH);
-
-        // 로고 생성
-        JLabel logo1 = new JLabel("Gong-Gang");
-        logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
-        logo1.setHorizontalAlignment(SwingConstants.CENTER);
-        logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
-
-        // 현재 창을 안내 하는 레이블 생성
-        JLabel logo2 = new JLabel("관리할 테이블을 골라주세요.");
-        logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 40));
-        logoPanel.add(logo2);
-
-        // 가운데로 정렬할 패널
-        JPanel p = new JPanel();
-        p.setBackground(new Color(255,255,255));
-        ct.add(p,BorderLayout.CENTER);
-        p.setSize(300,250);
-
-        // 관리할 테이블을 고르는 버튼을 담을 패널
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(255, 255, 255));
-        p.add(panel,BorderLayout.CENTER);
-        panel.setLayout(new GridLayout(6,1,20,20)); // 6행 1열의 그리드 레이아웃
-
-        //테이블을 선택할 수 있는 버튼을 생성하고 배치한다 
-        JButton jb1 = new JButton("Space_Info");
-        jb1.setBackground(new Color(255, 255, 255));
-        jb1.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        jb1.addActionListener(this);
-        panel.add(jb1);
-
-        JButton jb2 = new JButton("Classroom");
-        jb2.setBackground(new Color(255, 255, 255));
-        jb2.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        jb2.addActionListener(this);
-        panel.add(jb2);
-
-        JButton jb3 = new JButton("Classroom_External");
-        jb3.setBackground(new Color(255, 255, 255));
-        jb3.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        jb3.addActionListener(this);
-        panel.add(jb3);
-
-        JButton jb4 = new JButton("Professor");
-        jb4.setBackground(new Color(255, 255, 255));
-        jb4.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        jb4.addActionListener(this);
-        panel.add(jb4);
-
-        JButton jb5 = new JButton("Lecture");
-        jb5.setBackground(new Color(255, 255, 255));
-        jb5.setFont(new Font("Arial Black", Font.PLAIN, 20));
-        jb5.addActionListener(this);
-        panel.add(jb5);
-
-        menu1_back.setBackground(new Color(255, 255, 255));
-        menu1_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
-        panel.add(menu1_back);
-        menu1_back.addActionListener(this);
-
-        setTitle("튜플 선택");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임을 닫을 때 프로그램이 종료
         setVisible(true);
     }
@@ -404,102 +269,40 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        switch(command) { 
-            case "투플추가": // 누른 버튼이 투플추가일 때
-            case "투플수정": // 누른 버튼이 투플수정일 때
-            case "투플삭제": // 누른 버튼이 투플 삭제일 떄
-                command1 = command; 
-                addCommonComponents(); // 테이블 선택 화면을 호출 
+        switch (command) {
+            case "강의등록": // 투플 추가 로직 실행
+                initInputVal();
+                editWin(0);
                 break;
-                
-        	case "AutoCommit": //트랜잭션을 시작하는 호출, 기본 값이 true 이기 때문에 체크하지 않고 관리해야 트랜잭션 실행됨 
-    			JCheckBox chkbox = (JCheckBox)e.getSource();
-    			try {				
-    				AutoCommit_flag = chkbox.isSelected(); // 체크박스가 선택되었는지 여부를 AutoCommit_flag에 저장
-    				conn.setAutoCommit(AutoCommit_flag); // 데이터베이스 연결의 자동 커밋 모드를 설정 
-    			} catch (SQLException e1) {
-    				e1.printStackTrace();
-    			}
-    			break;
-    			
-    		case "Commit": // 커밋 버튼을 눌렀을 때
-    			try {
-    				conn.commit(); // 트랜잭션이 성공하면 commit 
-    			} catch (SQLException e1) {
-    				e1.printStackTrace();
-    			}
-    			break;
-    			
-    		case "Rollback": // 롤백 버튼을 눌렀을 때
-    			try {
-    				conn.rollback(); // 트랜잭션이 실패하면 rollback 
-    			} catch (SQLException e1) {
-    				e1.printStackTrace();
-    			}
-    			break;
 
             case "뒤로가기": // 뒤로가기 버튼을 눌렀을 때
-                if( e.getSource() == menu1_back) { 
-                    menu1(); //menu 화면으로 돌아감 
-                }
-                else if (e.getSource() == input_back) {
-                    addCommonComponents(); // 테이블 선택 화면으로 돌아감 
-                }
+                menu1(); // menu 화면으로 돌아감
                 break;
 
             case "HOME": // 홈 버튼을 눌렀을 때
                 dispose(); // Close current frame
                 mainGUI mainFrame = new mainGUI();
                 mainFrame.setVisible(true); // Open the mainGUI frame
-
-            // 관리할 테이블을 선택했을 때
-            case "Space_Info":
-            case "Classroom":
-            case "Classroom_External":
-            case "Professor":
-            case "Lecture":
-                command2 = command;
-                tableName = getTableName(command);
-                showInputField();
                 break;
         }
     }
 
+    private void initInputVal() {
+        inLecture_Num.setText(""); // 입력 필드 초기화
+        inClass_Num.setText(""); // 입력 필드 초기화
+        inLecture_Name.setText(""); // 입력 필드 초기화
+        inProfessor_Num.setText(""); // 입력 필드 초기화
+        inProfessor_Name.setText(""); // 입력 필드 초기화
+        inRoom_Number.setText(""); // 입력 필드 초기화
+        inLecture_Time1.setText(""); // 입력 필드 초기화
+        inLecture_Time2.setText(""); // 입력 필드 초기화
 
-    private void showInputField() {
-        ct.removeAll();  // 기존 컴포넌트 초기화
-        ct.setLayout(new BorderLayout()); // Set layout to BorderLayout
+    }
 
-        run_prog(command1, tableName); // 커맨드에 따라 사용할 기능 함수로 연결
-
-        // 뒤로가기 버튼
-        input_back.setBackground(new Color(255, 255, 255));
-        input_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-        input_back.setBounds( XE2+100, YE*3,  100, YE_gap );
-        input_back.addActionListener(this);
-        ct.add(input_back);
-
-        결과보기(tableName); // select * 
-
-        revalidate();
+    private void editWin(int mode) { // 투플 삽입 로직 실행
+        ct.removeAll(); // 기존 컴포넌트 초기화
         repaint();
-    }
 
-    public void run_prog(String command1, String tableName) { //command1과 테이블을 매개변수로 입력 받음 
-        if (command1.equals("투플추가")) {
-            // 투플 추가 로직 실행
-            insertTuple(tableName);
-        } else if (command1.equals("투플수정")) {
-            // 투플 수정 로직 실행
-            updateTuple(tableName);
-        } else if (command1.equals("투플삭제")) {
-            // 투플 삭제 로직 실행
-            deleteTuple(tableName);
-        }
-    }
-
-    private void insertTuple(String tableName) { // 투플 삽입 로직 실행
-        // 기존 컴포넌트 초기화
         ct.setLayout(null);
         ct.setBackground(Color.white);
 
@@ -518,282 +321,368 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         logoPanel.add(logo1);
 
         // insert 임을 알려주는 글 생성
-        JLabel logo2 = new JLabel("Insert");
+        JLabel logo2;
+        if (mode == 0) {
+            logo2 = new JLabel("새로운 강의를 등록하세요");
+        } else {
+            logo2 = new JLabel("강의를 편집하세요");
+        }
         logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
+        logo2.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 40));
         logoPanel.add(logo2);
 
-
-        // 결과 텍스트를 선언 및 초기화
-        result.setText("INSERT INTO " + tableName + " VALUES : ");
+        result1.setText("학수번호");
+        result2.setText("분반번호");
+        result3.setText("강의이름");
+        result4.setText("교수님번호");
+        result5.setText("교수님이름");
+        result6.setText("강의실");
+        result7.setText("강의시간1");
+        result8.setText("강의시간2");
 
         // 결과 텍스트와 입력 필드를 컨테이너에 추가
-        ct.add(result);
-        ct.add(inputField);
+        ct.add(result1);
+        ct.add(result2);
+        ct.add(result3);
+        ct.add(result4);
+        ct.add(result5);
+        ct.add(result6);
+        ct.add(result7);
+        ct.add(result8);
 
-        JButton confirmButton = new JButton("확인");
-        confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
-                try (
-                     Statement stmt = conn.createStatement()) {
+        ct.add(inLecture_Num);
+        ct.add(inClass_Num);
+        ct.add(inLecture_Name);
+        ct.add(inProfessor_Num);
+        ct.add(inProfessor_Name);
+        ct.add(inRoom_Number);
+        ct.add(inLecture_Time1);
+        ct.add(inLecture_Time2);
 
-                    String tupleInfo = inputField.getText();
-                    if( tupleInfo.length() != 0) {
-                        inputField.setText(""); // 입력 필드 초기화
-                        String query = "INSERT INTO " + tableName + " VALUES (" + tupleInfo + ")";
-                        System.out.println(query); // 디버깅을 위해 출력
+        if (mode == 0) {
+            JButton confirmButton = new JButton("등록");
+            confirmButton.setBackground(new Color(255, 255, 255));
+            confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { // 확인 버튼 누르면 실행
+                    insertTuple();
+                }
+            });
+            ct.add(confirmButton);
+            confirmButton.setBounds(XE2 + 200, YE * 10 + 100, 100, YE_gap);
 
-                        // 쿼리 실행
-                        stmt.executeUpdate(query);
+            // 뒤로가기 버튼
+            input_back.setBackground(new Color(255, 255, 255));
+            input_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+            input_back.addActionListener(this);
+            ct.add(input_back);
 
-                        // 결과를 다시 보여주기 위해 결과보기 메서드 호출
-                        결과보기(tableName);
-                    }
+            input_back.setBounds(XE2 - 50, YE * 10 + 100, 100, YE_gap);
 
-				} catch (SQLException se) {
-					se.printStackTrace();
-					if (AutoCommit_flag == false) { // 트랜잭션이 시작되었으므로 실패시 rollback 해야 한다.
-						try {
-							if (conn != null)
-								conn.rollback();
-						} catch (SQLException se2) {
-							se2.printStackTrace();
-						}
-					}
+        } else {
+            // 수정
+            JButton confirmButton = new JButton("수정");
+            confirmButton.setBackground(new Color(255, 255, 255));
+            confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+            confirmButton.addActionListener(new ActionListener() {
 
-				}
-			}
-		});
-        ct.add(confirmButton);
+                @Override
+                public void actionPerformed(ActionEvent e) { // 확인 버튼 누르면 실행
+                    updateTuple();
+                }
+            });
+            ct.add(confirmButton);
+            confirmButton.setBounds(XE2 + 100, YE * 10 + 100, 100, YE_gap);
 
-        logoPanel.setBounds(0,0,1100,100);
-        result.setBounds(     XE,  YE*2,  400, YE_gap );
-        inputField.setBounds( XE2, YE*2,  500, YE_gap );
-        confirmButton.setBounds( XE2, YE*3,  100, YE_gap );
+            // 삭제
+            JButton delButton = new JButton("삭제");
+            delButton.setBackground(new Color(255, 255, 255));
+            delButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+            delButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { // 확인 버튼 누르면 실행
+                    deleteTuple();
+                }
+            });
+            ct.add(delButton);
+            delButton.setBounds(XE2 + 200, YE * 10 + 100, 100, YE_gap);
 
-        setTitle("튜플추가");
-        // 컨테이너 변경사항 적용 및 화면 다시 그리기
+            // 뒤로가기 버튼
+            input_back.setBackground(new Color(255, 255, 255));
+            input_back.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+            input_back.addActionListener(this);
+
+            ct.add(input_back);
+            input_back.setBounds(XE2 - 50, YE * 10 + 100, 100, YE_gap);
+        }
+
+        logoPanel.setBounds(0, 0, 1100, 100);
+        result1.setBounds(XE, YE * 1 + 100, 400, YE_gap);
+        result2.setBounds(XE, YE * 2 + 100, 400, YE_gap);
+        result3.setBounds(XE, YE * 3 + 100, 400, YE_gap);
+        result4.setBounds(XE, YE * 4 + 100, 400, YE_gap);
+        result5.setBounds(XE, YE * 5 + 100, 400, YE_gap);
+        result6.setBounds(XE, YE * 6 + 100, 400, YE_gap);
+        result7.setBounds(XE, YE * 7 + 100, 400, YE_gap);
+        result8.setBounds(XE, YE * 8 + 100, 400, YE_gap);
+
+        inLecture_Num.setBounds(XE2, YE * 1 + 100, 100, YE_gap);
+        inClass_Num.setBounds(XE2, YE * 2 + 100, 100, YE_gap);
+        inLecture_Name.setBounds(XE2, YE * 3 + 100, 200, YE_gap);
+        inProfessor_Num.setBounds(XE2, YE * 4 + 100, 100, YE_gap);
+        inProfessor_Name.setBounds(XE2, YE * 5 + 100, 100, YE_gap);
+        inRoom_Number.setBounds(XE2, YE * 6 + 100, 100, YE_gap);
+        inLecture_Time1.setBounds(XE2, YE * 7 + 100, 100, YE_gap);
+        inLecture_Time2.setBounds(XE2, YE * 8 + 100, 100, YE_gap);
+
         ct.revalidate();
         ct.repaint();
     }
 
-    private void updateTuple(String tableName) { // 투플 수정 로직 실행
-        // 기존 컴포넌트 초기화
-        ct.setLayout(null);
-        ct.setBackground(Color.white);
-        inputWhere.setText(""); // 입력 필드 초기화
-        inputField.setText(""); // 입력 필드 초기화
+    private void insertTuple() {
+        String Lecture_Num = inLecture_Num.getText();
+        String Class_Num = inClass_Num.getText();
+        String Lecture_Name = inLecture_Name.getText();
+        String Professor_Num = inProfessor_Num.getText();
+        String Professor_Name = inProfessor_Name.getText();
+        String Room_Number = inRoom_Number.getText();
+        String Lecture_Time1 = inLecture_Time1.getText();
+        String Lecture_Time2 = inLecture_Time2.getText();
 
-        // 로고 패널 생성
-        JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(new Color(255, 255, 255));
-        logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
-        logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-        ct.add(logoPanel);
+        String query1 = "INSERT INTO DB2024_Lecture (Lecture_Num,Class_Num,Lecture_Name,Professor_Num,Professor_Name,Room_Number,Lecture_Time1,Lecture_Time2)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        // Lecture_Num, Class_Num, Lecture_Name, Professor_Num, Professor_Name,
+        String query2 = "INSERT INTO DB2024_Classroom_Schedule (Room_Number, Lecture_Time) VALUES (?, ?)";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 튜플 추가하기
+        String query3 = "INSERT INTO DB2024_Classroom_Schedule (Room_Number, Lecture_Time) VALUES (?, ?)";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 튜플 추가하기
 
-        // 로고 생성
-        JLabel logo1 = new JLabel("Gong-Gang");
-        logo1.setFont(new Font("Arial Black", Font.BOLD, 10));
-        logo1.setHorizontalAlignment(SwingConstants.CENTER);
-        logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-        logoPanel.add(logo1);
+        try (PreparedStatement pStmt1 = conn.prepareStatement(query1);
+             PreparedStatement pStmt2 = conn.prepareStatement(query2);
+             PreparedStatement pStmt3 = conn.prepareStatement(query3);) {
+            try {
+                conn.setAutoCommit(false); // 트랜잭션 시작
 
-        // Update 관련 기능 탭임을 알려주는 글 생성
-        JLabel logo2 = new JLabel("Update");
-        logo2.setHorizontalAlignment(SwingConstants.CENTER);
-        logo2.setFont(new Font("Arial Black", Font.BOLD, 20));
-        logoPanel.add(logo2);
+                pStmt1.setInt(1, Integer.parseInt(Lecture_Num));
+                pStmt1.setInt(2, Integer.parseInt(Class_Num));
+                pStmt1.setString(3, Lecture_Name);
+                pStmt1.setInt(4, Integer.parseInt(Professor_Num));
+                pStmt1.setString(5, Professor_Name);
+                pStmt1.setString(6, Room_Number);
+                pStmt1.setString(7, Lecture_Time1);
+                pStmt1.setString(8, Lecture_Time2);
 
+                System.out.println("강의 정보 삽입");
+                System.out.println(pStmt1); // 디버깅 위해 출력
 
-        // where condition
-        result_wh.setText("UPDATE " + tableName + " WHERE Condition:");
-        ct.add(result_wh);
-        ct.add(inputWhere);
+                pStmt1.executeUpdate();
 
-        //update data
-        result.setText("UPDATE " + tableName + " SET Values  : ");
-        ct.add(result);
-        ct.add(inputField);
+                pStmt2.setString(1, Room_Number);
+                pStmt2.setString(2, Lecture_Time1);
+                System.out.println(pStmt2); // 디버깅 위해 출력
+                pStmt2.executeUpdate();
 
-        JButton confirmButton = new JButton("확인");
-        confirmButton.setBackground(new Color(255, 255, 255));
-        confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { //확인 버튼 누르면 실행 
+                pStmt3.setString(1, Room_Number);
+                pStmt3.setString(2, Lecture_Time2);
+                System.out.println(pStmt3); // 디버깅 위해 출력
+                pStmt3.executeUpdate();
 
-                try (
-                     Statement stmt = conn.createStatement()) {
-
-                    String	condition_txt = inputWhere.getText();
-                    String	tupleInfo = inputField.getText();
-
-                    if( condition_txt.length() != 0  && tupleInfo.length() != 0) {
-                        String query = "UPDATE " + tableName + " SET " + tupleInfo + " WHERE " + condition_txt;
-                        System.out.println(query); // 디버깅을 위해 출력
-
-                        // 쿼리 실행
-                        stmt.executeUpdate(query);
-
-                        // 결과를 다시 보여주기 위해 결과보기 메서드 호출
-                        결과보기(tableName);
-                    }
-                    else {
-                        System.out.println(tupleInfo); // 디버깅을 위해 출력
-                        System.out.println(condition_txt); // 디버깅을 위해 출력
-                    }
+                initInputVal();
 
 
-                } catch (SQLException se) {
-					se.printStackTrace();
-					if(AutoCommit_flag == false) {//트랜잭션이 시작되었으므로 실패시 rollback 해야 한다. 
-						// rollback here
-						try {
-							if (conn != null) conn.rollback();
-						} catch (SQLException se2) {
-							se2.printStackTrace();
-						}
-					}
-									
-				}
-			}
-		});
+                conn.commit(); // 트랜잭션 성공
+                System.out.println("transaction succeeds");
 
-        ct.add(confirmButton);
+                result.setText("성공적으로 등록되었습니다"); // 삽입 메세지
+                ct.add(result);
+                result.setBounds(XE2 + 400, YE * 6, 400, YE_gap);
 
-        logoPanel.setBounds(0,0,1100, 50);
-        result.setBounds(      XE, YE*1,  400, YE_gap );
-        inputField.setBounds( XE2, YE*1,  500, YE_gap );
+            } catch (SQLException se) {
+                se.printStackTrace();
+                System.out.println("Rolling back data here....");
+                try {
+                    if (conn != null)
+                        conn.rollback(); // 실패 시 롤백
+                } catch (SQLException se2) {
+                    se2.printStackTrace();
+                } // end try
+            }
+            // 한 문장씩 디비에 반영되도록!
+            conn.setAutoCommit(true);
 
-        result_wh.setBounds(   XE, YE*2,  400, YE_gap );
-        inputWhere.setBounds( XE2, YE*2,  500, YE_gap );
-
-        confirmButton.setBounds( XE2, YE*3,  100, YE_gap );
-
-        setTitle("튜플수정");
-        // 컨테이너 변경사항 적용 및 화면 다시 그리기
-        ct.revalidate();
-        ct.repaint();
-    }
-
-	private void deleteTuple(String tableName) { // 투플 삭제 로직 실행
-		// 기존 컴포넌트 초기화
-		// ct.removeAll();
-		ct.setLayout(null);
-		ct.setBackground(Color.white);
-
-        // 로고 패널 생성
-		JPanel logoPanel = new JPanel();
-		logoPanel.setBackground(new Color(255, 255, 255));
-		logoPanel.setLayout(new GridLayout(2, 0, 0, 0));
-		logoPanel.setPreferredSize(new Dimension(100, 100)); // Set preferred size for the North panel
-		ct.add(logoPanel);
-
-        // 로고 생성
-		JLabel logo1 = new JLabel("Gong-Gang");
-		logo1.setFont(new Font("Arial Black", Font.BOLD, 20));
-		logo1.setHorizontalAlignment(SwingConstants.CENTER);
-		logo1.setVerticalAlignment(SwingConstants.BOTTOM);
-		logoPanel.add(logo1);
-
-        // Delete 관련 기능임을 알려주는 탭임을 알려주는 레이블
-		JLabel logo2 = new JLabel("Delete");
-		logo2.setHorizontalAlignment(SwingConstants.CENTER);
-		logo2.setFont(new Font("Arial Black", Font.BOLD, 40));
-		logoPanel.add(logo2);
-		// 결과 텍스트를 선언 및 초기화
-		result.setText("DELETE " + tableName + " WHERE Condition: ");
-
-		// 결과 텍스트와 입력 필드를 컨테이너에 추가
-		ct.add(result);
-		ct.add(inputField);
-
-		JButton confirmButton = new JButton("확인");
-		confirmButton.setBackground(new Color(255, 255, 255));
-		confirmButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		confirmButton.addActionListener(new ActionListener() { //확인 버튼 누르면 실행  
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try (
-						Statement stmt = conn.createStatement()) {
-
-					String tupleInfo = inputField.getText();
-					if (tupleInfo.length() != 0) {
-						inputField.setText(""); // 입력 필드 초기화
-						String query = "DELETE FROM " + tableName + " WHERE " + tupleInfo;
-						System.out.println(query); // 디버깅을 위해 출력
-
-						// 쿼리 실행
-						stmt.executeUpdate(query);
-
-						// 결과를 다시 보여주기 위해 결과보기 메서드 호출
-						결과보기(tableName);
-					}
-
-				} catch (SQLException se) {
-					se.printStackTrace();
-					if (AutoCommit_flag == false) { //트랜잭션이 시작되었으므로 실패시 rollback 해야 한다. 
-						try {
-							if (conn != null)
-								conn.rollback();
-						} catch (SQLException se2) {
-							se2.printStackTrace();
-						}
-					}
-
-				}
-			}
-		});
-		ct.add(confirmButton);
-
-		logoPanel.setBounds(0, 0, 1100, 100);
-		result.setBounds(XE, YE * 2, 400, YE_gap);
-		inputField.setBounds(XE2, YE * 2, 500, YE_gap);
-		confirmButton.setBounds(XE2, YE * 3, 100, YE_gap);
-
-		setTitle("튜플삭제");
-		// 컨테이너 변경사항 적용 및 화면 다시 그리기
-		ct.revalidate();
-		ct.repaint();
-	}
-
-    private String getTableName(String command2) { // 버튼에 따른 테이블 이름을 반환하는 메서드
-        switch (command2) {
-            case "Space_Info":
-                return "DB2024_Space_Info";
-            case "Classroom":
-                return "DB2024_Classroom";
-            case "Classroom_External":
-                return "DB2024_Classroom_External";
-            case "Professor":
-                return "DB2024_Professor";
-            case "Lecture":
-                return "DB2024_Lecture";
-            default:
-                return null;
+        } catch (SQLException se) {
+            se.printStackTrace();
         }
     }
 
+    private void updateTuple() {
+        String Lecture_Num = inLecture_Num.getText();
+        String Class_Num = inClass_Num.getText();
+        String Lecture_Name = inLecture_Name.getText();
+        String Professor_Num = inProfessor_Num.getText();
+        String Professor_Name = inProfessor_Name.getText();
+        String Room_Number = inRoom_Number.getText();
+        String Lecture_Time1 = inLecture_Time1.getText();
+        String Lecture_Time2 = inLecture_Time2.getText();
 
-    public void 결과보기(String tableName){ //선택한 테이블 이름을 매개변수로 받아 해당 테이블을 보여주는 함수 
-        String query2 = "SELECT * FROM " + tableName;
+        String query1 = "UPDATE DB2024_Lecture "
+                + "SET Lecture_Num = ?, Class_Num = ?, Lecture_Name = ?, Professor_Num = ?, Professor_Name = ?, Room_Number = ?, Lecture_Time1 = ?, Lecture_Time2 = ? "
+                + "WHERE Lecture_Num = ? AND Class_Num = ? ";
+        // Lecture_Num, Class_Num, Lecture_Name, Professor_Num, Professor_Name,
+        String query2 = "UPDATE DB2024_Classroom_Schedule " + "SET Room_Number = ?, Lecture_Time =?"
+                + "WHERE Room_Number = ? AND Lecture_Time = ?";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 튜플 수정하기
+        String query3 = "UPDATE DB2024_Classroom_Schedule " + "SET Room_Number = ?, Lecture_Time =?"
+                + "WHERE Room_Number = ? AND Lecture_Time = ?";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 튜플 수정하기
+
+        try (PreparedStatement pStmt1 = conn.prepareStatement(query1);
+             PreparedStatement pStmt2 = conn.prepareStatement(query2);
+             PreparedStatement pStmt3 = conn.prepareStatement(query3);) {
+            try {
+                conn.setAutoCommit(false); // 트랜잭션 시작
+
+                pStmt1.setInt(1, Integer.parseInt(Lecture_Num));
+                pStmt1.setInt(2, Integer.parseInt(Class_Num));
+                pStmt1.setString(3, Lecture_Name);
+                pStmt1.setInt(4, Integer.parseInt(Professor_Num));
+                pStmt1.setString(5, Professor_Name);
+                pStmt1.setString(6, Room_Number);
+                pStmt1.setString(7, Lecture_Time1);
+                pStmt1.setString(8, Lecture_Time2);
+                pStmt1.setInt(9, Integer.parseInt(Lecture_Num_ori)); //수정 전의 원본 값 사용
+                pStmt1.setInt(10, Integer.parseInt(Class_Num_ori)); //수정 전의 원본 값 사용
+
+                System.out.println(pStmt1); // 디버깅 위해 출력
+
+                pStmt1.executeUpdate();
+
+                pStmt2.setString(1, Room_Number);
+                pStmt2.setString(2, Lecture_Time1);
+                pStmt2.setString(3, Room_Number_ori); // 원본 값을 사용
+                pStmt2.setString(4, Lecture_Time1_ori); // 원본 값을 사용
+
+                System.out.println(pStmt2); // 디버깅 위해 출력
+                pStmt2.executeUpdate();
+
+                pStmt3.setString(1, Room_Number);
+                pStmt3.setString(2, Lecture_Time2);
+                pStmt3.setString(3, Room_Number_ori); // 원본 값을 사용
+                pStmt3.setString(4, Lecture_Time2_ori); // 원본 값을 사용
+
+                System.out.println(pStmt3); // 디버깅 위해 출력
+                pStmt3.executeUpdate();
+
+                conn.commit(); // 트랜잭션 성공
+                System.out.println("transaction succeeds");
+
+                result.setText("성공적으로 수정되었습니다"); //수정 메세지
+                ct.add(result);
+                result.setBounds(XE2 + 400, YE * 6, 400, YE_gap);
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+                System.out.println("Rolling back data here....");
+                try {
+                    if (conn != null)
+                        conn.rollback(); // 실패 시 롤백
+                } catch (SQLException se2) {
+                    se2.printStackTrace();
+                }
+            }
+            conn.setAutoCommit(true);
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+
+    private void deleteTuple() {
+        String Lecture_Num = inLecture_Num.getText();
+        String Class_Num = inClass_Num.getText();
+        String Lecture_Name = inLecture_Name.getText();
+        String Professor_Num = inProfessor_Num.getText();
+        String Professor_Name = inProfessor_Name.getText();
+        String Room_Number = inRoom_Number.getText();
+        String Lecture_Time1 = inLecture_Time1.getText();
+        String Lecture_Time2 = inLecture_Time2.getText();
+
+        String query1 = "DELETE FROM DB2024_Lecture WHERE Lecture_Num = ? AND Class_Num = ?";
+        // Lecture_Num, Class_Num, Lecture_Name, Professor_Num, Professor_Name,
+        String query2 = "DELETE FROM DB2024_Classroom_Schedule WHERE Room_Number = ? AND Lecture_Time = ?";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 삭제된 강의의 강의실 시간 정보도 삭제
+        String query3 = "DELETE FROM DB2024_Classroom_Schedule WHERE Room_Number = ? AND Lecture_Time = ?";
+        // 연결된 DB2024_Classroom_Schedule 테이블에서 삭제된 강의의 강의실 시간 정보도 삭제
+
+        try (PreparedStatement pStmt1 = conn.prepareStatement(query1)) {
+
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            // 첫 번째 쿼리 실행
+            pStmt1.setInt(1, Integer.parseInt(Lecture_Num));
+            pStmt1.setInt(2, Integer.parseInt(Class_Num));
+            System.out.println(pStmt1);
+            pStmt1.executeUpdate();
+
+            // 두 번째 쿼리 실행
+            PreparedStatement pStmt2 = conn.prepareStatement(query2);
+            pStmt2.setString(1, Room_Number);
+            pStmt2.setString(2, Lecture_Time1);
+            System.out.println(pStmt2);
+            pStmt2.executeUpdate();
+
+            // 세 번째 쿼리 실행
+            PreparedStatement pStmt3 = conn.prepareStatement(query3);
+            pStmt3.setString(1, Room_Number);
+            pStmt3.setString(2, Lecture_Time2); // 같은 PreparedStatement 객체를 재사용
+            pStmt3.executeUpdate();
+            System.out.println(pStmt3);
+
+            initInputVal(); // 입력필드 초기화
+
+
+            conn.commit(); // 트랜잭션 성공
+            System.out.println("transaction succeeds");
+
+            result.setText("성공적으로 삭제되었습니다"); // 삭제 메세지
+            ct.add(result);
+            result.setBounds(XE2 + 400, YE * 6, 400, YE_gap);
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+            System.out.println("Rolling back data here....");
+            try {
+                if (conn != null)
+                    conn.rollback(); // 실패 시 롤백
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            } // end try
+        } finally {
+            // Auto-commit 설정을 원래대로 돌림
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+    public void 결과보기() { // 선택한 테이블 이름을 매개변수로 받아 해당 테이블을 보여주는 함수
+
+        String query2 = "SELECT * FROM DB2024_Lecture";
         System.out.println(query2); // 디버깅을 위해 출력
-        
+
         // JTable에 데이터를 넣기 위한 기본 테이블 모델을 생성합니다.
         DefaultTableModel tableModel = new DefaultTableModel();
 
-        try (
-                Statement stmt1 = conn.createStatement();
-                ResultSet rs = stmt1.executeQuery(query2)) {
+        try (Statement stmt1 = conn.createStatement(); ResultSet rs = stmt1.executeQuery(query2)) {
 
-        	 // ResultSet의 메타데이터를 가져오기 
+            // ResultSet의 메타데이터를 가져오기
             ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount(); // 열의 수를 가져오기 
+            int columnCount = metaData.getColumnCount(); // 열의 수를 가져오기
             Vector<String> columnNames = new Vector<>();
-            
+
             // 모든 열 이름을 가져와 벡터에 추가
             for (int column = 1; column <= columnCount; column++) {
                 columnNames.add(metaData.getColumnName(column));
@@ -818,28 +707,27 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         // Create JTable with the table model
         JTable table = new JTable(tableModel);
         this.table = table;
-        
-        scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         scrollPane.setAutoscrolls(true);
 
         Dimension size = ct.getSize();
         System.out.println("W:" + size.width + " H:" + size.height); // 디버깅을 위해 출력
-        scrollPane.setBounds(10,200,size.width-20,size.height - 200);
+        scrollPane.setBounds(10, 200, size.width - 20, size.height - 200);
 
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setAutoscrolls(true);
 
-        // resize event  -> resize ScrollPane
-        ct.addComponentListener(new ComponentAdapter(){
-            public void componentResized(ComponentEvent e) {
-
-                //scrollPane.setPreferredSize(new Dimension(size.width-20, size.height - 200));
-                if( scrollPane != null) {
+        // resize event -> resize ScrollPane
+        ct.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) { // 마우스가 가르키는 테이블의 값을 입력값으로 만드는 함수
+                if (scrollPane != null) {
                     Dimension size = ct.getSize();
                     System.out.println("W:" + size.width + " H:" + size.height); // 디버깅을 위해 출력
-                    scrollPane.setBounds(10,200,size.width-20,size.height - 200);
+                    scrollPane.setBounds(10, 200, size.width - 40, size.height - 300);
                     scrollPane.revalidate();
                     scrollPane.repaint();
 
@@ -849,7 +737,7 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
             }
 
         });
-		table.addMouseListener(this); /* --> mouseClicked */
+        table.addMouseListener(this); // --> mouseClicked
 
         ct.add(scrollPane, FlowLayout.CENTER);
 
@@ -858,53 +746,78 @@ class 관리자 extends JFrame implements ActionListener, MouseListener {
         ct.repaint();
     }
 
-	 @Override
-	 public void mouseClicked(MouseEvent e) { //마우스가 가르키는 테이블의 값을 입력값으로 만드는 함수 
-		 int row = table.getSelectedRow(); // 선택된 행의 인덱스를 가져오기 
-		 int col = table.getSelectedColumn(); // 선택된 열의 인덱스를 가져오기 
-		 String result="";
-		 String sel="";
-		
-		 System.out.println(row + "," + col + ":" + result); // 디버깅을 위해 선택된 행과 열, 결과 값을 출력 
-		 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int row = table.getSelectedRow();
+        int col = table.getSelectedColumn();
+        String ret = "";
+        String result = "";
+        String sel = "";
 
-		 // set inputField
-		 // 선택된 셀의 값을 가져와 inputField에 자동 입력 되도록 설정 
-		 sel = table.getColumnName(col) + "=" + table.getModel().getValueAt(row, col); 
-		 switch(command1) { // command1의 값에 따라 다른 동작을 수행합니다.
-			case "투플수정":
-					if(inputField.getText().length() == 0  ) { // 입력 필드가 비어 있으면 sel 값을 설정 
-					 	inputField.setText(sel);
-				 	}
-				 	else {
-					 	inputWhere.setText(sel); // 입력 필드가 비어 있지 않으면 inputWhere 필드에 sel 값을 설정 
-				 	}
-				 	break;
-			case "투플삭제":
-			case "투플추가":
-					inputField.setText(sel);    // "투플삭제"나 "투플추가" 명령어일 경우 입력 필드에 sel 값을 설정 
-					break;
-		 }
-	  }
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            ret += table.getColumnName(i) + "=" + table.getModel().getValueAt(row, i);
+            if (i < (table.getColumnCount() - 1))
+                ret += ",";
 
-	 @Override
-	 public void mousePressed(MouseEvent e) {
-	     // 마우스 버튼이 눌렸을 때의 이벤트를 처리
-	 }
+            result += table.getModel().getValueAt(row, i);
 
-	 @Override
-	 public void mouseReleased(MouseEvent e) {
-	     // 마우스 버튼이 떼어졌을 때의 이벤트를 처리
-	 }
+            // set inputField
+            switch (table.getColumnName(i)) {
+                case "Lecture_Num":
+                    inLecture_Num.setText(result);
+                    Lecture_Num_ori = result;
+                    break;
+                case "Class_Num":
+                    inClass_Num.setText(result);
+                    Class_Num_ori = result;
+                    break;
+                case "Lecture_Name":
+                    inLecture_Name.setText(result);
+                    break;
+                case "Professor_Num":
+                    inProfessor_Num.setText(result);
+                    break;
+                case "Professor_Name":
+                    inProfessor_Name.setText(result);
+                    break;
+                case "Room_Number":
+                    inRoom_Number.setText(result);
+                    Room_Number_ori = result; // 원본 값 저장
+                    break;
+                case "Lecture_Time1":
+                    inLecture_Time1.setText(result);
+                    Lecture_Time1_ori = result; // 원본 값 저장
+                    break;
+                case "Lecture_Time2":
+                    inLecture_Time2.setText(result);
+                    Lecture_Time2_ori = result; // 원본 값 저장
+                    break;
+            }
+            result = "";
 
-	 @Override
-	 public void mouseEntered(MouseEvent e) {
-	     // 마우스가 컴포넌트에 들어갔을 때의 이벤트를 처리 
-	 }
+        }
+        System.out.println(row + "," + col + ":" + ret);
+        editWin(1);
+    }
 
-	 @Override
-	 public void mouseExited(MouseEvent e) {
-	     // 마우스가 컴포넌트를 벗어났을 때의 이벤트를 처리 
-	 }
-	 
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // 마우스 버튼이 눌렸을 때의 이벤트를 처리
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // 마우스 버튼이 떼어졌을 때의 이벤트를 처리
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // 마우스가 컴포넌트에 들어갔을 때의 이벤트를 처리
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // 마우스가 컴포넌트를 벗어났을 때의 이벤트를 처리
+    }
+
 } // end main
